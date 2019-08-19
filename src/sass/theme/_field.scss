@@ -1,0 +1,36 @@
+/* input small*/
+.small {
+  .v-input__slot{
+    min-height: 36px !important;
+    .v-label{
+      top:10px;
+      font-size: 14px;
+    }
+    .v-label--active{
+      top: 18px;
+    }
+    .v-input__append-inner{
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+    .v-input__prepend-inner{
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+  }
+
+  .v-input__append-outer{
+    margin-top: 6px !important;
+    margin-bottom: 6px;
+  }
+  input{
+    font-size: xx-small;
+  }
+
+  .v-select__slot{
+    .v-select__selection{
+      font-size: xx-small;
+    }
+    max-height: 36px;
+  }
+}

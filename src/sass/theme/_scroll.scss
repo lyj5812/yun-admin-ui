@@ -1,0 +1,42 @@
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* 轨道 */
+::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
+}
+
+/* 滑块 */
+::-webkit-scrollbar-thumb {
+  background: rgb(193, 193, 193);
+}
+
+/* 滑块 on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(236, 231, 241);
+  width: 8px;
+}
+
+
+html {
+  overflow-y: hidden;
+}
+.outer-container,.content {
+  width: 100vw; height: 100vh;
+}
+.outer-container {
+  position: relative;
+  overflow: hidden;
+}
+.inner-container {
+  position: absolute; left: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+/* for Chrome */
+.inner-container::-webkit-scrollbar {
+  display: none;
+}

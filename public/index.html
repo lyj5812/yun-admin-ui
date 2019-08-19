@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <style media="screen" type="text/css">
+      #appLoading { width: 100%; height: 100%; }
+      #appLoading img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 200px;
+        height: 200px;
+        -webkit-transform: translateY(-50%)  translateX(-50%);
+        transform: translateY(-50%)  translateX(-50%);
+      }
+    </style>
+    <title><%= webpackConfig.name %></title>
+  </head>
+  <body>
+    <div id="appLoading">
+      <img src="loading.gif" alt="loading" />
+    </div>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
