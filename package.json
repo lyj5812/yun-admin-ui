@@ -36,10 +36,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PanJiaChen/vue-element-admin.git"
+    "url": "git+https://github.com/lyj5812/yun-admin-ui.git"
   },
   "bugs": {
-    "url": "https://github.com/PanJiaChen/vue-element-admin/issues"
+    "url": "https://github.com/lyj5812/yun-admin-ui/issues"
   },
   "dependencies": {
     "axios": "0.19.0",
