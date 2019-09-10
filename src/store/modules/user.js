@@ -59,14 +59,12 @@ const actions = {
         const { roles, sysUser, permissions } = data
         if (roles && roles.length > 0) { // 验证返回的roles是否是一个非空数组
           commit('SET_ROLES', roles)
-        } else {
-          reject('getInfo: roles是非空数据')
         }
+
         if (permissions && permissions.length > 0) { // permissions是否是一个非空数组
           commit('SET_PERMS', permissions)
-        } else {
-          reject('getUserInfo: permissions是非空数据')
         }
+
         commit('SET_NAME', sysUser.userName)
         commit('SET_AVATAR', sysUser.avatar)// 头像
         commit('SET_INTRODUCTION', sysUser.remark)

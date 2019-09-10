@@ -1,53 +1,56 @@
 <template>
-  <v-layout row wrap>
-    <v-flex xl4 lg4 xs12 sm12>
-      <v-card class="pa-2 mt-2 mr-1 elevation-4">
+  <v-row>
+    <v-col cols="12" xl="4" lg="4" xs="12" sm="12">
+      <v-card class="pa-2 elevation-4">
         <v-btn
           v-perms="['system:dept:add']"
           small
+          rounded
           color="primary"
           dark
           @click="addOrEdit(0)"
         >
           <v-icon dark>add</v-icon>
-          添加
         </v-btn>
         <v-btn
           v-perms="['system:dept:edit']"
           small
+          rounded
+          class="ml-2"
           color="warning"
           :disabled="dept.deptId==null"
           @click="addOrEdit(1)"
         >
           <v-icon dark>edit</v-icon>
-          修改
         </v-btn>
         <v-btn
           v-perms="['system:dept:del']"
           small
+          rounded
+          class="ml-2"
           color="error"
           :disabled="dept.deptId==null"
           @click="delDept()"
         >
           <v-icon dark>delete</v-icon>
-          删除
         </v-btn>
       </v-card>
-      <v-card class="mt-2 mr-1 elevation-4">
+      <v-card class="mt-2 elevation-4">
         <v-scroll>
-          <div style="height: 600px" class="pa-4 mr-1">
+          <div style="height: 600px" class="px-4 mr-1">
             <dept-tree ref="deptTree" :open-flag="true" class="mt-3" @clickNode="selectdItem" />
           </div>
         </v-scroll>
       </v-card>
-    </v-flex>
-    <v-flex xl8 lg8 xs12 sm12>
-      <v-card class="pa-4 mt-2 elevation-4">
+    </v-col>
+    <v-col col="12" xl="8" lg="8" xs="12" sm="12">
+      <v-card class="pa-4 elevation-4">
         <v-form ref="dept" :model="dept">
-          <v-layout row wrap pa-5>
-            <v-flex
-              lg12
-              xs12
+          <v-row class="pa-5" no-gutters>
+            <v-col
+              cols="12"
+              lg="12"
+              xs="12"
             >
               <v-text-field
                 v-model="dept.parentId"
@@ -56,10 +59,11 @@
                 class="small"
                 outlined
               />
-            </v-flex>
-            <v-flex
-              lg12
-              xs12
+            </v-col>
+            <v-col
+              cols="12"
+              lg="12"
+              xs="12"
             >
               <v-text-field
                 v-model="dept.deptId"
@@ -68,10 +72,11 @@
                 class="small"
                 outlined
               />
-            </v-flex>
-            <v-flex
-              lg12
-              xs12
+            </v-col>
+            <v-col
+              cols="12"
+              lg="12"
+              xs="12"
             >
               <v-text-field
                 v-model="dept.deptName"
@@ -82,10 +87,11 @@
                 outlined
                 clearable
               />
-            </v-flex>
-            <v-flex
-              lg12
-              xs12
+            </v-col>
+            <v-col
+              cols="12"
+              lg="12"
+              xs="12"
             >
               <v-text-field
                 v-model="dept.leader"
@@ -95,10 +101,11 @@
                 outlined
                 clearable
               />
-            </v-flex>
-            <v-flex
-              lg12
-              xs12
+            </v-col>
+            <v-col
+              cols="12"
+              lg="12"
+              xs="12"
             >
               <v-text-field
                 v-model="dept.phone"
@@ -108,10 +115,11 @@
                 outlined
                 clearable
               />
-            </v-flex>
-            <v-flex
-              lg12
-              xs12
+            </v-col>
+            <v-col
+              cols="12"
+              lg="12"
+              xs="12"
             >
               <v-text-field
                 v-model="dept.email"
@@ -121,8 +129,12 @@
                 outlined
                 clearable
               />
-            </v-flex>
-            <v-flex lg6 xs6>
+            </v-col>
+            <v-col
+              cols="12"
+              lg="6"
+              xs="6"
+            >
               <v-text-field
                 v-model="dept.orderNum"
                 :disabled="disabledFlag"
@@ -132,8 +144,12 @@
                 outlined
                 clearable
               />
-            </v-flex>
-            <v-flex lg6 xs6>
+            </v-col>
+            <v-col
+              cols="12"
+              lg="6"
+              xs="6"
+            >
               <v-radio-group
                 v-model="dept.status"
                 label="部门状态"
@@ -153,12 +169,13 @@
                   value="1"
                 />
               </v-radio-group>
-            </v-flex>
-            <v-flex
-              lg6
-              xs6
-              offset-xs6
-              offset-lg6
+            </v-col>
+            <v-col
+              cols="12"
+              lg="6"
+              xs="6"
+              offset-xs="6"
+              offset-lg="6"
             >
               <v-btn
                 v-show="!disabledFlag"
@@ -178,12 +195,12 @@
                 <v-icon dark>close</v-icon>
                 取消
               </v-btn>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-form>
       </v-card>
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

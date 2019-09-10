@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer id="appDrawer" v-model="drawer" :dark="navColor.dark" :class="[$vuetify.theme.dark?'':navColor.class,'elevation-3']" app :mini-variant.sync="mini" fixed>
-    <v-layout row pa-2 elevation-1>
+    <v-row class="pa-2 elevation-1">
       <v-avatar class="ml-3">
         <v-img lazy-src="https://vuetifyjs.com/apple-touch-icon-180x180.png" src="https://vuetifyjs.com/apple-touch-icon-180x180.png" />
       </v-avatar>
@@ -12,7 +12,7 @@
           </v-btn>
         </v-list-item>
       </v-toolbar-title>
-    </v-layout>
+    </v-row>
     <v-divider />
     <!--侧边栏-->
     <sidebar />
@@ -51,11 +51,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   #appDrawer >>> .v-navigation-drawer__content{
-    height: 100%;
-    overflow-y: hidden;
-    overflow-x: hidden;
+      height: 100%;
+      overflow-y: hidden;
+      overflow-x: hidden;
   }
   #appDrawer >>> .v-btn.v-btn--icon, .v-toolbar__extension .v-btn.v-btn--icon {
     height: auto;

@@ -1,10 +1,9 @@
 <template>
   <v-card flat>
-    <v-layout
-      justify-space-between
-      pa-3
+    <v-row
+      class="pa-3"
     >
-      <v-flex xs12>
+      <v-col cols="12" lg="12" xs="12">
         <v-text-field
           v-model="search"
           class="small"
@@ -35,8 +34,8 @@
         >
           <template v-slot:label="{ item, active }">
 
-            <v-layout class="body-1 font-weight-medium" row wrap @click="selectdItem(item)">
-              <v-flex xs8 md8>
+            <v-row class="body-1 font-weight-medium" @click="selectdItem(item)">
+              <v-col xs="8" md="8">
                 &nbsp;
                 <v-icon
                   v-if="item.ancestors.split(',').length==1"
@@ -67,16 +66,16 @@
                   fa-bank
                 </v-icon>
                 {{ item.deptName }}
-              </v-flex>
-            </v-layout>
+              </v-col>
+            </v-row>
           </template>
         </v-treeview>
         <v-overlay absolute :value="dataFlag">
           <v-progress-circular indeterminate color="primary" />
         </v-overlay>
 
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 

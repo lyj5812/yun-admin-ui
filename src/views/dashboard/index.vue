@@ -1,6 +1,6 @@
 <template>
-  <v-card class="dashboard-container">
-    <line-marker height="600px" width="100vw" />
+  <v-card class="dashboard-container pr-15">
+    <line-marker height="600px" width="85.5vw" />
   </v-card>
 </template>
 

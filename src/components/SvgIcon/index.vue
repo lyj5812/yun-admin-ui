@@ -6,7 +6,6 @@
 </template>
 
 <script>
-// doc: https://panjiachen.github.io/vue-element-admin-site/feature/component/svg-icon.html#usage
 import { isExternal } from '@/utils/validate'
 
 export default {
@@ -47,8 +46,11 @@ export default {
 
 <style scoped>
 .svg-icon {
-  width: 1em;
-  height: 1em;
+  width: .83em;
+  height: .83em;
+  margin-left: .07em;
+  margin-right: -.15em;
+  margin-top: .07em;
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;

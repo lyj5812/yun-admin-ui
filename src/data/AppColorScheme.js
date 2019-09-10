@@ -160,85 +160,62 @@ const navColor = [
 
 const darkColor = [
   {
-    name: 'dark-deep-purple',
+    name: 'Blue-Grey-dark',
     dark: true,
-    color: 'deep-purple base',
-    primary: colors.deepPurple.base
-  },
-  {
-    name: 'dark-blue',
-    dark: true,
-    color: 'blue base',
-    primary: colors.blue.base
-  },
-  {
-    name: 'dark-yellow',
-    dark: true,
-    color: 'amber darken1',
-    primary: colors.amber.darken1
-  },
-  {
-    name: 'dark-blue-grey',
-    dark: true,
-    color: 'blue-grey base',
+    scheme: 'md-blue-grey-500-scheme',
     primary: colors.blueGrey.base
   },
   {
-    name: 'dark-pink',
+    name: 'Pink-dark',
     dark: true,
-    color: 'pink base',
+    scheme: 'md-pink-500-scheme',
     primary: colors.pink.base
-  },
-  {
-    name: 'dark-cyan',
-    dark: true,
-    color: 'cyan base',
-    primary: colors.cyan.base
   }
 ]
 
 const lightColor = [
+
   {
-    name: 'light-deepPurple-accent4',
+    name: 'Blue-light',
     dark: false,
-    color: 'deep-purple accent4',
-    primary: colors.deepPurple.accent4
-  },
-  {
-    name: 'light-teal-lighten-1',
-    dark: false,
-    color: 'teal lighten-1',
-    primary: colors.teal.lighten1
-  },
-  {
-    name: 'light-blue',
-    dark: false,
-    color: 'blue base',
+    scheme: 'md-blue-500-scheme',
     primary: colors.blue.base
   },
   {
-    name: 'light-yellow',
+    name: 'Yellow-light',
     dark: false,
-    color: 'amber darken1',
+    scheme: 'md-amber-a700-scheme',
     primary: colors.amber.darken1
   },
   {
-    name: 'light-blue-grey',
+    name: 'Red-light',
     dark: false,
-    color: 'blue-grey base',
-    primary: colors.blueGrey.base
+    scheme: 'md-red-a400-scheme',
+    primary: colors.red.accent3
   },
   {
-    name: 'light-pink',
+    name: 'Pink-light',
     dark: false,
-    color: 'pink base',
-    primary: colors.pink.base
+    scheme: 'md-pink-a100-scheme',
+    primary: colors.pink.accent1
   },
   {
-    name: 'light-cyan',
+    name: 'Purple-light',
     dark: false,
-    color: 'cyan base',
-    primary: colors.cyan.base
+    scheme: 'md-purple-a700-scheme',
+    primary: colors.purple.accent4
+  },
+  {
+    name: 'DeepPurple-light',
+    dark: false,
+    scheme: 'md-deep-purple-a700-scheme',
+    primary: colors.deepPurple.base
+  },
+  {
+    name: 'Teal-light',
+    dark: false,
+    scheme: 'md-teal-a400-scheme',
+    primary: colors.teal.accent3
   }
 ]
 

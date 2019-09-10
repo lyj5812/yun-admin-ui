@@ -1,12 +1,11 @@
 import router from './router'
 import { getToken } from './utils/auth'
 import store from './store'
-import getPageTitle from '@/utils/get-page-title'
 const whiteList = ['/login', '/auth-redirect']// 路由白名单
 
 router.beforeEach(async(to, from, next) => {
   // 设置页面 title
-  document.title = getPageTitle(to.meta.title)
+  document.title = to.name || 'yun-admin'
   // 已登录
   if (getToken()) {
     if (to.path === '/login') {
@@ -30,6 +29,7 @@ router.beforeEach(async(to, from, next) => {
           next({ ...to, replace: true })
         } catch (error) {
           // 删除token 重定向到登录
+          console.log(error)
           await store.dispatch('user/resetToken')
           next(`/login?redirect=${to.path}`)
         }

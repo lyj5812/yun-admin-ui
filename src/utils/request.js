@@ -29,7 +29,7 @@ service.interceptors.response.use(
   res => {
     if (res.status !== 200) {
       const msg = res.data.msg
-      Message.error(msg + '1')
+      Message.error(msg)
       return Promise.reject(new Error(msg))
     } else if (res.data.code && res.data.code === 401) {
       const msg = res.data.msg
@@ -37,7 +37,7 @@ service.interceptors.response.use(
       return Promise.reject(new Error(msg))
     } else if (res.data.code && res.data.code !== 200) {
       const msg = res.data.msg
-      Message.error(msg + '2')
+      Message.error(msg)
       return Promise.reject(new Error(msg))
     } else {
       return res

@@ -1,6 +1,6 @@
 <template>
-  <v-layout>
-    <v-flex xs12>
+  <v-row no-gutters>
+    <v-col cols="12" xs="12" lg="12">
       <v-card flat>
         <v-text-field
           v-model="search"
@@ -30,17 +30,18 @@
           transition
         >
           <template v-slot:label="{ item, active }">
-            <v-layout
+            <v-row
               class="body-1 font-weight-medium"
-              row
-              wrap
+              no-gutters
               @click="selectdItem(item)"
             >
-              <v-flex
-                xs8
-                md8
+              <v-col
+                cols="8"
+                lg="8"
+                xs="8"
+                sm="8"
+                md="8"
               >
-                  &nbsp;
                 <v-icon
                   v-if="item.menuType==0"
                   size="22"
@@ -49,10 +50,19 @@
                   {{ item.icon }}
                 </v-icon>
                 {{ item.name }}
-              </v-flex>
-              <v-flex
-                xs4
-                md4
+                <v-chip
+                  v-if="item.menuType==1"
+                  x-small
+                >
+                  {{ item.perms }}
+                </v-chip>
+              </v-col>
+              <v-col
+                cols="4"
+                lg="4"
+                xs="4"
+                sm="4"
+                md="4"
               >
                 <v-btn
                   v-if="item.menuType==0"
@@ -69,8 +79,8 @@
                   dark
                 >按钮
                 </v-btn>
-              </v-flex>
-            </v-layout>
+              </v-col>
+            </v-row>
           </template>
         </v-treeview>
         <v-overlay
@@ -83,8 +93,8 @@
           />
         </v-overlay>
       </v-card>
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -227,3 +237,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .svg-icon {
+    height: 1.7rem;
+    width: 1.7rem;
+    margin-top: 0em;
+  }
+</style>

@@ -1,134 +1,141 @@
 <template>
-  <v-layout row wrap>
-    <v-flex xs12>
-      <v-card class="mt-1 elevation-4">
-        <v-layout wrap row pa-5 ml-3>
-          <v-flex xs12 lg2>
-            <v-text-field
-              v-model="page.roleName"
-              label="角色名称"
-              hide-details
-              class="small"
-              outlined
-              clearable
-            />
-          </v-flex>
-          <v-flex xs12 lg2 offset-lg1>
-            <v-text-field
-              v-model="page.roleKey"
-              label="权限字符"
-              hide-details
-              class="small"
-              outlined
-              clearable
-            />
-          </v-flex>
+  <div>
+    <v-card class="px-4 py-2 elevation-4">
+      <v-row>
+        <v-col cols="12" xs="12" sm="12" lg="2">
+          <v-text-field
+            v-model="page.roleName"
+            label="角色名称"
+            hide-details
+            class="small"
+            outlined
+            clearable
+          />
+        </v-col>
+        <v-col cols="12" xs="12" sm="12" lg="2" offset-lg="1">
+          <v-text-field
+            v-model="page.roleKey"
+            label="权限字符"
+            hide-details
+            class="small"
+            outlined
+            clearable
+          />
+        </v-col>
 
-          <v-flex xs12 lg2 offset-lg1>
-            <dict v-model="page.status" dict-type="role_status" />
-          </v-flex>
+        <v-col cols="12" xs="12" sm="12" lg="2" offset-lg="1">
+          <dict v-model="page.status" dict-type="role_status" />
+        </v-col>
 
-          <v-flex xs12 lg2 offset-lg1 offset-xs9>
-            <v-btn v-perms="['system:role:search']" small color="primary" class="mt-1" dark @click="getRoleListPageData()">
-              <v-icon dark>search</v-icon>
-              搜索
+        <v-col cols="12" xs="12" sm="12" lg="2" offset-lg="1" offset-xs="9">
+          <v-btn v-perms="['system:role:search']" small color="primary" class="mt-1" dark @click="getRoleListPageData()">
+            <v-icon dark>search</v-icon>
+            搜索
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-card>
+    <v-card class="elevation-4 px-4 mt-3">
+      <v-data-table
+        v-model="selected"
+        :headers="th"
+        :items="rolePage.records"
+        hide-default-footer
+        show-select
+        item-key="roleId"
+        :mobile-breakpoint="1000"
+        :loading="dataFlag"
+        loading-text="加载中... 请稍后！"
+      >
+        <template v-if="rolePage.records&&rolePage.records.length===0" #body>
+          <td :colspan="th.length+1">
+            <v-row justify="center">
+              <v-img max-height="200" class="ma-4" max-width="200" :src="require('@/assets/images/table/no-data.svg')" />
+            </v-row>
+          </td>
+        </template>
+        <template v-slot:top>
+          <v-toolbar flat>
+            <v-btn rounded small color="success" @click="getRoleListPageData">
+              <v-icon dark>mdi-sync</v-icon>
             </v-btn>
-          </v-flex>
-        </v-layout>
-      </v-card>
-    </v-flex>
-    <v-flex xs12 mt-2>
-      <v-card class="elevation-4">
-        <v-data-table
-          v-model="selected"
-          :headers="th"
-          :items="rolePage.records"
-          hide-default-footer
-          show-select
-          item-key="roleId"
-          no-data-text="没有数据!"
-        >
-          <template v-if="rolePage.records&&rolePage.records.length===0" v-slot:body>
-            <td :colspan="th.length+1">
-              <v-layout class="justify-center">
-                <v-img max-height="200" class="ma-4" max-width="200" :src="require('@/assets/images/table/no-data.svg')" />
-              </v-layout>
-            </td>
-          </template>
-          <template v-slot:top>
-            <v-toolbar flat>
-              <v-btn v-perms="['system:role:add']" small color="primary" @click="addOrEdit({})">
-                <v-icon dark>add</v-icon>
-                添加
-              </v-btn>
-              <v-btn
-                v-perms="['system:role:edit']"
-                small
-                class="ml-2"
-                color="warning"
-                :disabled="selected.length!=1"
-                @click="addOrEdit(selected[0])"
-              >
-                <v-icon dark>edit</v-icon>
-                修改
-              </v-btn>
-              <v-btn
-                v-perms="['system:role:del']"
-                small
-                class="ml-2"
-                color="error"
-                :disabled="selected.length<1"
-                @click="delRoles(selected)"
-              >
-                <v-icon dark>delete</v-icon>
-                删除
-              </v-btn>
-            </v-toolbar>
-          </template>
-
-          <template v-slot:item.status="{ item }">
-            <v-chip
-              v-if="item.status==0"
-              class="ma-2"
+            <v-btn v-perms="['system:role:add']" rounded small class="ml-2" color="primary" @click="addOrEdit({})">
+              <v-icon>add</v-icon>
+            </v-btn>
+            <v-btn
+              v-perms="['system:role:export']"
+              rounded
               small
-              color="green"
-              label
-              outlined
+              color="info"
+              class="ml-2"
+              :disabled="selected.length<1"
+              @click="exportExcel()"
             >
-              正常
-            </v-chip>
-            <v-chip
-              v-else
-              class="ma-2"
+              <v-icon dark>mdi-export-variant</v-icon>
+            </v-btn>
+            <v-btn
+              v-perms="['system:role:edit']"
+              rounded
               small
-              color="red"
-              label
-              outlined
+              class="ml-2"
+              color="warning"
+              :disabled="selected.length!=1"
+              @click="addOrEdit(selected[0])"
             >
-              停用
-            </v-chip>
-          </template>
-          <template v-slot:item.handle="{ item }">
-            <v-btn v-perms="['system:role:edit']" small color="warning" @click="addOrEdit(item)">
               <v-icon dark>edit</v-icon>
-              修改
             </v-btn>
-            <v-btn v-perms="['system:role:del']" small color="error" @click="delRoles([item])">
+            <v-btn
+              v-perms="['system:role:del']"
+              rounded
+              small
+              class="ml-2"
+              color="error"
+              :disabled="selected.length<1"
+              @click="delRoles(selected)"
+            >
               <v-icon dark>delete</v-icon>
-              删除
             </v-btn>
-          </template>
-        </v-data-table>
-        <pagination
-          :page-sizes="[10,20]"
-          :page-data="rolePage"
-          @pageChange="getRoleListPage"
-        />
-        <v-overlay absolute :value="dataFlag">
-          加载中&nbsp;<v-progress-circular indeterminate color="primary" />
-        </v-overlay>
-      </v-card>
-    </v-flex>
+          </v-toolbar>
+          <v-divider />
+        </template>
+
+        <template v-slot:item.status="{ item }">
+          <v-chip
+            v-if="item.status==0"
+            class="ma-2"
+            small
+            color="green"
+            label
+            outlined
+          >
+            正常
+          </v-chip>
+          <v-chip
+            v-else
+            class="ma-2"
+            small
+            color="red"
+            label
+            outlined
+          >
+            停用
+          </v-chip>
+        </template>
+        <template v-slot:item.handle="{ item }">
+          <v-btn v-perms="['system:role:edit']" fab x-small color="warning" @click="addOrEdit(item)">
+            <v-icon dark>edit</v-icon>
+          </v-btn>
+          <v-btn v-perms="['system:role:del']" fab x-small color="error" @click="delRoles([item])">
+            <v-icon dark>delete</v-icon>
+          </v-btn>
+        </template>
+      </v-data-table>
+      <pagination
+        :page-sizes="[10,20]"
+        :page-data="rolePage"
+        @pageChange="getRoleListPage"
+      />
+    </v-card>
     <!--添加修改-->
     <v-form ref="role" :model="role">
       <v-dialog v-model="editFlag" scrollable max-width="600px">
@@ -138,8 +145,8 @@
           </v-card-title>
           <v-card-text>
             <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12>
+              <v-row no-gutters>
+                <v-col cols="12" xs="12">
                   <v-text-field
                     v-model="role.roleName"
                     class="small"
@@ -148,8 +155,8 @@
                     :rules="[v => !!v || '请输入名称!']"
                     label="角色名称"
                   />
-                </v-flex>
-                <v-flex xs12>
+                </v-col>
+                <v-col cols="12" xs="12">
                   <v-text-field
                     v-model="role.roleKey"
                     class="small"
@@ -158,8 +165,8 @@
                     :rules="[v => !!v || '请输入字符!']"
                     label="权限字符"
                   />
-                </v-flex>
-                <v-flex xs12 sm6>
+                </v-col>
+                <v-col cols="12" xs="12" sm="6">
                   <v-text-field
                     v-model="role.roleSort"
                     class="small"
@@ -169,8 +176,8 @@
                     label="显示顺序"
                     type="number"
                   />
-                </v-flex>
-                <v-flex xs12 offset-sm1 sm5>
+                </v-col>
+                <v-col cols="12" xs="12" offset-sm="1" sm="5">
                   <v-switch
                     v-model="role.status"
                     label="状态正常"
@@ -181,10 +188,10 @@
                     false-value="1"
                     true-value="0"
                     hide-details
-                    class="mt-1"
+                    class="mt-1 mb-6"
                   />
-                </v-flex>
-                <v-flex xs12>
+                </v-col>
+                <v-col cols="12" xs="12">
                   <v-text-field
                     v-model="role.remark"
                     class="small"
@@ -192,11 +199,11 @@
                     clearable
                     label="备注"
                   />
-                </v-flex>
-                <v-flex xs12>
+                </v-col>
+                <v-col cols="12" xs="12">
                   <menu-tree ref="menuTree" v-model="role.menuIds" :selectable="true" />
-                </v-flex>
-              </v-layout>
+                </v-col>
+              </v-row>
 
             </v-container>
           </v-card-text>
@@ -214,7 +221,7 @@
         </v-card>
       </v-dialog>
     </v-form>
-  </v-layout>
+  </div>
 </template>
 
 <script>
@@ -335,6 +342,33 @@ export default {
           })
         }
       })
+    },
+    /**
+     * 导出excel
+     */
+    exportExcel() {
+      import('@/vendor/Export2Excel').then(excel => {
+        const tHeader = ['角色编号', '角色名称', '权限字符', '排序', '状态', '创建时间']
+        const filterVal = ['roleId', 'roleName', 'roleKey', 'roleSort', 'status', 'createTime']
+        const list = this.selected
+        const data = this.formatJson(filterVal, list)
+        excel.export_json_to_excel({
+          header: tHeader,
+          data,
+          filename: '角色信息',
+          autoWidth: true,
+          bookType: 'xlsx'
+        })
+      })
+    },
+    formatJson(filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => {
+        if (j === 'status') {
+          return v[j] === '0' ? '正常' : '停用'
+        } else {
+          return v[j]
+        }
+      }))
     }
   }
 }

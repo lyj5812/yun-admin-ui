@@ -1,0 +1,24 @@
+@mixin yun-themebuilder($background, $color) {
+  background: $background;
+  background-color: $background;
+  color: $color;
+}
+
+@mixin yun-tb-listgroup($background, $color) {
+  background: rgba(0, 0, 0, 0.12);
+  background-color: rgba(0, 0, 0, 0.12);
+  color: $color;
+}
+
+@mixin border-radius($n) {
+  -webkit-border-radius: $n;
+  -moz-border-radius: $n;
+  border-radius: $n;
+}
+
+@mixin yun-gmd-themebuilder($background, $color) {
+  background: rgba(lighten($background, 90%), 0.8);
+  background-color: rgba(lighten($background, 90%), 0.8) !important;
+  color: darken($background, 3%) !important;
+  @extend .elevation-2 !optional;
+}

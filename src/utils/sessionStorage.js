@@ -1,11 +1,11 @@
-const localStorage = window.localStorage
+const sessionStorage = window.sessionStorage
 
 const set = (key, value) => {
-  return localStorage.setItem(key, JSON.stringify(value))
+  return sessionStorage.setItem(key, JSON.stringify(value))
 }
 
 const get = (key) => {
-  return JSON.parse(localStorage.getItem(key))
+  return JSON.parse(sessionStorage.getItem(key))
 }
 
 /**
@@ -16,7 +16,7 @@ const get = (key) => {
  */
 const setExpired = (key, value, time) => {
   const curTime = new Date().getTime()
-  localStorage.setItem(key, JSON.stringify({ data: value, time: curTime, expTime: time }))
+  sessionStorage.setItem(key, JSON.stringify({ data: value, time: curTime, expTime: time }))
 }
 
 /**
@@ -25,10 +25,10 @@ const setExpired = (key, value, time) => {
  * @returns {boolean|*}
  */
 const getExpired = (key) => {
-  const data = JSON.parse(localStorage.getItem(key))
+  const data = JSON.parse(sessionStorage.getItem(key))
   if (!data || (new Date().getTime() - data.time > data.expTime)) {
     // 过期
-    localStorage.removeItem(key)
+    sessionStorage.removeItem(key)
     return null
   } else {
     return data.data
@@ -36,13 +36,12 @@ const getExpired = (key) => {
 }
 
 const remove = (key) => {
-  return localStorage.removeItem(key)
+  return sessionStorage.removeItem(key)
 }
 
 const clear = () => {
-  return localStorage.clear()
+  return sessionStorage.clear()
 }
-
 export default {
   set,
   get,

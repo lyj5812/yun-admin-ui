@@ -1,18 +1,36 @@
 /*侧边栏*/
 .nav-white-active{
   .v-list-item__title{
+    background: transparent !important;
+    background-color: transparent !important;
     color: color('shades','white') !important;
   }
-  .v-list-item__icon{
+  .v-list-group__header__prepend-icon .v-icon{
+    background: transparent !important;
+    background-color: transparent !important;
+    color: color('shades','white') !important;
+  }
+  .v-list-group__header__append-icon .v-icon{
+    background: transparent !important;
+    background-color: transparent !important;
     color: color('shades','white') !important;
   }
 }
 
 .nav-black-active{
-  .v-list-item__content{
+  .v-list-item__title{
+    background: transparent !important;
+    background-color: transparent !important;
     color: color('shades','black') !important;
   }
-  .v-list-item__icon{
+  .v-list-group__header__prepend-icon .v-icon{
+    background: transparent !important;
+    background-color: transparent !important;
+    color: color('grey','darken-1') !important;
+  }
+  .v-list-group__header__append-icon .v-icon{
+    background: transparent !important;
+    background-color: transparent !important;
     color: color('shades','black') !important;
   }
 }

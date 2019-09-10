@@ -11,10 +11,10 @@ const state = {
   },
   toolColor: localStorage.get('toolColor') || {},
   primaryColor: localStorage.get('primaryColor') || {
-    name: 'light-deepPurple-accent4',
+    name: 'Purple-light',
     dark: false,
-    color: 'deep-purple accent4',
-    primary: '#6200ea'
+    scheme: 'md-purple-a700-scheme',
+    primary: '#AA00FF'
   },
   settingDrawer: false,
   footer: {

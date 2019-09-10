@@ -2,7 +2,7 @@
   <div v-if="!item.hidden">
     <template v-if="!item.children">
       <!--无子菜单-->
-      <v-list-item active-class="primary nav-white-active" :to="item.path">
+      <v-list-item active-class="box-glow" :to="item.path">
         <v-list-item-icon>
           <v-icon size="18" class="mt-1">{{ item.icon }}</v-icon>
         </v-list-item-icon>
@@ -14,13 +14,12 @@
       v-else
       :group="item.path"
       :prepend-icon="item.icon"
+      class="menu-group"
       no-action
-      :active-class="navColor.dark?'nav-white-active':'nav-black-active'"
+      :active-class="navColor.dark||$vuetify.theme.dark?'nav-white-active':'nav-black-active'"
     >
-      <template v-slot:activator>
-        <v-list-item-content>
-          <v-list-item-title>{{ item.name }}</v-list-item-title>
-        </v-list-item-content>
+      <template #activator>
+        <v-list-item-title>{{ item.name }}</v-list-item-title>
       </template>
       <sidebar-item
         v-for="child in item.children"
@@ -50,3 +49,16 @@ export default {
   }
 }
 </script>
+<style lang="css" scoped>
+    .menu-group >>> .v-list-group__header__prepend-icon .v-icon{
+        height: .7em !important;
+        width: .7em !important;
+        margin-top: .2em;
+    }
+
+    .menu-group >>> .v-list-group__header__prepend-icon i{
+        font-size: 1.1em;
+        margin-left: .2em;
+        margin-top: .4em;
+    }
+</style>

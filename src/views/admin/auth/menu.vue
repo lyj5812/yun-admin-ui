@@ -1,55 +1,56 @@
 <template>
-  <v-layout row wrap>
-    <v-flex xl4 lg4 xs12 sm12>
-      <v-card class="pa-2 mt-2 mr-1 elevation-4">
+  <v-row>
+    <v-col cols="12" xl="4" lg="4" xs="12" sm="12">
+      <v-card class="pa-2 elevation-4">
         <v-btn
           v-perms="['system:menu:add']"
+          rounded
           small
           color="primary"
           dark
           @click="addOrEdit({})"
         >
           <v-icon dark>add</v-icon>
-          添加
         </v-btn>
         <v-btn
           v-perms="['system:menu:edit']"
+          rounded
           small
+          class="ml-2"
           color="warning"
           :disabled="menu.menuId?false:true"
           @click="addOrEdit(menu)"
         >
           <v-icon dark>edit</v-icon>
-          修改
         </v-btn>
         <v-btn
           v-perms="['system:menu:del']"
+          rounded
           small
+          class="ml-2"
           color="error"
           :disabled="menu.menuId?false:true"
           @click="delMenus()"
         >
           <v-icon dark>delete</v-icon>
-          删除
         </v-btn>
       </v-card>
-
-      <v-card class="mt-2 mr-1 elevation-4">
+      <v-card class="elevation-4 mt-2">
         <v-scroll>
-          <div style="height: 530px" class="pa-4 mr-1">
+          <div style="height: calc(100vh - 480px)" class="pa-4">
             <menu-tree ref="menuTree" @clickNode="selectdItem" />
           </div>
         </v-scroll>
       </v-card>
-
-    </v-flex>
-    <v-flex xl8 lg8 xs12 sm12>
-      <v-card class="pa-3 mt-2 elevation-4">
+    </v-col>
+    <v-col cols="12" xl="8" lg="8" xs="12" sm="12">
+      <v-card class="pa-3 elevation-4">
         <v-form ref="menu" :model="menu">
-          <v-layout row wrap pa-5>
-            <v-flex
-              lg12
-              xs12
+          <v-row class="pa-5" no-gutters>
+            <v-col
+              cols="12"
+              lg="12"
+              xs="12"
             >
               <v-text-field
                 v-model="menu.parentId"
@@ -58,10 +59,11 @@
                 class="small"
                 outlined
               />
-            </v-flex>
-            <v-flex
-              lg12
-              xs12
+            </v-col>
+            <v-col
+              cols="12"
+              lg="12"
+              xs="12"
             >
               <v-text-field
                 v-model="menu.menuId"
@@ -70,10 +72,11 @@
                 class="small"
                 outlined
               />
-            </v-flex>
-            <v-flex
-              lg6
-              xs6
+            </v-col>
+            <v-col
+              cols="12"
+              lg="6"
+              xs="6"
             >
               <v-text-field
                 v-model="menu.name"
@@ -84,8 +87,12 @@
                 outlined
                 clearable
               />
-            </v-flex>
-            <v-flex lg6 xs6>
+            </v-col>
+            <v-col
+              cols="12"
+              lg="6"
+              xs="6"
+            >
               <v-radio-group
                 v-model="menu.menuType"
                 label="节点类型："
@@ -105,10 +112,11 @@
                   value="1"
                 />
               </v-radio-group>
-            </v-flex>
-            <v-flex
-              lg6
-              xs6
+            </v-col>
+            <v-col
+              cols="12"
+              lg="6"
+              xs="6"
             >
               <v-text-field
                 v-model="menu.orderNum"
@@ -119,8 +127,12 @@
                 outlined
                 clearable
               />
-            </v-flex>
-            <v-flex lg6 xs6>
+            </v-col>
+            <v-col
+              cols="12"
+              lg="6"
+              xs="6"
+            >
               <v-switch
                 v-model="menu.hidden"
                 class="mt-1 ml-5"
@@ -129,122 +141,37 @@
                 inset
                 :disabled="disabledFlag"
               />
-            </v-flex>
+            </v-col>
 
-            <v-flex
+            <v-col
               v-if="menu.menuType==0"
-              lg12
-              xs12
+              cols="12"
+              lg="12"
+              xs="12"
             >
-              <v-text-field
-                v-model="menu.icon"
-                :prepend-inner-icon="menu.icon"
-                :disabled="disabledFlag"
-                label="节点图标"
-                class="small"
-                outlined
-                clearable
-                @focus="showIcon()"
-              />
-              <v-layout
-                v-if="iconFlag"
-                row
-                wrap
-                style="margin-top: -30px;"
-              >
-                <v-flex xs12>
-                  <v-tabs
-                    v-model="selectedTab"
-                    color="grey lighten-3"
-                  >
-                    <v-tab href="#tab-1">
-                      Matrial Icons
-                    </v-tab>
-                    <v-tab
-                      ripple
-                      href="#tab-2"
-                    >
-                      Font Awesome
-                    </v-tab>
-                    <v-tabs-items v-model="selectedTab">
-                      <v-tab-item value="tab-1">
-                        <v-card flat>
-                          <v-card-text>
-                            <v-layout
-                              row
-                              wrap
-                            >
-                              <v-flex
-                                v-for="(item, index) in material"
-                                :key="index"
-                                xs1
-                                md1
-                                style="cursor: pointer;"
-                                @click="selectIcon(item.ligature)"
-                              >
-                                <v-icon medium>{{ item.ligature }}</v-icon>
-                              </v-flex>
-                            </v-layout>
-                            <v-pagination
-                              v-model="materialPage.page"
-                              :length="materialPage.pageCount"
-                              :total-visible="8"
-                              circle
-                            />
-                          </v-card-text>
-                        </v-card>
-                      </v-tab-item>
-                      <v-tab-item value="tab-2">
-                        <v-card flat>
-                          <v-card-text>
-                            <v-layout
-                              row
-                              wrap
-                            >
-                              <v-flex
-                                v-for="(item, index) in ft"
-                                :key="index"
-                                xs1
-                                md1
-                                style="cursor: pointer;"
-                                @click="selectIcon(item)"
-                              >
-                                <v-icon medium>{{ item }}</v-icon>
-                              </v-flex>
-                            </v-layout>
-                            <v-pagination
-                              v-model="fontPage.page"
-                              :length="fontPage.pageCount"
-                              :total-visible="8"
-                              circle
-                            />
-                          </v-card-text>
-                        </v-card>
-                      </v-tab-item>
-                    </v-tabs-items>
-                  </v-tabs>
-                </v-flex>
-              </v-layout>
-            </v-flex>
+              <icon-field v-model="menu.icon" :disabled="disabledFlag" />
+            </v-col>
 
-            <v-flex
-              lg12
-              xs12
+            <v-col
+              cols="12"
+              lg="12"
+              xs="12"
             >
               <v-text-field
                 v-if="menu.menuType==1"
                 v-model="menu.perms"
+                class="small"
                 :disabled="disabledFlag"
                 label="权限标识"
                 :rules="[v => !!v || '请输入标识!']"
-                class="small"
                 outlined
                 clearable
               />
-            </v-flex>
-            <v-flex
-              xs12
-              md12
+            </v-col>
+            <v-col
+              cols="12"
+              lg="12"
+              xs="12"
             >
               <v-text-field
                 v-if="menu.menuType==0"
@@ -254,12 +181,24 @@
                 class="small"
                 outlined
                 clearable
-              />
-            </v-flex>
-            <v-flex
+              >
+                <template v-slot:prepend>
+                  <v-tooltip
+                    bottom
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-icon v-on="on">mdi-help-circle-outline</v-icon>
+                    </template>
+                    vue文件在项目中相对views的路径
+                  </v-tooltip>
+                </template>
+              </v-text-field>
+            </v-col>
+            <v-col
               v-if="menu.menuType==0"
-              xs12
-              md12
+              cols="12"
+              lg="12"
+              xs="12"
             >
               <v-text-field
                 v-model="menu.path"
@@ -268,9 +207,26 @@
                 class="small"
                 outlined
                 clearable
-              />
-            </v-flex>
-            <v-flex xs6 md6 offset-xs6>
+              >
+                <template v-slot:prepend>
+                  <v-tooltip
+                    bottom
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-icon v-on="on">mdi-help-circle-outline</v-icon>
+                    </template>
+                    菜单在地址栏显示的路径，推荐父菜单路径+子路径
+                  </v-tooltip>
+                </template>
+              </v-text-field>
+            </v-col>
+            <v-col
+              cols="12"
+              lg="6"
+              xs="6"
+              offset-xs="6"
+              offset-lg="6"
+            >
               <v-btn v-show="!disabledFlag" small color="success" @click="addOrEditSubmit()">
                 <v-icon dark>done</v-icon>
                 提交
@@ -279,54 +235,29 @@
                 <v-icon dark>close</v-icon>
                 取消
               </v-btn>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-form>
       </v-card>
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 import { menuAddOrEdit, delMenu } from '@/api/system/menu'
-import fontData from '@/api/font-awesome.json'
-import materialData from '@/api/material.json'
 import MenuTree from '@/views/components/menu/menuTree'
+import IconField from '@/components/IconField'
 export default {
+  name: 'Menu',
   components: {
-    MenuTree
+    MenuTree,
+    IconField
   },
   data() {
     return {
       disabledFlag: true,
       menu: {},
-      selectedTab: null,
-      material: null,
-      ft: null,
-      iconFlag: false,
-      fontPage: {
-        page: 1,
-        pageSize: 60,
-        pageCount: 0
-      },
-      materialPage: {
-        page: 1,
-        pageSize: 60,
-        pageCount: 0
-      }
-    }
-  },
-  computed: {
-    materialPageChange() {
-      return this.materialPage.page
-    }
-  },
-  watch: {
-    materialPageChange() {
-      console.log(this.materialPage.page)
-      const start = (this.materialPage.page - 1) * this.materialPage.pageSize
-      const end = start + this.materialPage.pageSize
-      this.material = materialData.icons.slice(start, end)
+      selectedTab: null
     }
   },
   methods: {
@@ -392,17 +323,6 @@ export default {
     selectdItem(item) {
       // 直接等于是引用,menu改变,item会跟着改变...
       this.menu = JSON.parse(JSON.stringify(item))
-    },
-    showIcon() {
-      this.ft = fontData['4.7.0'].slice(0, 60)
-      this.materialPage.pageCount = Math.ceil(materialData.icons.length / this.fontPage.pageSize)
-      this.materialPage.page = 1
-      this.material = materialData.icons.slice(0, 60)
-      this.iconFlag = true
-    },
-    selectIcon(icon) {
-      this.menu.icon = icon
-      this.iconFlag = false
     }
   }
 }

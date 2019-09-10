@@ -1,10 +1,10 @@
 <template>
   <v-container id="container" fluid grid-list-md>
-    <keep-alive :include="cachedViews">
-      <transition name="fade-transform" mode="out-in">
+    <transition name="fade-transform" mode="out-in">
+      <keep-alive>
         <router-view :key="key" />
-      </transition>
-    </keep-alive>
+      </keep-alive>
+    </transition>
   </v-container>
 </template>
 
@@ -12,9 +12,6 @@
 export default {
   name: 'AppMain',
   computed: {
-    cachedViews() {
-      return this.$store.state.tagsView.cachedViews
-    },
     key() {
       return this.$route.path
     }

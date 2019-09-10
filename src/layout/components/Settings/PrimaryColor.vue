@@ -24,7 +24,7 @@
           <v-radio-group v-model="primaryColor" column>
             <v-layout v-for="item in lightColors" :key="item.name" row mb-2>
               <v-radio :value="item.name" @change="setColor(item)" />
-              <v-btn x-small :class="[item.color]" />
+              <v-btn x-small :color="item.primary" />
               <v-btn x-small :class="[item.dark?'black':'white','ml-2','elevation-3']" />
             </v-layout>
           </v-radio-group>
@@ -35,7 +35,7 @@
           <v-radio-group v-model="primaryColor" column>
             <v-layout v-for="item in darkColors" :key="item.name" row mb-2>
               <v-radio :value="item.name" @change="setColor(item)" />
-              <v-btn x-small :class="[item.color]" />
+              <v-btn x-small :color="item.primary" />
               <v-btn x-small :class="[item.dark?'black':'white','ml-2','elevation-3']" />
             </v-layout>
           </v-radio-group>

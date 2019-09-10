@@ -8,8 +8,16 @@ import 'vuetify/dist/vuetify.min.css'
 import '@/sass/main.scss'
 import store from '@/store'
 import colors from 'vuetify/lib/util/colors'
+import zhHans from 'vuetify/es5/locale/zh-Hans'
+import MyIcon from '@/components/MyIcon'
+import svgIcons from './svg-icons'
 Vue.use(Vuetify)
+
 export default new Vuetify({
+  lang: {
+    locales: { zhHans },
+    current: 'zhHans'
+  },
   theme: {
     themes: {
       light: {
@@ -26,6 +34,20 @@ export default new Vuetify({
     dark: store.getters['app/primaryColor'].dark
   },
   icons: {
-    iconfont: 'md'
+    iconfont: 'md',
+    values: iconValues()
   }
 })
+
+function iconValues() {
+  const values = {}
+  svgIcons.forEach(item => {
+    values[item] = {
+      component: MyIcon,
+      props: {
+        name: item
+      }
+    }
+  })
+  return values
+}

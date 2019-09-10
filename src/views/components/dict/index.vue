@@ -1,6 +1,6 @@
 <template>
-  <v-layout>
-    <v-flex xs12>
+  <v-row no-gutters>
+    <v-col cols="12" xs="12">
       <v-select
         v-model="value"
         :items="items"
@@ -14,8 +14,8 @@
         :menu-props="{ offsetY: true }"
         @input="dictChange()"
       />
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
