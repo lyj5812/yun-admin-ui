@@ -132,7 +132,11 @@
                   clearable
                   :rules="[v => !!v || '请输入名称!']"
                   label="岗位名称"
-                />
+                >
+                  <template v-slot:prepend>
+                    <small class="red-text my-4">*</small>
+                  </template>
+                </v-text-field>
               </v-col>
               <v-col cols="12" xs="12">
                 <v-text-field
@@ -142,7 +146,11 @@
                   clearable
                   :rules="[v => !!v || '请输入名称!']"
                   label="岗位编码"
-                />
+                >
+                  <template v-slot:prepend>
+                    <small class="red-text my-4">*</small>
+                  </template>
+                </v-text-field>
               </v-col>
               <v-col cols="12" xs="12" sm="6">
                 <v-text-field
@@ -153,7 +161,11 @@
                   :rules="[v => !!v || '请输入顺序!']"
                   label="显示顺序"
                   type="number"
-                />
+                >
+                  <template v-slot:prepend>
+                    <small class="red-text my-4">*</small>
+                  </template>
+                </v-text-field>
               </v-col>
               <v-col cols="12" xs="12" offset-sm="1" sm="5">
                 <v-switch
@@ -162,11 +174,10 @@
                   color="primary"
                   inset
                   value="0"
-                  :rules="[v => !!v || '请输入状态!']"
                   false-value="1"
                   true-value="0"
                   hide-details
-                  class="mt-1 mb-6"
+                  class="mt-2 mb-6"
                 />
               </v-col>
               <v-col cols="12" xs="12">
@@ -174,6 +185,7 @@
                   v-model="post.remark"
                   outlined
                   name="remark"
+                  class="ml-4"
                   label="备注"
                 />
               </v-col>
@@ -203,7 +215,7 @@ import { addOrEdit, postListPage, deleteList } from '@/api/system/post'
 export default {
   data() {
     return {
-      postPage: [],
+      postPage: {},
       post: {},
       selected: [],
       editFlag: false,

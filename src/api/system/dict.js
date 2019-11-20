@@ -3,8 +3,8 @@ import request from '@/utils/request'
 export function dictTypeListPage(data) {
   return request({
     url: '/admin-server/dict/dictTypeListPage',
-    method: 'post',
-    data
+    method: 'get',
+    params: data
   })
 }
 

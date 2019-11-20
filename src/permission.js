@@ -20,7 +20,8 @@ router.beforeEach(async(to, from, next) => {
         try {
           // 获取用户信息
           // 获取用户菜单
-          const { menus } = await store.dispatch('user/getInfo')
+          await store.dispatch('user/getInfo')
+          const menus = await store.dispatch('user/getMenu')
           // 生成路由
           const accessRoutes = await store.dispatch('permission/generateRoutes', menus)
           // 动态添加菜单

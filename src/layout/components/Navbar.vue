@@ -23,6 +23,7 @@
 import { mapGetters } from 'vuex'
 import Sidebar from './Sidebar'
 export default {
+
   components: {
     Sidebar
   },

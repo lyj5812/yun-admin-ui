@@ -5,6 +5,7 @@
     <v-autocomplete
       class="ml-5 hidden-sm-and-down"
       prepend-inner-icon="search"
+      dense
       hide-no-data
       hide-details
       label="搜索"
@@ -39,7 +40,7 @@
     <v-menu offset-y>
       <template #activator="{ on }">
         <v-btn :dark="toolColor.dark" small text v-on="on">
-          {{ name }}&nbsp;<v-icon small>fa fa-angle-down</v-icon>
+          {{ name }} &nbsp;<v-icon small>fa fa-angle-down</v-icon>
         </v-btn>
       </template>
       <v-list dense>
@@ -78,7 +79,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import TagsView from './TagsView'
-import Utils from '@/utils'
+import { toggleFullScreen } from '@/utils'
 export default {
   components: { TagsView },
   data() {
@@ -100,7 +101,7 @@ export default {
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
     handleFullScreen() {
-      Utils.toggleFullScreen()
+      toggleFullScreen()
     },
     async setDrawer() {
       await this.$store.dispatch('app/setNavDrawer', !this.$store.state.app.navDrawer)

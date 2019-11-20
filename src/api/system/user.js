@@ -3,8 +3,8 @@ import request from '@/utils/request'
 export function userListPage(data) {
   return request({
     url: '/admin-server/user/userListPage',
-    method: 'post',
-    data
+    method: 'get',
+    params: data
   })
 }
 

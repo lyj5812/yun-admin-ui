@@ -1,6 +1,7 @@
 import { login, logout, getUserInfo } from '@/api/login'
+import { getMenus } from '@/api/system/menu'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import router, { resetRouter } from '@/router'
+import { resetRouter } from '@/router'
 
 const state = {
   token: getToken(),
@@ -52,22 +53,34 @@ const actions = {
   getInfo({ commit }) {
     return new Promise((resolve, reject) => {
       getUserInfo().then(response => {
-        const data = response.data.principal
+        const data = response.data.data
         if (!data) {
           reject('error')
         }
-        const { roles, sysUser, permissions } = data
-        if (roles && roles.length > 0) { // 验证返回的roles是否是一个非空数组
-          commit('SET_ROLES', roles)
+        const { roleKeys, sysUser, perms } = data
+        if (roleKeys && roleKeys.length > 0) { // 验证返回的roles是否是一个非空数组
+          commit('SET_ROLES', roleKeys)
         }
 
-        if (permissions && permissions.length > 0) { // permissions是否是一个非空数组
-          commit('SET_PERMS', permissions)
+        if (perms && perms.length > 0) { // permissions是否是一个非空数组
+          commit('SET_PERMS', perms)
         }
 
-        commit('SET_NAME', sysUser.userName)
+        commit('SET_NAME', sysUser.realName)
         commit('SET_AVATAR', sysUser.avatar)// 头像
         commit('SET_INTRODUCTION', sysUser.remark)
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  // 获取用户菜单
+  getMenu() {
+    return new Promise((resolve, reject) => {
+      getMenus().then(response => {
+        const data = response.data.data
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -96,24 +109,6 @@ const actions = {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
       removeToken()
-      resolve()
-    })
-  },
-
-  // dynamically modify permissions
-  changeRoles({ commit, dispatch }, role) {
-    return new Promise(async resolve => {
-      const token = role + '-token'
-      commit('SET_TOKEN', token)
-      setToken(token)
-      const { roles } = await dispatch('getInfo')
-      resetRouter()
-      // generate accessible routes map based on roles
-      const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
-      // dynamically add accessible routes
-      router.addRoutes(accessRoutes)
-      // reset visited views and cached views
-      dispatch('tagsView/delAllViews', null, { root: true })
       resolve()
     })
   }

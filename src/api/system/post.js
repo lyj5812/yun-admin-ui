@@ -10,8 +10,8 @@ export function postList() {
 export function postListPage(data) {
   return request({
     url: '/admin-server/post/postListPage',
-    method: 'post',
-    data
+    method: 'get',
+    params: data
   })
 }
 

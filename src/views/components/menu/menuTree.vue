@@ -19,7 +19,6 @@
           dense
           :open.sync="open"
           :search="search"
-          :filter="filter"
           item-key="menuId"
           activatable
           :selectable="selectable"
@@ -119,19 +118,10 @@ export default {
       tree: [],
       search: null,
       openAll: false,
-      caseSensitive: false,
       menuIds: [],
       parentIds: [],
       menus: []
     }
-  },
-  computed: {
-    filter() {
-      return this.caseSensitive
-        ? (item, search, textKey) => item[textKey].indexOf(search) > -1
-        : undefined
-    }
-
   },
   watch: {
     open(newVal, oldVal) {

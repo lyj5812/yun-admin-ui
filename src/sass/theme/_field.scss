@@ -2,6 +2,7 @@
 .small {
   .v-input__slot{
     min-height: 36px !important;
+    margin-top: 8px;
     .v-label{
       top:10px;
       font-size: 14px;
@@ -20,8 +21,7 @@
   }
 
   .v-input__append-outer{
-    margin-top: 6px !important;
-    margin-bottom: 6px;
+    margin-bottom: 7px;
   }
   .v-input__prepend-outer{
     margin-top: 6px !important;

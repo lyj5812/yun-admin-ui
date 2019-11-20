@@ -14,7 +14,7 @@
         <v-row class="pa-5 ml-3">
           <v-col cols="12" xs="12" lg="2">
             <v-text-field
-              v-model="page.loginName"
+              v-model="page.username"
               class="small"
               label="登录名称"
               outlined
@@ -134,7 +134,7 @@
             <span class="title font-weight-bold">{{ user.userId?'修改用户':'添加用户' }}</span>
             <v-spacer />
             <v-btn class="mx-0" icon @click.stop="addOrEditFlag = false">
-              <v-icon>mdi-close-circle-outline</v-icon>
+              <v-icon>close</v-icon>
             </v-btn>
           </v-card-title>
           <v-card-text>
@@ -148,7 +148,11 @@
                     clearable
                     :rules="[v => !!v || '请输入用户名!']"
                     label="用户名称"
-                  />
+                  >
+                    <template v-slot:prepend>
+                      <small class="red-text my-4">*</small>
+                    </template>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="12" lg="5" xs="6" offset-lg="2">
                   <v-text-field
@@ -161,7 +165,11 @@
                     :rules="[v => !!v || '请输入部门!']"
                     label="归属部门"
                     @focus="selectDept()"
-                  />
+                  >
+                    <template v-slot:prepend>
+                      <small class="red-text my-4">*</small>
+                    </template>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="12" lg="5" xs="6">
                   <v-text-field
@@ -171,7 +179,11 @@
                     clearable
                     :rules="[v => !!v || '请输入号码!',v => /^1[3456789]\d{9}$/.test(v) || '请输入正确的手机号']"
                     label="手机号码"
-                  />
+                  >
+                    <template v-slot:prepend>
+                      <small class="red-text my-4">*</small>
+                    </template>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="12" lg="5" xs="6" offset-lg="2">
                   <v-text-field
@@ -181,19 +193,27 @@
                     clearable
                     :rules="[v => !!v || '请输入邮箱!',v => /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(v) || '请输入正确的邮箱']"
                     label="邮箱"
-                  />
+                  >
+                    <template v-slot:prepend>
+                      <small class="red-text my-4">*</small>
+                    </template>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="12" lg="5" xs="6">
                   <v-text-field
-                    v-model="user.loginName"
+                    v-model="user.username"
                     class="small"
                     outlined
                     clearable
                     :disabled="user.userId?true:false"
                     :rules="[checkFlag]"
                     label="登录名称"
-                    @input="checkLoginName()"
-                  />
+                    @input="checkUsername()"
+                  >
+                    <template v-slot:prepend>
+                      <small class="red-text my-4">*</small>
+                    </template>
+                  </v-text-field>
                 </v-col>
                 <v-col v-if="user.userId==null" cols="12" lg="5" xs="6" offset-lg="2">
                   <v-text-field
@@ -204,16 +224,20 @@
                     type="password"
                     :rules="[v => !!v || '请输入登录密码!']"
                     label="登录密码"
-                  />
+                  >
+                    <template v-slot:prepend>
+                      <small class="red-text my-4">*</small>
+                    </template>
+                  </v-text-field>
                 </v-col>
                 <v-col v-else cols="12" lg="5" xs="6" />
                 <v-col cols="12" lg="5" xs="6">
-                  <dict v-model="user.sex" dict-type="sys_user_sex" />
+                  <dict v-model="user.sex" required dict-type="sys_user_sex" />
                 </v-col>
                 <v-col cols="12" lg="5" xs="6" offset-lg="2">
                   <v-switch
                     v-model="user.status"
-                    class="mt-1 ml-4"
+                    class="mt-2 ml-4"
                     label="状态正常"
                     color="primary"
                     inset
@@ -226,8 +250,10 @@
                 <v-col cols="12" xs="12" class="mt-4">
                   <v-select
                     v-model="user.postIds"
+                    class="ml-4"
                     :items="posts"
                     outlined
+                    dense
                     clearable
                     item-text="postName"
                     item-value="postId"
@@ -235,9 +261,10 @@
                     no-data-text="没有选项"
                     multiple
                     chips
+                    :menu-props="{ offsetY: true }"
                   />
                 </v-col>
-                <v-col cols="12" lg="12" xs="12">
+                <v-col cols="12" lg="12" xs="12" class="ml-4">
                   角色
                   <v-row no-gutters>
                     <v-col v-for="role in roles" :key="role.roleId" cols="12" lg="3">
@@ -256,6 +283,7 @@
                     v-model="user.remark"
                     outlined
                     name="remark"
+                    class="ml-4"
                     label="备注"
                   />
                 </v-col>
@@ -320,15 +348,15 @@ export default {
       page: {
         current: 1,
         size: 10,
-        loginName: null,
+        username: null,
         deptId: null,
         phonenumber: null,
         status: null
       },
       th: [
         { text: '用户编号', align: 'center', sortable: true, value: 'userId' },
-        { text: '登录名称', align: 'center', sortable: false, value: 'loginName' },
-        { text: '用户名称', align: 'center', sortable: false, value: 'userName' },
+        { text: '登录名称', align: 'center', sortable: false, value: 'username' },
+        { text: '用户名称', align: 'center', sortable: false, value: 'realName' },
         { text: '手机', align: 'center', sortable: false, value: 'phonenumber' },
         { text: '用户状态', align: 'center', sortable: false, value: 'status' },
         { text: '创建时间', align: 'center', sortable: true, value: 'createTime' },
@@ -343,12 +371,12 @@ export default {
   },
   methods: {
     /* 校验用户名 */
-    checkLoginName() {
+    checkUsername() {
       this.checkFlag = true
-      if (!this.user.loginName) {
+      if (!this.user.username) {
         this.checkFlag = false || '登录名不能为空'
-      } else if (this.user.loginName && !this.user.userId) {
-        checkUsername(this.user.loginName).then(res => {
+      } else if (this.user.username && !this.user.userId) {
+        checkUsername(this.user.username).then(res => {
           if (res.data.data) {
             this.checkFlag = false || '登录名已存在'
           } else {
@@ -365,7 +393,7 @@ export default {
       this.getPostList()
       this.getRoleList()
       this.user = item
-      this.checkLoginName()
+      this.checkUsername()
       if (this.user.userId != null) {
         getRoleIdsAndPostIdsAndDeptByUserId(this.user.userId).then(res => {
           this.user.roleIds = res.data.data.roleIds
@@ -467,7 +495,7 @@ export default {
     exportExcel() {
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = ['用户编号', '登录名称', '用户名称', '手机', '用户状态', '创建时间']
-        const filterVal = ['userId', 'loginName', 'userName', 'phonenumber', 'status', 'createTime']
+        const filterVal = ['userId', 'username', 'realName', 'phonenumber', 'status', 'createTime']
         const list = this.selected
         const data = this.formatJson(filterVal, list)
         excel.export_json_to_excel({

@@ -1,6 +1,6 @@
 <template>
   <v-layout v-if="pageData.total>0" class="page" justify-center pa-3 row>
-    <span class="mt-3 page-total hidden-sm-and-down">共{{ pageData.total }}条</span>
+    <span class="my-5 page-total hidden-sm-and-down">共{{ pageData.total }}条</span>
     <v-select
       v-model="pagination.pageSize"
       :items="pageSizeObjs"
@@ -11,7 +11,7 @@
       class="small page-select ml-3 mt-1 hidden-sm-and-down"
       @input="pageSizeChange()"
     />
-    <span>
+    <span class="my-2">
       <v-pagination
         v-model="pageData.current"
         :length="pageData.pages"
@@ -19,7 +19,7 @@
       />
     </span>
 
-    <span class="mt-3 page-total ml-5 hidden-sm-and-down">到</span>
+    <span class="my-5 page-total ml-5 hidden-sm-and-down">到</span>
     <v-text-field
       v-model="pagination.pageNum"
       outlined
@@ -27,15 +27,23 @@
       class="small page-go mt-1 ml-2 hidden-sm-and-down"
       @keyup.enter="toPage()"
     />
-    <span class="mt-3 page-total ml-2 hidden-sm-and-down">页</span>
+    <span class="my-5 page-total ml-2 hidden-sm-and-down">页</span>
   </v-layout>
 </template>
 <script>
 export default {
   name: 'Pagination',
   props: {
-    pageData: {},
-    pageSizes: null
+    pageData: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
+    pageSizes: {
+      type: Array,
+      default: new Array([10, 20, 30])
+    }
   },
   data() {
     return {
@@ -80,7 +88,7 @@ export default {
       this.pageChange()
     },
     pageSizeFormat() {
-      const temp = this.pageSizes || [10, 20, 30]
+      const temp = this.pageSizes
       temp.forEach(value => {
         const obj = {
           text: value + '条/页',
@@ -108,7 +116,7 @@ export default {
       font-size: $page-font-size;
     }
     .page-select{
-      max-width: 100px !important;
+      max-width: 110px !important;
     }
     .page-go{
       max-width: 40px !important;

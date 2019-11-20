@@ -1193,8 +1193,13 @@ $colors: (
     .box-glow {
       background-color: map-get($color, bg) !important;
       box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2), 0 13px 24px -11px rgba(map-get($color, bg), 0.6);
-      color: map-get($color, clr);
       .v-list-item__subtitle{
+        color: map-get($color, clr);
+      }
+      .v-list-item__title{
+        color: map-get($color, clr);
+      }
+      .v-list-item__icon{
         color: map-get($color, clr);
       }
     }

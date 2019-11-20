@@ -14,41 +14,66 @@
                   <v-avatar size="80" class="avatar pa-2">
                     <img src="https://vuetifyjs.com/apple-touch-icon-180x180.png" alt="avatar">
                   </v-avatar>
-                  <h2 class="ma-5">系统登录</h2>
                 </div>
-                <v-form ref="loginForm" :model="loginForm">
-                  <v-text-field
-                    v-model="loginForm.username"
-                    append-icon="person"
-                    :rules="[v => !!v || '请输入用户名!']"
-                    name="login"
-                    :label="$t('login.username')"
-                    type="text"
-                  />
-                  <v-text-field
-                    v-model="loginForm.password"
-                    :append-icon="showPwd ? 'visibility' : 'visibility_off'"
-                    :rules="[v => !!v || '请输入密码!']"
-                    name="password"
-                    :label="$t('login.password')"
-                    :type="showPwd ? 'text' : 'password'"
-                    @keyup.enter.native="handleLogin"
-                    @click:append="showPwd =!showPwd"
-                  />
-                </v-form>
+                <div v-if="!wx.flag">
+                  <h2 class="ma-5 layout column align-center">系统登录</h2>
+                  <v-form ref="loginForm" :model="loginForm">
+                    <v-text-field
+                      v-model="loginForm.username"
+                      append-icon="person"
+                      :rules="[v => !!v || '请输入用户名!']"
+                      name="login"
+                      :label="$t('login.username')"
+                      type="text"
+                    />
+                    <v-text-field
+                      v-model="loginForm.password"
+                      :append-icon="showPwd ? 'visibility' : 'visibility_off'"
+                      :rules="[v => !!v || '请输入密码!']"
+                      name="password"
+                      :label="$t('login.password')"
+                      :type="showPwd ? 'text' : 'password'"
+                      @keyup.enter.native="handleLogin"
+                      @click:append="showPwd =!showPwd"
+                    />
+                  </v-form>
+                </div>
+
               </v-card-text>
-              <v-card-actions>
-                <v-btn icon>
-                  <v-icon color="blue">fa fa-wechat fa-lg</v-icon>
-                </v-btn>
-                <v-btn icon>
-                  <v-icon color="red">fa fa-qq fa-lg</v-icon>
-                </v-btn>
+              <v-card-actions v-if="!wx.flag">
+                <v-chip-group
+                  v-model="loginType"
+                  active-class="deep-purple--text text--accent-4"
+                  mandatory
+                >
+                  <v-chip
+                    class="ma-2"
+                    color="green"
+                    value="wechat"
+                  >
+                    <v-icon color="white">fa fa-wechat fa-lg</v-icon>
+                  </v-chip>
+                  <v-chip
+                    class="ma-2"
+                    color="black"
+                    value="qq"
+                  >
+                    <v-icon color="white">fa fa-qq fa-lg</v-icon>
+                  </v-chip>
+                </v-chip-group>
                 <v-spacer />
                 <v-btn width="30%" color="primary" :loading="loading" @click="handleLogin">{{
                   $t('login.logIn') }}
                 </v-btn>
               </v-card-actions>
+              <wxlogin
+                v-if="loginType=='wechat'"
+                class="layout column align-center"
+                :state="wx.state"
+                :appid="wx.appid"
+                :scope="wx.scope"
+                :redirect_uri="wx.redirect_uri"
+              />
             </v-card>
           </v-col>
         </v-row>
@@ -58,15 +83,28 @@
 </template>
 
 <script>
+import wxlogin from 'vue-wxlogin'
 export default {
   name: 'Login',
+  components: {
+    wxlogin
+  },
   data() {
     return {
       loginForm: {
         username: 'admin',
         password: '123456'
       },
+      loginType: 'password',
+      wx: {
+        flag: false,
+        appid: 'wxd1678d3f83b1d83a',
+        scope: 'snsapi_login',
+        state: 'WX-LOGIN',
+        redirect_uri: 'https://pigx.pig4cloud.com'
+      },
       showPwd: false,
+      tab: null,
       loading: false,
       redirect: undefined,
       flag: false
@@ -96,23 +134,10 @@ export default {
         return false
       }
     },
-    afterQRScan() {
-      // const hash = window.location.hash.slice(1)
-      // const hashObj = getQueryObject(hash)
-      // const originUrl = window.location.origin
-      // history.replaceState({}, '', originUrl)
-      // const codeMap = {
-      //   wechat: 'code',
-      //   tencent: 'code'
-      // }
-      // const codeName = hashObj[codeMap[this.auth_type]]
-      // if (!codeName) {
-      //   alert('第三方登录失败')
-      // } else {
-      //   this.$store.dispatch('LoginByThirdparty', codeName).then(() => {
-      //     this.$router.push({ path: '/' })
-      //   })
-      // }
+    socialLogin(type) {
+      if (type === 'wechat') {
+        this.wx.flag = true
+      }
     }
   }
 }

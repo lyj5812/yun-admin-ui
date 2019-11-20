@@ -366,7 +366,7 @@ import {
 export default {
   data() {
     return {
-      dictTypePage: [],
+      dictTypePage: {},
       dictDataList: [],
       expanded: [],
       selected: [],
@@ -470,7 +470,6 @@ export default {
           dictTypeDelList(types).then(res => {
             if (res.data.code === 200) {
               this.message.success(res.data.msg)
-              this.delFlag = false
               this.dictTypeListPage(this.dictTypePage)
             } else {
               this.message.error(res.data.msg)

@@ -4,6 +4,24 @@
       <v-menu v-model="menu" attach offset-y :close-on-content-click="false">
         <template v-slot:activator="{ on }">
           <v-text-field
+            v-if="required"
+            v-model="value"
+            :prepend-inner-icon="value"
+            :disabled="disabled"
+            label="节点图标"
+            class="small"
+            outlined
+            hide-details
+            clearable
+            :rules="[v => !!v || '请输入图标!']"
+            v-on="on"
+          >
+            <template v-slot:prepend>
+              <small class="red-text my-4">*</small>
+            </template>
+          </v-text-field>
+          <v-text-field
+            v-else
             v-model="value"
             :prepend-inner-icon="value"
             :disabled="disabled"
@@ -14,6 +32,7 @@
             clearable
             v-on="on"
           />
+
         </template>
         <v-tabs v-model="tabs">
 
@@ -127,6 +146,10 @@ export default {
       default: ''
     },
     disabled: {
+      type: Boolean,
+      default: false
+    },
+    required: {
       type: Boolean,
       default: false
     }

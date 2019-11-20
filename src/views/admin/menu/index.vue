@@ -58,7 +58,11 @@
                 label="父节点ID"
                 class="small"
                 outlined
-              />
+              >
+                <template v-slot:prepend>
+                  <small class="red-text my-4">*</small>
+                </template>
+              </v-text-field>
             </v-col>
             <v-col
               cols="12"
@@ -71,7 +75,11 @@
                 label="节点ID"
                 class="small"
                 outlined
-              />
+              >
+                <template v-slot:prepend>
+                  <small class="red-text my-4">*</small>
+                </template>
+              </v-text-field>
             </v-col>
             <v-col
               cols="12"
@@ -80,13 +88,17 @@
             >
               <v-text-field
                 v-model="menu.name"
+                label="节点名称："
                 :disabled="disabledFlag"
                 :rules="[v => !!v || '请输入名称!']"
-                label="节点名称"
                 class="small"
                 outlined
                 clearable
-              />
+              >
+                <template v-slot:prepend>
+                  <small class="red-text my-4">*</small>
+                </template>
+              </v-text-field>
             </v-col>
             <v-col
               cols="12"
@@ -96,7 +108,7 @@
               <v-radio-group
                 v-model="menu.menuType"
                 label="节点类型："
-                class="mt-1 ml-5"
+                class="mt-2 ml-5"
                 :disabled="disabledFlag"
                 :rules="[v => !!v || '请选择类型!']"
                 row
@@ -126,7 +138,11 @@
                 class="small"
                 outlined
                 clearable
-              />
+              >
+                <template v-slot:prepend>
+                  <small class="red-text my-4">*</small>
+                </template>
+              </v-text-field>
             </v-col>
             <v-col
               cols="12"
@@ -135,7 +151,7 @@
             >
               <v-switch
                 v-model="menu.hidden"
-                class="mt-1 ml-5"
+                class="mt-2 ml-5"
                 label="隐藏"
                 color="primary"
                 inset
@@ -149,7 +165,7 @@
               lg="12"
               xs="12"
             >
-              <icon-field v-model="menu.icon" :disabled="disabledFlag" />
+              <icon-field v-model="menu.icon" :disabled="disabledFlag" required />
             </v-col>
 
             <v-col
@@ -166,7 +182,11 @@
                 :rules="[v => !!v || '请输入标识!']"
                 outlined
                 clearable
-              />
+              >
+                <template v-slot:prepend>
+                  <small class="red-text my-4">*</small>
+                </template>
+              </v-text-field>
             </v-col>
             <v-col
               cols="12"
@@ -187,9 +207,9 @@
                     bottom
                   >
                     <template v-slot:activator="{ on }">
-                      <v-icon v-on="on">mdi-help-circle-outline</v-icon>
+                      <v-icon class="my-2 ml-1" v-on="on">mdi-help-circle-outline</v-icon>
                     </template>
-                    vue文件在项目中相对views的路径
+                    vue文件在项目中相对views的路径,目录可不输
                   </v-tooltip>
                 </template>
               </v-text-field>
@@ -213,7 +233,8 @@
                     bottom
                   >
                     <template v-slot:activator="{ on }">
-                      <v-icon v-on="on">mdi-help-circle-outline</v-icon>
+                      <small class="red-text my-4">*</small>
+                      <v-icon class="my-1" v-on="on">mdi-help-circle-outline</v-icon>
                     </template>
                     菜单在地址栏显示的路径，推荐父菜单路径+子路径
                   </v-tooltip>

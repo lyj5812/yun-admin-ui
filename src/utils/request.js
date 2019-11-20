@@ -34,6 +34,9 @@ service.interceptors.response.use(
     } else if (res.data.code && res.data.code === 401) {
       const msg = res.data.msg
       Message.error('登录过期，请重新登录！')
+      store.dispatch('user/logout').then(() => {
+        location.reload() // 重新实例化vue-router对象
+      })
       return Promise.reject(new Error(msg))
     } else if (res.data.code && res.data.code !== 200) {
       const msg = res.data.msg
@@ -47,6 +50,9 @@ service.interceptors.response.use(
     console.log(error.response) // for debug
     if (error.response.status === 401) {
       Message.error('登录过期，请重新登录！')
+      store.dispatch('user/logout').then(() => {
+        location.reload() // 重新实例化vue-router对象
+      })
     } else {
       Message.error(error.response.data.error || error.response.data.msg)
       return Promise.reject(error)

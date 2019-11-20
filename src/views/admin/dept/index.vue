@@ -58,7 +58,11 @@
                 label="父部门ID"
                 class="small"
                 outlined
-              />
+              >
+                <template v-slot:prepend>
+                  <small class="red-text my-4">*</small>
+                </template>
+              </v-text-field>
             </v-col>
             <v-col
               cols="12"
@@ -71,7 +75,11 @@
                 label="部门ID"
                 class="small"
                 outlined
-              />
+              >
+                <template v-slot:prepend>
+                  <small class="red-text my-4">*</small>
+                </template>
+              </v-text-field>
             </v-col>
             <v-col
               cols="12"
@@ -86,7 +94,11 @@
                 class="small"
                 outlined
                 clearable
-              />
+              >
+                <template v-slot:prepend>
+                  <small class="red-text my-4">*</small>
+                </template>
+              </v-text-field>
             </v-col>
             <v-col
               cols="12"
@@ -97,7 +109,7 @@
                 v-model="dept.leader"
                 :disabled="disabledFlag"
                 label="负责人"
-                class="small"
+                class="small ml-4"
                 outlined
                 clearable
               />
@@ -111,7 +123,7 @@
                 v-model="dept.phone"
                 :disabled="disabledFlag"
                 label="联系电话"
-                class="small"
+                class="small ml-4"
                 outlined
                 clearable
               />
@@ -125,7 +137,7 @@
                 v-model="dept.email"
                 :disabled="disabledFlag"
                 label="邮箱"
-                class="small"
+                class="small ml-4"
                 outlined
                 clearable
               />
@@ -140,7 +152,7 @@
                 :disabled="disabledFlag"
                 label="排序号"
                 type="number"
-                class="small"
+                class="small ml-4"
                 outlined
                 clearable
               />
@@ -153,7 +165,7 @@
               <v-radio-group
                 v-model="dept.status"
                 label="部门状态"
-                class="mt-1 ml-5"
+                class="mt-2 ml-5"
                 :disabled="disabledFlag"
                 :rules="[v => !!v || '请选择状态!']"
                 row

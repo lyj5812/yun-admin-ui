@@ -154,7 +154,11 @@
                     clearable
                     :rules="[v => !!v || '请输入名称!']"
                     label="角色名称"
-                  />
+                  >
+                    <template #prepend>
+                      <small class="red-text my-4">*</small>
+                    </template>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="12" xs="12">
                   <v-text-field
@@ -164,7 +168,11 @@
                     clearable
                     :rules="[v => !!v || '请输入字符!']"
                     label="权限字符"
-                  />
+                  >
+                    <template #prepend>
+                      <small class="red-text my-4">*</small>
+                    </template>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="12" xs="12" sm="6">
                   <v-text-field
@@ -175,7 +183,11 @@
                     :rules="[v => !!v || '请输入顺序!']"
                     label="显示顺序"
                     type="number"
-                  />
+                  >
+                    <template #prepend>
+                      <small class="red-text my-4">*</small>
+                    </template>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="12" xs="12" offset-sm="1" sm="5">
                   <v-switch
@@ -184,24 +196,23 @@
                     color="primary"
                     inset
                     value="0"
-                    :rules="[v => !!v || '请输入状态!']"
                     false-value="1"
                     true-value="0"
                     hide-details
-                    class="mt-1 mb-6"
+                    class="mt-2 mb-6"
                   />
                 </v-col>
                 <v-col cols="12" xs="12">
                   <v-text-field
                     v-model="role.remark"
-                    class="small"
+                    class="small ml-4"
                     outlined
                     clearable
                     label="备注"
                   />
                 </v-col>
                 <v-col cols="12" xs="12">
-                  <menu-tree ref="menuTree" v-model="role.menuIds" :selectable="true" />
+                  <menu-tree ref="menuTree" v-model="role.menuIds" class="ml-4" :selectable="true" />
                 </v-col>
               </v-row>
 
@@ -233,7 +244,7 @@ export default {
   },
   data() {
     return {
-      rolePage: [],
+      rolePage: {},
       selected: [],
       selectedTemp: [],
       editFlag: false,
@@ -332,7 +343,8 @@ export default {
         buttons: ['取消', '确认']
       }).then((flag) => {
         if (flag) {
-          deleteList(roles).then(res => {
+          const ids = roles.map((n) => { return n.roleId })
+          deleteList(ids).then(res => {
             if (res.data.code === 200) {
               this.message.success(res.data.msg)
               this.getRoleListPage(this.rolePage)

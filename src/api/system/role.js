@@ -3,8 +3,8 @@ import request from '@/utils/request'
 export function roleListPage(data) {
   return request({
     url: '/admin-server/role/roleListPage',
-    method: 'post',
-    data
+    method: 'get',
+    params: data
   })
 }
 

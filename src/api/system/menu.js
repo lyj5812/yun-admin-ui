@@ -1,8 +1,22 @@
 import request from '@/utils/request'
 
+export function getMenus() {
+  return request({
+    url: '/admin-server/menu',
+    method: 'get'
+  })
+}
+
 export function menuList() {
   return request({
     url: '/admin-server/menu/menuList',
+    method: 'get'
+  })
+}
+
+export function getMenuById(menuId) {
+  return request({
+    url: '/admin-server/menu/getMenuById/' + menuId,
     method: 'get'
   })
 }
