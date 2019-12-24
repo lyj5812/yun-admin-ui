@@ -1,12 +1,15 @@
 @charset "UTF-8";
 
-@import 'components/transition';
-@import 'theme/field';
-@import 'theme/treeview';
-@import 'theme/scroll';
-
 /*theme*/
-@import './theme/color';
-@import './theme/navbar';
-@import './theme/mixins';
-@import './theme/theme-builder';
+@import 'theme/transition';
+@import 'theme/color';
+@import 'theme/mixins';
+@import 'components/navbar';
+@import 'theme/theme-builder';
+
+@import 'common/common';
+
+@import 'components/field';
+@import 'components/treeview';
+@import 'components/scroll';
+

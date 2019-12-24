@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from '@/store'
-import Message from '@/components/message'
+import Message from '@/components/Message'
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // api 的 base_url

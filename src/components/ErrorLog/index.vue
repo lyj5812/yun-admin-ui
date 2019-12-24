@@ -13,7 +13,7 @@
             <div>
               <span class="message-title">Msg:</span>
               <el-tag type="danger">
-                {{ row.err.message }}
+                {{ row.err.index }}
               </el-tag>
             </div>
             <br>

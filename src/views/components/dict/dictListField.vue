@@ -7,11 +7,11 @@
         :items="items"
         class="small"
         outlined
-        clearable
+        :clearable="clearable"
         :rules="[v => !!v || '请输入状态!']"
         item-text="dictLabel"
         item-value="dictValue"
-        :label="dictName"
+        label="字典类型"
         hide-details
         :menu-props="{ offsetY: true }"
         @input="dictChange()"
@@ -26,10 +26,10 @@
         :items="items"
         class="small"
         outlined
-        clearable
-        item-text="dictLabel"
-        item-value="dictValue"
-        :label="dictName"
+        :clearable="clearable"
+        item-text="dictName"
+        item-value="dictType"
+        label="字典类型"
         hide-details
         :menu-props="{ offsetY: true }"
         @input="dictChange()"
@@ -39,18 +39,14 @@
 </template>
 
 <script>
-import { dictDataList, dictType } from '@/api/system/dict'
+import { dictTypeList } from '@/api/system/dict'
 export default {
-  name: 'Dict',
+  name: 'DictListField',
   model: {
-    prop: 'dictValue',
+    prop: 'dictType',
     event: 'selected'
   },
   props: {
-    dictValue: {
-      type: String,
-      default: null
-    },
     dictType: {
       type: String,
       default: null
@@ -58,12 +54,15 @@ export default {
     required: {
       type: Boolean,
       default: false
+    },
+    clearable: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       items: [],
-      dictName: null,
       value: null
     }
   },
@@ -71,24 +70,18 @@ export default {
     value(newVal, oldVal) {
       this.$emit('selected', this.value)
     },
-    dictValue(newVal, oldVal) {
+    dictType(newVal, oldVal) {
       this.value = newVal
     }
   },
   created() {
-    this.value = this.dictValue
-    this.getDictDataList()
-    this.getDictType()
+    this.value = this.dictType
+    this.getDictTypeList()
   },
   methods: {
-    getDictDataList() {
-      dictDataList({ dictType: this.dictType }).then(res => {
+    getDictTypeList() {
+      dictTypeList().then(res => {
         this.items = res.data.data
-      })
-    },
-    getDictType() {
-      dictType(this.dictType).then(res => {
-        this.dictName = res.data.data.dictName
       })
     },
     dictChange() {

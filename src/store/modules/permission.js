@@ -1,37 +1,31 @@
 import { constantRoutes } from '@/router'
 import Layout from '@/layout'
-import { validateURL } from '@/utils/validate'
 import store from '@/store'
-const importVue = require('../../router/import') // 获取组件的方法
 
-/**
- * 递归过滤异步路由表
- * @param menus
- */
-function filterAsyncRouter(menus, routers) {
-  menus.forEach(menu => {
-    if (menu.hasOwnProperty('children')) {
-      filterAsyncRouter(menu.children, routers)
-    } else {
-      const temp = {}
-      temp.path = menu.path
-      if (validateURL(menu.component)) {
-        temp.component = require('@/layout/components/IFrame.vue').default
-        const iframe = { 'path': menu.path, 'url': menu.component }
+// 遍历路由，转换组件对象
+function filterAsyncRouter(asyncRouterMap) {
+  return asyncRouterMap.filter(route => {
+    if (route.component) {
+      // Layout组件特殊处理
+      if (route.component === 'Layout') {
+        route.component = Layout
+      } else if (route.iframe) {
+        const iframe = { 'path': route.path, 'url': route.component }
         store.commit('addIFrameUrl', iframe)
+        route.component = require('@/layout/components/IFrame.vue').default
       } else {
-        temp.component = importVue(menu.component)
+        route.component = require(`@/views${route.component}`).default
       }
-      temp.name = menu.name
-      temp.icon = menu.icon
-      routers.push(temp)
     }
+    if (route.children) {
+      route.children = filterAsyncRouter(route.children)
+    }
+    return true
   })
 }
 
 const state = {
   routes: [],
-  menus: [],
   addRoutes: []
 }
 
@@ -40,30 +34,13 @@ const mutations = {
     state.addRoutes = routes
     routes.push({ path: '*', redirect: '/404', hidden: true })
     state.routes = constantRoutes.concat(routes)
-  },
-  SET_MENUS: (state, menus) => {
-    const temp = []
-    constantRoutes.forEach(route => {
-      if (!route.hidden) {
-        route.children.forEach(childRoute => {
-          temp.push(childRoute)
-        })
-      }
-    })
-    state.menus = temp.concat(menus)
   }
 }
 
 const actions = {
   generateRoutes({ commit }, menus) {
     return new Promise(resolve => {
-      commit('SET_MENUS', menus)
-      const routers = [{
-        path: '/',
-        component: Layout,
-        children: []
-      }]
-      filterAsyncRouter(menus, routers[0].children)
+      const routers = filterAsyncRouter(menus)
       commit('SET_ROUTES', routers)
       resolve(routers)
     })

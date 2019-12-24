@@ -1,7 +1,7 @@
 <template>
   <v-scroll>
-    <v-list class="myMenu yun-sidebar" dense shaped>
-      <sidebar-item v-for="route in menus" :key="route.path" :item="route" />
+    <v-list class="myMenu yun-sidebar" dense rounded>
+      <sidebar-item v-for="route in routers" :key="route.path" :item="route" />
     </v-list>
   </v-scroll>
 </template>
@@ -13,7 +13,7 @@ export default {
   components: { SidebarItem },
   computed: {
     ...mapGetters({
-      menus: 'permission/menus'
+      routers: 'permission_routers'
     })
   }
 }

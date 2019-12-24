@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Message from './message.vue'
+import Message from './index.vue'
 
 const MessageBox = Vue.extend(Message)
 
@@ -21,7 +21,7 @@ Message.install = function(options, type) {
     data: options
   }).$mount()
 
-  document.body.appendChild(instance.$el)
+  document.getElementById('app').appendChild(instance.$el)
 
   Vue.nextTick(() => {
     instance.visible = true

@@ -69,7 +69,7 @@ const actions = {
         commit('SET_NAME', sysUser.realName)
         commit('SET_AVATAR', sysUser.avatar)// 头像
         commit('SET_INTRODUCTION', sysUser.remark)
-        resolve()
+        resolve(roleKeys)
       }).catch(error => {
         reject(error)
       })

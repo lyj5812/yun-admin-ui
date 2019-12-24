@@ -1,19 +1,31 @@
 <template>
-  <v-navigation-drawer id="appDrawer" v-model="drawer" :dark="navColor.dark" :class="[$vuetify.theme.dark?'':navColor.class,'elevation-3']" app :mini-variant.sync="mini" fixed>
-    <v-row class="pa-2 elevation-1">
-      <v-avatar class="ml-3">
-        <v-img lazy-src="https://vuetifyjs.com/apple-touch-icon-180x180.png" src="https://vuetifyjs.com/apple-touch-icon-180x180.png" />
-      </v-avatar>
-      <v-toolbar-title class="pl-2">
-        <v-list-item v-if="!mini" class="hidden-xs-and-down font-weight-regular">
-          YUN Admin
-          <v-btn x-small text icon class="ml-3" @click="mini=!mini">
-            <v-icon small>radio_button_checked</v-icon>
-          </v-btn>
+  <v-navigation-drawer
+    id="appDrawer"
+    v-model="drawer"
+    :expand-on-hover="navMini"
+    :dark="navColor.dark"
+    :class="[$vuetify.theme.dark?'':navColor.class,'nav-box']"
+    app
+    :mini-variant="navMini"
+    fixed
+  >
+    <v-toolbar-title dense flat class="text-xs-center z-index-2">
+      <v-list>
+        <v-list-item>
+          <v-list-item-avatar tile>
+            <v-img
+              max-width="30"
+              max-height="30"
+              lazy-src="https://pixinvent.com/demo/convex-angular-bootstrap-admin-dashboard-template/demo-1/assets/img/logo.png"
+              src="https://pixinvent.com/demo/convex-angular-bootstrap-admin-dashboard-template/demo-1/assets/img/logo.png"
+            />
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title class="title">Yun Admin</v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
-      </v-toolbar-title>
-    </v-row>
-    <v-divider />
+      </v-list>
+    </v-toolbar-title>
     <!--侧边栏-->
     <sidebar />
   </v-navigation-drawer>
@@ -29,11 +41,11 @@ export default {
   },
   data() {
     return {
-      mini: false
+      vuetify: this.$vuetify
     }
   },
   computed: {
-    ...mapGetters('app', ['navDrawer', 'navColor']),
+    ...mapGetters('app', ['navDrawer', 'navMini', 'navColor']),
     drawer: {
       get() {
         return this.navDrawer
@@ -61,5 +73,8 @@ export default {
   #appDrawer >>> .v-btn.v-btn--icon, .v-toolbar__extension .v-btn.v-btn--icon {
     height: auto;
     width: auto;
+  }
+  .nav-box{
+    box-shadow: 0 6px 6px -3px rgba(0,0,0,.2),0 10px 14px 1px rgba(0,0,0,.14),0 4px 18px 3px rgba(0,0,0,.12)!important;
   }
 </style>

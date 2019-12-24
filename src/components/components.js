@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Pagination from '@/components/Pagination' // 分页组件
 import Dict from '@/views/components/dict' // 字典组件
-import Message from '@/components/message'
+import Message from '@/components/Message/index.js'
 import permission from '@/directive/permission/index.js' // 按钮权限
 import vuescroll from 'vuescroll'
 import 'sweetalert'
@@ -36,9 +36,10 @@ Vue.use(permission)
 
 Vue.component('Pagination', Pagination)
 Vue.component('Dict', Dict)
-
-Vue.prototype.message = Message.install
-Vue.prototype.message.error = Message.error
-Vue.prototype.message.success = Message.success
-Vue.prototype.message.warning = Message.warning
-Vue.prototype.message.info = Message.info
+import CKEditor from '@ckeditor/ckeditor5-vue'
+Vue.use(CKEditor)
+Vue.prototype.$message = Message.install
+Vue.prototype.$message.error = Message.error
+Vue.prototype.$message.success = Message.success
+Vue.prototype.$message.warning = Message.warning
+Vue.prototype.$message.info = Message.info

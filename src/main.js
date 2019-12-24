@@ -9,6 +9,7 @@ import './utils/error-log' // error log
 import './components/components'
 import * as filters from './filters' // global filters
 import vuetify from './plugins/vuetify'
+
 // register global utility filters
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

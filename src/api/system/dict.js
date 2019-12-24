@@ -24,10 +24,11 @@ export function dictTypeDelList(data) {
   })
 }
 
-export function dictDataList(dictType) {
+export function dictDataList(data) {
   return request({
-    url: '/admin-server/dict/dictDataList/' + dictType,
-    method: 'get'
+    url: '/admin-server/dict/dictDataList',
+    method: 'post',
+    data
   })
 }
 
@@ -51,5 +52,12 @@ export function dictDataDel(data) {
     url: '/admin-server/dict/dictDataDel',
     method: 'delete',
     data
+  })
+}
+
+export function dictTypeList() {
+  return request({
+    url: '/admin-server/dict/dictTypeList',
+    method: 'get'
   })
 }

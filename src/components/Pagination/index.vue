@@ -1,5 +1,5 @@
 <template>
-  <v-layout v-if="pageData.total>0" class="page" justify-center pa-3 row>
+  <v-row v-if="pageData.total>0" justify="center" class="page">
     <span class="my-5 page-total hidden-sm-and-down">共{{ pageData.total }}条</span>
     <v-select
       v-model="pagination.pageSize"
@@ -28,7 +28,7 @@
       @keyup.enter="toPage()"
     />
     <span class="my-5 page-total ml-2 hidden-sm-and-down">页</span>
-  </v-layout>
+  </v-row>
 </template>
 <script>
 export default {

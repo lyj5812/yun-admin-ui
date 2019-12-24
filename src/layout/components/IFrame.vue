@@ -21,7 +21,6 @@ export default {
   },
   mounted() {
     this.resetSrc(this.$store.state.iframe.iframeUrls)
-    console.log(this.$refs.iframe)
   },
   methods: {
     // 获取路径
@@ -29,7 +28,9 @@ export default {
       const that = this
       if (arr.length > 0) {
         const iframe = arr.find((element) => (element.path === that.$route.path))
-        that.src = iframe.url
+        if (iframe) {
+          that.src = iframe.url
+        }
       }
     }
   }

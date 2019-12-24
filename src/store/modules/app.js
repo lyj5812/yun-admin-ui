@@ -4,6 +4,7 @@ import localStorage from '@/utils/localStorage'
 const state = {
   language: getLanguage(),
   navDrawer: true,
+  navMini: false,
   navColor: localStorage.get('navColor') || {
     name: 'deep-purple-blue',
     dark: true,
@@ -31,6 +32,9 @@ const mutations = {
   SET_NAV_DRAWER: (state, navDrawer) => {
     state.navDrawer = navDrawer
   },
+  SET_NAV_MINI: (state, navMini) => {
+    state.navMini = navMini
+  },
   SET_NAV_COLOR: (state, navColor) => {
     state.navColor = navColor
   },
@@ -52,6 +56,9 @@ const actions = {
   setNavDrawer({ commit }, navDrawer) {
     commit('SET_NAV_DRAWER', navDrawer)
   },
+  setNavMini({ commit }, navMini) {
+    commit('SET_NAV_MINI', navMini)
+  },
   setNavColor({ commit }, navColor) {
     localStorage.set('navColor', navColor)
 
@@ -72,6 +79,7 @@ const actions = {
 
 const getters = {
   navDrawer: state => state.navDrawer,
+  navMini: state => state.navMini,
   navColor: state => state.navColor,
   toolColor: state => state.toolColor,
   settingDrawer: state => state.settingDrawer,

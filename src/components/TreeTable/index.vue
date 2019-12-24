@@ -1,6 +1,8 @@
 <template>
   <div class="px-4">
-    <v-divider />
+    <v-list-item class="px-2 mb-n5">
+      <v-divider />
+    </v-list-item>
     <v-list-item>
       <v-list-item-content
         v-for="(header, index) in headers"
@@ -55,7 +57,7 @@
                 <v-btn v-if="index===0&&!leaf&&open" text icon @click="openAndClose(item)">
                   <v-icon>keyboard_arrow_down</v-icon>
                 </v-btn>
-                <slot :item="item" :name="header.value">
+                <slot :item="item" :name="'item.'+header.value">
                   {{ item[header.value] }}
                 </slot>
               </span>

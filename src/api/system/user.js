@@ -37,3 +37,19 @@ export function checkUsername(username) {
     method: 'get'
   })
 }
+
+export function editPwd(data) {
+  return request({
+    url: '/admin-server/user/editPwd',
+    method: 'put',
+    params: data
+  })
+}
+
+export function userEdit(data) {
+  return request({
+    url: '/admin-server/user/edit',
+    method: 'put',
+    data
+  })
+}

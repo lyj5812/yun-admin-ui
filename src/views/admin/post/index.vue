@@ -1,119 +1,120 @@
 <template>
   <div>
-    <v-card class="elevation-4">
-      <v-row class="pa-5 ml-3">
-        <v-col cols="12" xs="12" lg="2">
-          <v-text-field
-            v-model="page.postName"
-            label="岗位名称"
-            class="small"
-            outlined
-            clearable
-            hide-details
-          />
-        </v-col>
-        <v-col cols="12" xs="12" lg="2" offset-lg="1">
-          <v-text-field
-            v-model="page.postCode"
-            label="岗位编码"
-            class="small"
-            outlined
-            clearable
-            hide-details
-          />
-        </v-col>
+    <v-card class="br-6 box-shadow mt-3 pt-5">
+      <v-card-title class="b-left">角色管理</v-card-title>
+      <v-card-text>
+        <v-data-table
+          v-model="selected"
+          :headers="th"
+          :items="postPage.records"
+          hide-default-footer
+          show-select
+          item-key="postId"
+          :loading="dataFlag"
+          loading-text="加载中... 请稍后！"
+        >
+          <template v-if="postPage.records&&postPage.records.length===0" v-slot:body>
+            <td :colspan="th.length+1">
+              <v-row justify="center">
+                <v-img max-height="200" class="ma-4" max-width="200" :src="require('@/assets/images/table/no-data.svg')" />
+              </v-row>
+            </td>
+          </template>
+          <template v-slot:top>
+            <v-row>
+              <v-col cols="12" xs="12" sm="12" lg="5">
+                <v-btn rounded small color="success" @click="postListPageData">
+                  <v-icon dark>mdi-sync</v-icon>
+                </v-btn>
+                <v-btn v-perms="['system:post:add']" class="ml-2" rounded small color="primary" @click="addOrEdit({})">
+                  <v-icon dark>add</v-icon>
+                </v-btn>
+                <v-btn
+                  v-perms="['system:post:export']"
+                  rounded
+                  small
+                  color="info"
+                  class="ml-2"
+                  :disabled="selected.length<1"
+                  @click="exportExcel()"
+                >
+                  <v-icon dark>mdi-export-variant</v-icon>
+                </v-btn>
+                <v-btn
+                  v-perms="['system:post:edit']"
+                  rounded
+                  small
+                  color="warning"
+                  class="ml-2"
+                  :disabled="selected.length!=1"
+                  @click="addOrEdit(selected[0])"
+                >
+                  <v-icon dark>edit</v-icon>
+                </v-btn>
+                <v-btn
+                  v-perms="['system:post:del']"
+                  rounded
+                  small
+                  color="error"
+                  class="ml-2"
+                  :disabled="selected.length<1"
+                  @click="delPost(selected)"
+                >
+                  <v-icon dark>delete</v-icon>
+                </v-btn>
+              </v-col>
+              <v-col cols="12" xs="12" lg="2">
+                <v-text-field
+                  v-model="page.postName"
+                  label="岗位名称"
+                  class="small mt-n3"
+                  outlined
+                  clearable
+                  hide-details
+                />
+              </v-col>
+              <v-col cols="12" xs="12" lg="2">
+                <v-text-field
+                  v-model="page.postCode"
+                  label="岗位编码"
+                  class="small mt-n3"
+                  outlined
+                  clearable
+                  hide-details
+                />
+              </v-col>
 
-        <v-col cols="12" xs="12" lg="2" offset-lg="1">
-          <dict v-model="page.status" dict-type="post_status" />
-        </v-col>
+              <v-col cols="12" xs="12" lg="2">
+                <dict v-model="page.status" dict-type="post_status" class="mt-n3" />
+              </v-col>
 
-        <v-col cols="12" xs="12" lg="2" offset-lg="1" offset-xs="9">
-          <v-btn v-perms="['system:post:search']" small class="mt-1" color="primary" dark @click="postListPageData()">
-            <v-icon dark>search</v-icon>
-            搜索
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-card>
-    <v-card class="elevation-4 mt-3">
-      <v-data-table
-        v-model="selected"
-        :headers="th"
-        :items="postPage.records"
-        hide-default-footer
-        show-select
-        item-key="postId"
-        :loading="dataFlag"
-        loading-text="加载中... 请稍后！"
-      >
-        <template v-if="postPage.records&&postPage.records.length===0" v-slot:body>
-          <td :colspan="th.length+1">
-            <v-row justify="center">
-              <v-img max-height="200" class="ma-4" max-width="200" :src="require('@/assets/images/table/no-data.svg')" />
+              <v-col cols="12" xs="12" lg="1" offset-xs="9">
+                <v-btn v-perms="['system:post:search']" small color="primary" dark @click="postListPageData()">
+                  <v-icon dark>search</v-icon>
+                  搜索
+                </v-btn>
+              </v-col>
             </v-row>
-          </td>
-        </template>
-        <template v-slot:top>
-          <v-toolbar flat>
-            <v-btn rounded small color="success" @click="postListPageData">
-              <v-icon dark>mdi-sync</v-icon>
+            <v-divider />
+          </template>
+          <template v-slot:item.status="{ item }">
+            {{ item.status==0?'正常':'停用' }}
+          </template>
+          <template v-slot:item.handle="{ item }">
+            <v-btn v-perms="['system:post:edit']" fab x-small class="mt-2 mb-2" color="success" @click="addOrEdit(item)">
+              <v-icon dark>fa fa-pencil</v-icon>
             </v-btn>
-            <v-btn v-perms="['system:post:add']" class="ml-2" rounded small color="primary" @click="addOrEdit({})">
-              <v-icon dark>add</v-icon>
+            <v-btn v-perms="['system:post:del']" fab x-small class="mt-2 mb-2" color="error" @click="delPost([item])">
+              <v-icon dark>fa fa-trash-o</v-icon>
             </v-btn>
-            <v-btn
-              v-perms="['system:post:export']"
-              rounded
-              small
-              color="info"
-              class="ml-2"
-              :disabled="selected.length<1"
-              @click="exportExcel()"
-            >
-              <v-icon dark>mdi-export-variant</v-icon>
-            </v-btn>
-            <v-btn
-              v-perms="['system:post:edit']"
-              rounded
-              small
-              color="warning"
-              class="ml-2"
-              :disabled="selected.length!=1"
-              @click="addOrEdit(selected[0])"
-            >
-              <v-icon dark>edit</v-icon>
-            </v-btn>
-            <v-btn
-              v-perms="['system:post:del']"
-              rounded
-              small
-              color="error"
-              class="ml-2"
-              :disabled="selected.length<1"
-              @click="delPost(selected)"
-            >
-              <v-icon dark>delete</v-icon>
-            </v-btn>
-          </v-toolbar>
-          <v-divider />
-        </template>
-        <template v-slot:item.status="{ item }">
-          {{ item.status==0?'正常':'停用' }}
-        </template>
-        <template v-slot:item.handle="{ item }">
-          <v-btn v-perms="['system:post:edit']" fab x-small class="mt-2 mb-2" color="warning" @click="addOrEdit(item)">
-            <v-icon dark>edit</v-icon>
-          </v-btn>
-          <v-btn v-perms="['system:post:del']" fab x-small class="mt-2 mb-2" color="error" @click="delPost([item])">
-            <v-icon dark>delete</v-icon>
-          </v-btn>
-        </template>
-      </v-data-table>
-      <pagination
-        :page-sizes="[10,20]"
-        :page-data="postPage"
-        @pageChange="postListPage"
-      />
+          </template>
+        </v-data-table>
+        <pagination
+          :page-sizes="[10,20]"
+          :page-data="postPage"
+          @pageChange="postListPage"
+        />
+      </v-card-text>
     </v-card>
     <!--岗位添加修改-->
     <v-form ref="post" :model="post">
@@ -280,11 +281,11 @@ export default {
       if (this.$refs.post.validate()) {
         addOrEdit(this.post).then(res => {
           if (res.data.code === 200) {
-            this.message.success(res.data.msg)
+            this.index.success(res.data.msg)
             this.editFlag = false
             this.postListPageData()
           } else {
-            this.message.error(res.data.msg)
+            this.index.error(res.data.msg)
           }
         })
       } else {
@@ -303,10 +304,10 @@ export default {
         if (flag) {
           deleteList(posts).then(res => {
             if (res.data.code === 200) {
-              this.message.success(res.data.msg)
+              this.index.success(res.data.msg)
               this.postListPageData()
             } else {
-              this.message.error(res.data.msg)
+              this.index.error(res.data.msg)
             }
           })
         }

@@ -44,13 +44,13 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'App',
-  computed: {
-    ...mapGetters('app', ['primaryColor', 'navColor'])
-  },
   data() {
     return {
       vuetify: this.$vuetify
     }
+  },
+  computed: {
+    ...mapGetters('app', ['primaryColor', 'navColor'])
   }
 }
 </script>

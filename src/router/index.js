@@ -43,15 +43,44 @@ export const constantRoutes = [
     hidden: true
   },
   {
-    path: '',
+    path: '/',
     component: Layout,
     redirect: 'dashboard',
+    name: '首页',
+    meta: { title: '首页', icon: 'dashboard', noCache: true, affix: true },
     children: [
       {
         path: '/dashboard',
         component: () => import('@/views/dashboard/index'),
         name: '首页',
-        icon: 'dashboard'
+        meta: { title: '首页', icon: 'dashboard', noCache: true, affix: true }
+      }
+    ]
+  },
+  {
+    path: '/user',
+    component: Layout,
+    hidden: true,
+    redirect: 'noredirect',
+    children: [
+      {
+        path: 'profile',
+        component: () => import('@/views/admin/user/profile/index'),
+        name: '个人中心',
+        meta: { title: '个人中心', icon: 'user' }
+      }
+    ]
+  },
+  {
+    path: '/dict',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/dictData/:dictType(\\w+)',
+        component: () => import('@/views/admin/dict/data'),
+        name: '字典数据',
+        meta: { title: '字典数据', icon: '' }
       }
     ]
   }

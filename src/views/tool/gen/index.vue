@@ -425,7 +425,7 @@ export default {
           this.dataFlag = true
           this.dataTables = res.data.data
         } else {
-          this.message.error('连接失败')
+          this.index.error('连接失败')
         }
       })
     },

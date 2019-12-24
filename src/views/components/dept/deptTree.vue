@@ -140,8 +140,8 @@ export default {
 
   methods: {
     /**
-       * 菜单树数据
-       */
+     * 部门树数据
+     */
     getDeptList() {
       deptList().then(res => {
         this.depts = res.data.data

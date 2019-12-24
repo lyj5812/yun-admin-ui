@@ -1,128 +1,131 @@
 <template>
   <v-row>
     <v-col cols="12" lg="3" xs="12">
-      <v-card class="pa-2 elevation-4">
-        <dept-tree
-          :open-flag="true"
-          tree="tree"
-          @clickNode="selectdItem"
-        />
+      <v-card class="br-6 box-shadow py-4">
+        <v-card-title class="b-left">部门列表</v-card-title>
+        <v-card-text>
+          <dept-tree
+            :open-flag="true"
+            tree="tree"
+            @clickNode="selectdItem"
+          />
+        </v-card-text>
       </v-card>
     </v-col>
     <v-col cols="12" lg="9" xs="12">
-      <v-card class="elevation-4">
-        <v-row class="pa-5 ml-3">
-          <v-col cols="12" xs="12" lg="2">
-            <v-text-field
-              v-model="page.username"
-              class="small"
-              label="登录名称"
-              outlined
-              hide-details
-              clearable
-            />
-          </v-col>
-          <v-col cols="12" xs="12" lg="2" offset-lg="1">
-            <v-text-field
-              v-model="page.phonenumber"
-              class="small"
-              label="手机号码"
-              outlined
-              hide-details
-              clearable
-            />
-          </v-col>
-          <v-col cols="12" xs="12" lg="2" offset-lg="1">
-            <dict v-model="page.status" dict-type="role_status" />
-          </v-col>
-          <v-col cols="12" xs="12" lg="2" offset-lg="1" offset-xs="9">
-            <v-btn v-perms="['system:user:search']" small color="primary" class="mt-1" dark @click="getUserListPageData()">
-              <v-icon dark>search</v-icon>
-              搜索
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-card>
-      <v-card class="mt-2 elevation-4">
-        <v-data-table
-          v-model="selected"
-          :headers="th"
-          :items="userPageData.records"
-          hide-default-footer
-          show-select
-          item-key="userId"
-          :loading="dataFlag"
-          loading-text="加载中... 请稍后！"
-        >
-          <template v-if="userPageData.records&&userPageData.records.length===0" v-slot:body>
-            <td :colspan="th.length+1">
-              <v-row justify="center">
-                <v-img max-height="200" class="ma-4" max-width="200" :src="require('@/assets/images/table/no-data.svg')" />
+      <v-card class="br-6 box-shadow pt-5">
+        <v-card-title class="b-left">用户列表</v-card-title>
+        <v-card-text>
+          <v-data-table
+            v-model="selected"
+            :headers="th"
+            :items="userPageData.records"
+            hide-default-footer
+            show-select
+            item-key="userId"
+            :loading="dataFlag"
+            loading-text="加载中... 请稍后！"
+          >
+            <template v-if="userPageData.records&&userPageData.records.length===0" v-slot:body>
+              <td :colspan="th.length+1">
+                <v-row justify="center">
+                  <v-img max-height="200" class="ma-4" max-width="200" :src="require('@/assets/images/table/no-data.svg')" />
+                </v-row>
+              </td>
+            </template>
+            <template v-slot:top>
+              <v-row>
+                <v-col cols="12" xs="12" sm="12" lg="5">
+                  <v-btn rounded small color="success" @click="getUserListPageData">
+                    <v-icon dark>mdi-sync</v-icon>
+                  </v-btn>
+                  <v-btn v-perms="['system:user:add']" class="ml-2" rounded small color="primary" @click="addOrEdit({})">
+                    <v-icon dark>add</v-icon>
+                  </v-btn>
+                  <v-btn
+                    v-perms="['system:user:export']"
+                    rounded
+                    small
+                    color="info"
+                    class="ml-2"
+                    :disabled="selected.length<1"
+                    @click="exportExcel()"
+                  >
+                    <v-icon dark>mdi-export-variant</v-icon>
+                  </v-btn>
+                  <v-btn
+                    v-perms="['system:user:edit']"
+                    rounded
+                    small
+                    color="warning"
+                    class="ml-2"
+                    :disabled="selected.length!=1"
+                    @click="addOrEdit(selected[0])"
+                  >
+                    <v-icon dark>edit</v-icon>
+                  </v-btn>
+                  <v-btn
+                    v-perms="['system:user:del']"
+                    rounded
+                    small
+                    color="error"
+                    class="ml-2"
+                    :disabled="selected.length<1"
+                    @click="delUsers(selected)"
+                  >
+                    <v-icon dark>delete</v-icon>
+                  </v-btn>
+                </v-col>
+                <v-col cols="12" xs="12" sm="12" lg="2">
+                  <v-text-field
+                    v-model="page.username"
+                    class="small mt-n3"
+                    label="登录名称"
+                    outlined
+                    hide-details
+                    clearable
+                  />
+                </v-col>
+                <v-col cols="12" xs="12" sm="12" lg="2">
+                  <v-text-field
+                    v-model="page.phonenumber"
+                    class="small mt-n3"
+                    label="手机号码"
+                    outlined
+                    hide-details
+                    clearable
+                  />
+                </v-col>
+                <v-col cols="12" xs="12" sm="12" lg="2">
+                  <dict v-model="page.status" dict-type="role_status" class="mt-n3" />
+                </v-col>
+                <v-col cols="12" xs="12" sm="12" lg="1" offset-xs="9">
+                  <v-btn v-perms="['system:user:search']" small color="primary" dark @click="getUserListPageData()">
+                    <v-icon dark>search</v-icon>
+                    搜索
+                  </v-btn>
+                </v-col>
               </v-row>
-            </td>
-          </template>
-          <template v-slot:top>
-            <v-toolbar flat>
-              <v-btn rounded small color="success" @click="getUserListPageData">
-                <v-icon dark>mdi-sync</v-icon>
+              <v-divider />
+            </template>
+            <template v-slot:item.status="{ item }">
+              {{ item.status==0?'正常':'停用' }}
+            </template>
+            <template v-slot:item.handle="{ item }">
+              <v-btn v-perms="['system:user:edit']" fab x-small color="success" @click="addOrEdit(item)">
+                <v-icon dark>fa fa-pencil</v-icon>
               </v-btn>
-              <v-btn v-perms="['system:user:add']" class="ml-2" rounded small color="primary" @click="addOrEdit({})">
-                <v-icon dark>add</v-icon>
+              <v-btn v-perms="['system:user:del']" fab x-small color="error" @click="delUsers([item])">
+                <v-icon dark>fa fa-trash-o</v-icon>
               </v-btn>
-              <v-btn
-                v-perms="['system:user:export']"
-                rounded
-                small
-                color="info"
-                class="ml-2"
-                :disabled="selected.length<1"
-                @click="exportExcel()"
-              >
-                <v-icon dark>mdi-export-variant</v-icon>
-              </v-btn>
-              <v-btn
-                v-perms="['system:user:edit']"
-                rounded
-                small
-                color="warning"
-                class="ml-2"
-                :disabled="selected.length!=1"
-                @click="addOrEdit(selected[0])"
-              >
-                <v-icon dark>edit</v-icon>
-              </v-btn>
-              <v-btn
-                v-perms="['system:user:del']"
-                rounded
-                small
-                color="error"
-                class="ml-2"
-                :disabled="selected.length<1"
-                @click="delUsers(selected)"
-              >
-                <v-icon dark>delete</v-icon>
-              </v-btn>
-
-            </v-toolbar>
-            <v-divider />
-          </template>
-          <template v-slot:item.status="{ item }">
-            {{ item.status==0?'正常':'停用' }}
-          </template>
-          <template v-slot:item.handle="{ item }">
-            <v-btn v-perms="['system:user:edit']" fab x-small color="warning" @click="addOrEdit(item)">
-              <v-icon dark>edit</v-icon>
-            </v-btn>
-            <v-btn v-perms="['system:user:del']" fab x-small color="error" @click="delUsers([item])">
-              <v-icon dark>delete</v-icon>
-            </v-btn>
-          </template>
-        </v-data-table>
-        <pagination
-          :page-sizes="[10,20]"
-          :page-data="userPageData"
-          @pageChange="getUserListPage"
-        />
+            </template>
+          </v-data-table>
+          <pagination
+            :page-sizes="[10,20]"
+            :page-data="userPageData"
+            @pageChange="getUserListPage"
+          />
+        </v-card-text>
       </v-card>
     </v-col>
 
@@ -142,7 +145,7 @@
               <v-row no-gutters>
                 <v-col cols="12" lg="5" xs="6">
                   <v-text-field
-                    v-model="user.userName"
+                    v-model="user.realName"
                     class="small"
                     outlined
                     clearable
@@ -412,11 +415,11 @@ export default {
       if (this.$refs.user.validate()) {
         userAddOrEdit(this.user).then(res => {
           if (res.data.code === 200) {
-            this.message.success('成功')
+            this.$message.success('成功')
             this.addOrEditFlag = false
             this.getUserListPageData()
           } else {
-            this.message.error('失败')
+            this.$message.error('失败')
           }
         })
       } else {
@@ -483,10 +486,10 @@ export default {
         if (willDelete) {
           deleteList(users).then(res => {
             if (res.data.code === 200) {
-              this.message.success(res.data.msg)
+              this.$message.success(res.data.msg)
               this.getUserListPageData()
             } else {
-              this.message.error(res.data.msg)
+              this.$message.error(res.data.msg)
             }
           })
         }

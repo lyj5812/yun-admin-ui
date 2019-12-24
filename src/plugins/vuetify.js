@@ -34,7 +34,7 @@ export default new Vuetify({
     dark: store.getters['app/primaryColor'].dark
   },
   icons: {
-    iconfont: 'md',
+    iconfont: 'mdi',
     values: iconValues()
   }
 })

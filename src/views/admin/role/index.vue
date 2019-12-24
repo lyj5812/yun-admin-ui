@@ -1,140 +1,141 @@
 <template>
   <div>
-    <v-card class="px-4 py-2 elevation-4">
-      <v-row>
-        <v-col cols="12" xs="12" sm="12" lg="2">
-          <v-text-field
-            v-model="page.roleName"
-            label="角色名称"
-            hide-details
-            class="small"
-            outlined
-            clearable
-          />
-        </v-col>
-        <v-col cols="12" xs="12" sm="12" lg="2" offset-lg="1">
-          <v-text-field
-            v-model="page.roleKey"
-            label="权限字符"
-            hide-details
-            class="small"
-            outlined
-            clearable
-          />
-        </v-col>
+    <v-card class="br-6 box-shadow mt-3 pt-5">
+      <v-card-title class="b-left">角色管理</v-card-title>
+      <v-card-text>
+        <v-data-table
+          v-model="selected"
+          :headers="th"
+          :items="rolePage.records"
+          hide-default-footer
+          show-select
+          item-key="roleId"
+          :mobile-breakpoint="1000"
+          :loading="dataFlag"
+          loading-text="加载中... 请稍后！"
+        >
+          <template v-if="rolePage.records&&rolePage.records.length===0" #body>
+            <td :colspan="th.length+1">
+              <v-row justify="center">
+                <v-img max-height="200" class="ma-4" max-width="200" :src="require('@/assets/images/table/no-data.svg')" />
+              </v-row>
+            </td>
+          </template>
+          <template v-slot:top>
+            <v-row>
+              <v-col cols="12" xs="12" sm="12" lg="5">
+                <v-btn rounded small color="success" @click="getRoleListPageData">
+                  <v-icon dark>mdi-sync</v-icon>
+                </v-btn>
+                <v-btn v-perms="['system:role:add']" rounded small class="ml-2" color="primary" @click="addOrEdit({})">
+                  <v-icon>add</v-icon>
+                </v-btn>
+                <v-btn
+                  v-perms="['system:role:export']"
+                  rounded
+                  small
+                  color="info"
+                  class="ml-2"
+                  :disabled="selected.length<1"
+                  @click="exportExcel()"
+                >
+                  <v-icon dark>mdi-export-variant</v-icon>
+                </v-btn>
+                <v-btn
+                  v-perms="['system:role:edit']"
+                  rounded
+                  small
+                  class="ml-2"
+                  color="warning"
+                  :disabled="selected.length!=1"
+                  @click="addOrEdit(selected[0])"
+                >
+                  <v-icon dark>edit</v-icon>
+                </v-btn>
+                <v-btn
+                  v-perms="['system:role:del']"
+                  rounded
+                  small
+                  class="ml-2"
+                  color="error"
+                  :disabled="selected.length<1"
+                  @click="delRoles(selected)"
+                >
+                  <v-icon dark>delete</v-icon>
+                </v-btn>
+              </v-col>
+              <v-col cols="12" xs="12" sm="12" lg="2">
+                <v-text-field
+                  v-model="page.roleName"
+                  label="角色名称"
+                  hide-details
+                  class="small mt-n3"
+                  outlined
+                  clearable
+                />
+              </v-col>
+              <v-col cols="12" xs="12" sm="12" lg="2">
+                <v-text-field
+                  v-model="page.roleKey"
+                  label="权限字符"
+                  hide-details
+                  class="small mt-n3"
+                  outlined
+                  clearable
+                />
+              </v-col>
 
-        <v-col cols="12" xs="12" sm="12" lg="2" offset-lg="1">
-          <dict v-model="page.status" dict-type="role_status" />
-        </v-col>
+              <v-col cols="12" xs="12" sm="12" lg="2">
+                <dict v-model="page.status" dict-type="role_status" class="mt-n3" />
+              </v-col>
 
-        <v-col cols="12" xs="12" sm="12" lg="2" offset-lg="1" offset-xs="9">
-          <v-btn v-perms="['system:role:search']" small color="primary" class="mt-1" dark @click="getRoleListPageData()">
-            <v-icon dark>search</v-icon>
-            搜索
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-card>
-    <v-card class="elevation-4 px-4 mt-3">
-      <v-data-table
-        v-model="selected"
-        :headers="th"
-        :items="rolePage.records"
-        hide-default-footer
-        show-select
-        item-key="roleId"
-        :mobile-breakpoint="1000"
-        :loading="dataFlag"
-        loading-text="加载中... 请稍后！"
-      >
-        <template v-if="rolePage.records&&rolePage.records.length===0" #body>
-          <td :colspan="th.length+1">
-            <v-row justify="center">
-              <v-img max-height="200" class="ma-4" max-width="200" :src="require('@/assets/images/table/no-data.svg')" />
+              <v-col cols="12" xs="12" sm="12" lg="1" offset-xs="9">
+                <v-btn v-perms="['system:role:search']" small color="primary" dark @click="getRoleListPageData()">
+                  <v-icon dark>search</v-icon>
+                  搜索
+                </v-btn>
+              </v-col>
             </v-row>
-          </td>
-        </template>
-        <template v-slot:top>
-          <v-toolbar flat>
-            <v-btn rounded small color="success" @click="getRoleListPageData">
-              <v-icon dark>mdi-sync</v-icon>
-            </v-btn>
-            <v-btn v-perms="['system:role:add']" rounded small class="ml-2" color="primary" @click="addOrEdit({})">
-              <v-icon>add</v-icon>
-            </v-btn>
-            <v-btn
-              v-perms="['system:role:export']"
-              rounded
-              small
-              color="info"
-              class="ml-2"
-              :disabled="selected.length<1"
-              @click="exportExcel()"
-            >
-              <v-icon dark>mdi-export-variant</v-icon>
-            </v-btn>
-            <v-btn
-              v-perms="['system:role:edit']"
-              rounded
-              small
-              class="ml-2"
-              color="warning"
-              :disabled="selected.length!=1"
-              @click="addOrEdit(selected[0])"
-            >
-              <v-icon dark>edit</v-icon>
-            </v-btn>
-            <v-btn
-              v-perms="['system:role:del']"
-              rounded
-              small
-              class="ml-2"
-              color="error"
-              :disabled="selected.length<1"
-              @click="delRoles(selected)"
-            >
-              <v-icon dark>delete</v-icon>
-            </v-btn>
-          </v-toolbar>
-          <v-divider />
-        </template>
+            <v-divider />
+          </template>
 
-        <template v-slot:item.status="{ item }">
-          <v-chip
-            v-if="item.status==0"
-            class="ma-2"
-            small
-            color="green"
-            label
-            outlined
-          >
-            正常
-          </v-chip>
-          <v-chip
-            v-else
-            class="ma-2"
-            small
-            color="red"
-            label
-            outlined
-          >
-            停用
-          </v-chip>
-        </template>
-        <template v-slot:item.handle="{ item }">
-          <v-btn v-perms="['system:role:edit']" fab x-small color="warning" @click="addOrEdit(item)">
-            <v-icon dark>edit</v-icon>
-          </v-btn>
-          <v-btn v-perms="['system:role:del']" fab x-small color="error" @click="delRoles([item])">
-            <v-icon dark>delete</v-icon>
-          </v-btn>
-        </template>
-      </v-data-table>
-      <pagination
-        :page-sizes="[10,20]"
-        :page-data="rolePage"
-        @pageChange="getRoleListPage"
-      />
+          <template v-slot:item.status="{ item }">
+            <v-chip
+              v-if="item.status==0"
+              class="ma-2"
+              small
+              color="green"
+              label
+              outlined
+            >
+              正常
+            </v-chip>
+            <v-chip
+              v-else
+              class="ma-2"
+              small
+              color="red"
+              label
+              outlined
+            >
+              停用
+            </v-chip>
+          </template>
+          <template #item.handle="{ item }">
+            <v-btn v-perms="['system:role:edit']" fab x-small color="success" @click="addOrEdit(item)">
+              <v-icon dark>fa fa-pencil</v-icon>
+            </v-btn>
+            <v-btn v-perms="['system:role:del']" fab x-small color="error" @click="delRoles([item])">
+              <v-icon dark>fa fa-trash-o</v-icon>
+            </v-btn>
+          </template>
+        </v-data-table>
+        <pagination
+          :page-sizes="[10,20]"
+          :page-data="rolePage"
+          @pageChange="getRoleListPage"
+        />
+      </v-card-text>
     </v-card>
     <!--添加修改-->
     <v-form ref="role" :model="role">
@@ -318,11 +319,11 @@ export default {
         this.role.menuIds = this.$refs.menuTree.getMenuIds()
         addOrEdit(this.role).then(res => {
           if (res.data.code === 200) {
-            this.message.success('成功')
+            this.$message.success('成功')
             this.editFlag = false
             this.getRoleListPage(this.rolePage)
           } else {
-            this.message.error('失败')
+            this.$message.error('失败')
           }
         })
       } else {
@@ -346,10 +347,10 @@ export default {
           const ids = roles.map((n) => { return n.roleId })
           deleteList(ids).then(res => {
             if (res.data.code === 200) {
-              this.message.success(res.data.msg)
+              this.$message.success(res.data.msg)
               this.getRoleListPage(this.rolePage)
             } else {
-              this.message.error(res.data.msg)
+              this.$message.error(res.data.msg)
             }
           })
         }

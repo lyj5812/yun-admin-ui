@@ -1063,6 +1063,7 @@ $colors: (
         color: map-get($color, clr) !important;
       }
     }
+
     &.yun-sidebar {
       .v-toolbar {
         .v-list .v-list__tile {
@@ -1209,6 +1210,14 @@ $colors: (
     }
     &.v-btn {
       @include yun-themebuilder(map-get($color, bg), map-get($color, clr));
+    }
+
+    .v-card__title.b-left {
+      border-left: 3px solid map-get($color, bg);
+      border-top-left-radius: unset !important;
+      font-size: 1.25rem;
+      padding:0 0 0 1rem;
+      font-weight: 600;
     }
   }
   .box-#{$name}-glow {
