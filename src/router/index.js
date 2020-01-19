@@ -83,6 +83,19 @@ export const constantRoutes = [
         meta: { title: '字典数据', icon: '' }
       }
     ]
+  },
+  {
+    path: '/gen',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/gen/:sourceId(\\w+)/:tableName(\\w+)',
+        component: () => import('@/views/tool/gen/eidt'),
+        name: '修改代码生成',
+        meta: { title: '修改代码生成', icon: '' }
+      }
+    ]
   }
 ]
 

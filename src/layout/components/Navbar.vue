@@ -13,12 +13,9 @@
       <v-list>
         <v-list-item>
           <v-list-item-avatar tile>
-            <v-img
-              max-width="30"
-              max-height="30"
-              lazy-src="https://pixinvent.com/demo/convex-angular-bootstrap-admin-dashboard-template/demo-1/assets/img/logo.png"
-              src="https://pixinvent.com/demo/convex-angular-bootstrap-admin-dashboard-template/demo-1/assets/img/logo.png"
-            />
+            <v-icon size="30">
+              $vuetify.icons.logo
+            </v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="title">Yun Admin</v-list-item-title>

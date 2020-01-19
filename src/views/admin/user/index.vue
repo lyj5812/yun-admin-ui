@@ -1,323 +1,325 @@
 <template>
-  <v-row>
-    <v-col cols="12" lg="3" xs="12">
-      <v-card class="br-6 box-shadow py-4">
-        <v-card-title class="b-left">部门列表</v-card-title>
-        <v-card-text>
-          <dept-tree
-            :open-flag="true"
-            tree="tree"
-            @clickNode="selectdItem"
-          />
-        </v-card-text>
-      </v-card>
-    </v-col>
-    <v-col cols="12" lg="9" xs="12">
-      <v-card class="br-6 box-shadow pt-5">
-        <v-card-title class="b-left">用户列表</v-card-title>
-        <v-card-text>
-          <v-data-table
-            v-model="selected"
-            :headers="th"
-            :items="userPageData.records"
-            hide-default-footer
-            show-select
-            item-key="userId"
-            :loading="dataFlag"
-            loading-text="加载中... 请稍后！"
-          >
-            <template v-if="userPageData.records&&userPageData.records.length===0" v-slot:body>
-              <td :colspan="th.length+1">
-                <v-row justify="center">
-                  <v-img max-height="200" class="ma-4" max-width="200" :src="require('@/assets/images/table/no-data.svg')" />
+  <v-container>
+    <v-row>
+      <v-col cols="12" lg="3" xs="12">
+        <v-card class="br-6 box-shadow py-4">
+          <v-card-title class="b-left">部门列表</v-card-title>
+          <v-card-text>
+            <dept-tree
+              :open-flag="true"
+              tree="tree"
+              @clickNode="selectdItem"
+            />
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" lg="9" xs="12">
+        <v-card class="br-6 box-shadow pt-5">
+          <v-card-title class="b-left">用户列表</v-card-title>
+          <v-card-text>
+            <v-data-table
+              v-model="selected"
+              :headers="th"
+              :items="userPageData.records"
+              hide-default-footer
+              show-select
+              item-key="userId"
+              :loading="dataFlag"
+              loading-text="加载中... 请稍后！"
+            >
+              <template v-if="userPageData.records&&userPageData.records.length===0" v-slot:body>
+                <td :colspan="th.length+1">
+                  <v-row justify="center">
+                    <v-img max-height="200" class="ma-4" max-width="200" :src="require('@/assets/images/table/no-data.svg')" />
+                  </v-row>
+                </td>
+              </template>
+              <template v-slot:top>
+                <v-row>
+                  <v-col cols="12" xs="12" sm="12" lg="5">
+                    <v-btn rounded small color="success" @click="getUserListPageData">
+                      <v-icon dark>mdi-sync</v-icon>
+                    </v-btn>
+                    <v-btn v-perms="['system:user:add']" class="ml-2" rounded small color="primary" @click="addOrEdit({})">
+                      <v-icon dark>add</v-icon>
+                    </v-btn>
+                    <v-btn
+                      v-perms="['system:user:export']"
+                      rounded
+                      small
+                      color="info"
+                      class="ml-2"
+                      :disabled="selected.length<1"
+                      @click="exportExcel()"
+                    >
+                      <v-icon dark>mdi-export-variant</v-icon>
+                    </v-btn>
+                    <v-btn
+                      v-perms="['system:user:edit']"
+                      rounded
+                      small
+                      color="warning"
+                      class="ml-2"
+                      :disabled="selected.length!=1"
+                      @click="addOrEdit(selected[0])"
+                    >
+                      <v-icon dark>edit</v-icon>
+                    </v-btn>
+                    <v-btn
+                      v-perms="['system:user:del']"
+                      rounded
+                      small
+                      color="error"
+                      class="ml-2"
+                      :disabled="selected.length<1"
+                      @click="delUsers(selected)"
+                    >
+                      <v-icon dark>delete</v-icon>
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="12" xs="12" sm="12" lg="2">
+                    <v-text-field
+                      v-model="page.username"
+                      class="small mt-n3"
+                      label="登录名称"
+                      outlined
+                      hide-details
+                      clearable
+                    />
+                  </v-col>
+                  <v-col cols="12" xs="12" sm="12" lg="2">
+                    <v-text-field
+                      v-model="page.phonenumber"
+                      class="small mt-n3"
+                      label="手机号码"
+                      outlined
+                      hide-details
+                      clearable
+                    />
+                  </v-col>
+                  <v-col cols="12" xs="12" sm="12" lg="2">
+                    <dict v-model="page.status" dict-type="role_status" class="mt-n3" />
+                  </v-col>
+                  <v-col cols="12" xs="12" sm="12" lg="1" offset-xs="9">
+                    <v-btn v-perms="['system:user:search']" small color="primary" dark @click="getUserListPageData()">
+                      <v-icon dark>search</v-icon>
+                      搜索
+                    </v-btn>
+                  </v-col>
                 </v-row>
-              </td>
-            </template>
-            <template v-slot:top>
-              <v-row>
-                <v-col cols="12" xs="12" sm="12" lg="5">
-                  <v-btn rounded small color="success" @click="getUserListPageData">
-                    <v-icon dark>mdi-sync</v-icon>
-                  </v-btn>
-                  <v-btn v-perms="['system:user:add']" class="ml-2" rounded small color="primary" @click="addOrEdit({})">
-                    <v-icon dark>add</v-icon>
-                  </v-btn>
-                  <v-btn
-                    v-perms="['system:user:export']"
-                    rounded
-                    small
-                    color="info"
-                    class="ml-2"
-                    :disabled="selected.length<1"
-                    @click="exportExcel()"
-                  >
-                    <v-icon dark>mdi-export-variant</v-icon>
-                  </v-btn>
-                  <v-btn
-                    v-perms="['system:user:edit']"
-                    rounded
-                    small
-                    color="warning"
-                    class="ml-2"
-                    :disabled="selected.length!=1"
-                    @click="addOrEdit(selected[0])"
-                  >
-                    <v-icon dark>edit</v-icon>
-                  </v-btn>
-                  <v-btn
-                    v-perms="['system:user:del']"
-                    rounded
-                    small
-                    color="error"
-                    class="ml-2"
-                    :disabled="selected.length<1"
-                    @click="delUsers(selected)"
-                  >
-                    <v-icon dark>delete</v-icon>
-                  </v-btn>
-                </v-col>
-                <v-col cols="12" xs="12" sm="12" lg="2">
-                  <v-text-field
-                    v-model="page.username"
-                    class="small mt-n3"
-                    label="登录名称"
-                    outlined
-                    hide-details
-                    clearable
-                  />
-                </v-col>
-                <v-col cols="12" xs="12" sm="12" lg="2">
-                  <v-text-field
-                    v-model="page.phonenumber"
-                    class="small mt-n3"
-                    label="手机号码"
-                    outlined
-                    hide-details
-                    clearable
-                  />
-                </v-col>
-                <v-col cols="12" xs="12" sm="12" lg="2">
-                  <dict v-model="page.status" dict-type="role_status" class="mt-n3" />
-                </v-col>
-                <v-col cols="12" xs="12" sm="12" lg="1" offset-xs="9">
-                  <v-btn v-perms="['system:user:search']" small color="primary" dark @click="getUserListPageData()">
-                    <v-icon dark>search</v-icon>
-                    搜索
-                  </v-btn>
-                </v-col>
-              </v-row>
-              <v-divider />
-            </template>
-            <template v-slot:item.status="{ item }">
-              {{ item.status==0?'正常':'停用' }}
-            </template>
-            <template v-slot:item.handle="{ item }">
-              <v-btn v-perms="['system:user:edit']" fab x-small color="success" @click="addOrEdit(item)">
-                <v-icon dark>fa fa-pencil</v-icon>
-              </v-btn>
-              <v-btn v-perms="['system:user:del']" fab x-small color="error" @click="delUsers([item])">
-                <v-icon dark>fa fa-trash-o</v-icon>
-              </v-btn>
-            </template>
-          </v-data-table>
-          <pagination
-            :page-sizes="[10,20]"
-            :page-data="userPageData"
-            @pageChange="getUserListPage"
-          />
-        </v-card-text>
-      </v-card>
-    </v-col>
+                <v-divider />
+              </template>
+              <template v-slot:item.status="{ item }">
+                {{ item.status==0?'正常':'停用' }}
+              </template>
+              <template v-slot:item.handle="{ item }">
+                <v-btn v-perms="['system:user:edit']" fab x-small color="success" @click="addOrEdit(item)">
+                  <v-icon dark>fa fa-pencil</v-icon>
+                </v-btn>
+                <v-btn v-perms="['system:user:del']" fab x-small color="error" @click="delUsers([item])">
+                  <v-icon dark>fa fa-trash-o</v-icon>
+                </v-btn>
+              </template>
+            </v-data-table>
+            <pagination
+              :page-sizes="[10,20]"
+              :page-data="userPageData"
+              @pageChange="getUserListPage"
+            />
+          </v-card-text>
+        </v-card>
+      </v-col>
 
-    <!--添加修改-->
-    <v-form ref="user" v-model="valid" :model="user">
-      <v-dialog v-model="addOrEditFlag" scrollable persistent max-width="600px">
+      <!--添加修改-->
+      <v-form ref="user" v-model="valid" :model="user">
+        <v-dialog v-model="addOrEditFlag" scrollable persistent max-width="600px">
+          <v-card>
+            <v-card-title>
+              <span class="title font-weight-bold">{{ user.userId?'修改用户':'添加用户' }}</span>
+              <v-spacer />
+              <v-btn class="mx-0" icon @click.stop="addOrEditFlag = false">
+                <v-icon>close</v-icon>
+              </v-btn>
+            </v-card-title>
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-row no-gutters>
+                  <v-col cols="12" lg="5" xs="6">
+                    <v-text-field
+                      v-model="user.realName"
+                      class="small"
+                      outlined
+                      clearable
+                      :rules="[v => !!v || '请输入用户名!']"
+                      label="用户名称"
+                    >
+                      <template v-slot:prepend>
+                        <small class="red-text my-4">*</small>
+                      </template>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" lg="5" xs="6" offset-lg="2">
+                    <v-text-field
+                      v-model="dept.deptName"
+                      class="small"
+                      outlined
+                      clearable
+                      :value="user.deptId"
+                      append-icon="search"
+                      :rules="[v => !!v || '请输入部门!']"
+                      label="归属部门"
+                      @focus="selectDept()"
+                    >
+                      <template v-slot:prepend>
+                        <small class="red-text my-4">*</small>
+                      </template>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" lg="5" xs="6">
+                    <v-text-field
+                      v-model="user.phonenumber"
+                      class="small"
+                      outlined
+                      clearable
+                      :rules="[v => !!v || '请输入号码!',v => /^1[3456789]\d{9}$/.test(v) || '请输入正确的手机号']"
+                      label="手机号码"
+                    >
+                      <template v-slot:prepend>
+                        <small class="red-text my-4">*</small>
+                      </template>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" lg="5" xs="6" offset-lg="2">
+                    <v-text-field
+                      v-model="user.email"
+                      class="small"
+                      outlined
+                      clearable
+                      :rules="[v => !!v || '请输入邮箱!',v => /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(v) || '请输入正确的邮箱']"
+                      label="邮箱"
+                    >
+                      <template v-slot:prepend>
+                        <small class="red-text my-4">*</small>
+                      </template>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" lg="5" xs="6">
+                    <v-text-field
+                      v-model="user.username"
+                      class="small"
+                      outlined
+                      clearable
+                      :disabled="user.userId?true:false"
+                      :rules="[checkFlag]"
+                      label="登录名称"
+                      @input="checkUsername()"
+                    >
+                      <template v-slot:prepend>
+                        <small class="red-text my-4">*</small>
+                      </template>
+                    </v-text-field>
+                  </v-col>
+                  <v-col v-if="user.userId==null" cols="12" lg="5" xs="6" offset-lg="2">
+                    <v-text-field
+                      v-model="user.password"
+                      class="small"
+                      outlined
+                      clearable
+                      type="password"
+                      :rules="[v => !!v || '请输入登录密码!']"
+                      label="登录密码"
+                    >
+                      <template v-slot:prepend>
+                        <small class="red-text my-4">*</small>
+                      </template>
+                    </v-text-field>
+                  </v-col>
+                  <v-col v-else cols="12" lg="5" xs="6" />
+                  <v-col cols="12" lg="5" xs="6">
+                    <dict v-model="user.sex" required dict-type="sys_user_sex" />
+                  </v-col>
+                  <v-col cols="12" lg="5" xs="6" offset-lg="2">
+                    <v-switch
+                      v-model="user.status"
+                      class="mt-2 ml-4"
+                      label="状态正常"
+                      color="primary"
+                      inset
+                      :rules="[v => !!v || '请输入状态!']"
+                      false-value="1"
+                      true-value="0"
+                      hide-details
+                    />
+                  </v-col>
+                  <v-col cols="12" xs="12" class="mt-4">
+                    <v-select
+                      v-model="user.postIds"
+                      class="ml-4"
+                      :items="posts"
+                      outlined
+                      dense
+                      clearable
+                      item-text="postName"
+                      item-value="postId"
+                      label="岗位"
+                      no-data-text="没有选项"
+                      multiple
+                      chips
+                      :menu-props="{ offsetY: true }"
+                    />
+                  </v-col>
+                  <v-col cols="12" lg="12" xs="12" class="ml-4">
+                    角色
+                    <v-row no-gutters>
+                      <v-col v-for="role in roles" :key="role.roleId" cols="12" lg="3">
+                        <v-checkbox
+                          v-model="user.roleIds"
+                          multiple
+                          color="primary"
+                          :label="role.roleName"
+                          :value="role.roleId"
+                        />
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                  <v-col cols="12" lg="12" xs="12">
+                    <v-textarea
+                      v-model="user.remark"
+                      outlined
+                      name="remark"
+                      class="ml-4"
+                      label="备注"
+                    />
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn small color="success" @click="addOrEditSubmit()">
+                <v-icon dark>done</v-icon>
+                提交
+              </v-btn>
+              <v-btn small color="secondary" class="ml-2" @click="addOrEditFlag=false">
+                <v-icon dark>close</v-icon>
+                取消
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-form>
+      <v-dialog v-model="selDeptFlag" persistent max-width="400px">
         <v-card>
           <v-card-title>
-            <span class="title font-weight-bold">{{ user.userId?'修改用户':'添加用户' }}</span>
-            <v-spacer />
-            <v-btn class="mx-0" icon @click.stop="addOrEditFlag = false">
-              <v-icon>close</v-icon>
-            </v-btn>
+            <span>选择部门</span>
           </v-card-title>
           <v-card-text>
-            <v-container grid-list-md>
-              <v-row no-gutters>
-                <v-col cols="12" lg="5" xs="6">
-                  <v-text-field
-                    v-model="user.realName"
-                    class="small"
-                    outlined
-                    clearable
-                    :rules="[v => !!v || '请输入用户名!']"
-                    label="用户名称"
-                  >
-                    <template v-slot:prepend>
-                      <small class="red-text my-4">*</small>
-                    </template>
-                  </v-text-field>
-                </v-col>
-                <v-col cols="12" lg="5" xs="6" offset-lg="2">
-                  <v-text-field
-                    v-model="dept.deptName"
-                    class="small"
-                    outlined
-                    clearable
-                    :value="user.deptId"
-                    append-icon="search"
-                    :rules="[v => !!v || '请输入部门!']"
-                    label="归属部门"
-                    @focus="selectDept()"
-                  >
-                    <template v-slot:prepend>
-                      <small class="red-text my-4">*</small>
-                    </template>
-                  </v-text-field>
-                </v-col>
-                <v-col cols="12" lg="5" xs="6">
-                  <v-text-field
-                    v-model="user.phonenumber"
-                    class="small"
-                    outlined
-                    clearable
-                    :rules="[v => !!v || '请输入号码!',v => /^1[3456789]\d{9}$/.test(v) || '请输入正确的手机号']"
-                    label="手机号码"
-                  >
-                    <template v-slot:prepend>
-                      <small class="red-text my-4">*</small>
-                    </template>
-                  </v-text-field>
-                </v-col>
-                <v-col cols="12" lg="5" xs="6" offset-lg="2">
-                  <v-text-field
-                    v-model="user.email"
-                    class="small"
-                    outlined
-                    clearable
-                    :rules="[v => !!v || '请输入邮箱!',v => /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(v) || '请输入正确的邮箱']"
-                    label="邮箱"
-                  >
-                    <template v-slot:prepend>
-                      <small class="red-text my-4">*</small>
-                    </template>
-                  </v-text-field>
-                </v-col>
-                <v-col cols="12" lg="5" xs="6">
-                  <v-text-field
-                    v-model="user.username"
-                    class="small"
-                    outlined
-                    clearable
-                    :disabled="user.userId?true:false"
-                    :rules="[checkFlag]"
-                    label="登录名称"
-                    @input="checkUsername()"
-                  >
-                    <template v-slot:prepend>
-                      <small class="red-text my-4">*</small>
-                    </template>
-                  </v-text-field>
-                </v-col>
-                <v-col v-if="user.userId==null" cols="12" lg="5" xs="6" offset-lg="2">
-                  <v-text-field
-                    v-model="user.password"
-                    class="small"
-                    outlined
-                    clearable
-                    type="password"
-                    :rules="[v => !!v || '请输入登录密码!']"
-                    label="登录密码"
-                  >
-                    <template v-slot:prepend>
-                      <small class="red-text my-4">*</small>
-                    </template>
-                  </v-text-field>
-                </v-col>
-                <v-col v-else cols="12" lg="5" xs="6" />
-                <v-col cols="12" lg="5" xs="6">
-                  <dict v-model="user.sex" required dict-type="sys_user_sex" />
-                </v-col>
-                <v-col cols="12" lg="5" xs="6" offset-lg="2">
-                  <v-switch
-                    v-model="user.status"
-                    class="mt-2 ml-4"
-                    label="状态正常"
-                    color="primary"
-                    inset
-                    :rules="[v => !!v || '请输入状态!']"
-                    false-value="1"
-                    true-value="0"
-                    hide-details
-                  />
-                </v-col>
-                <v-col cols="12" xs="12" class="mt-4">
-                  <v-select
-                    v-model="user.postIds"
-                    class="ml-4"
-                    :items="posts"
-                    outlined
-                    dense
-                    clearable
-                    item-text="postName"
-                    item-value="postId"
-                    label="岗位"
-                    no-data-text="没有选项"
-                    multiple
-                    chips
-                    :menu-props="{ offsetY: true }"
-                  />
-                </v-col>
-                <v-col cols="12" lg="12" xs="12" class="ml-4">
-                  角色
-                  <v-row no-gutters>
-                    <v-col v-for="role in roles" :key="role.roleId" cols="12" lg="3">
-                      <v-checkbox
-                        v-model="user.roleIds"
-                        multiple
-                        color="primary"
-                        :label="role.roleName"
-                        :value="role.roleId"
-                      />
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="12" lg="12" xs="12">
-                  <v-textarea
-                    v-model="user.remark"
-                    outlined
-                    name="remark"
-                    class="ml-4"
-                    label="备注"
-                  />
-                </v-col>
-              </v-row>
-            </v-container>
+            <dept-tree ref="deptTree" :open-flag="true" @clickNode="selectdDept" />
           </v-card-text>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn small color="success" @click="addOrEditSubmit()">
-              <v-icon dark>done</v-icon>
-              提交
-            </v-btn>
-            <v-btn small color="secondary" class="ml-2" @click="addOrEditFlag=false">
-              <v-icon dark>close</v-icon>
-              取消
-            </v-btn>
-          </v-card-actions>
         </v-card>
       </v-dialog>
-    </v-form>
-    <v-dialog v-model="selDeptFlag" persistent max-width="400px">
-      <v-card>
-        <v-card-title>
-          <span>选择部门</span>
-        </v-card-title>
-        <v-card-text>
-          <dept-tree ref="deptTree" :open-flag="true" @clickNode="selectdDept" />
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-  </v-row>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

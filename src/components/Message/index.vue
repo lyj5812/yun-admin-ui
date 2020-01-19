@@ -4,6 +4,7 @@
     :color="color"
     top
     :timeout="time"
+    :right="right"
     style="margin-top: 80px"
   >
     <v-icon v-if="type=='info'" dark medium>info</v-icon>
@@ -26,7 +27,8 @@ export default {
       time: 3000,
       visible: false,
       type: 'success', // 'success','warning','error'
-      close: true
+      close: true,
+      right: false
     }
   },
   computed: {

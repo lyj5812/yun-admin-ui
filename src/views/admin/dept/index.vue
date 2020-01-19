@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-card class="br-6 mx-4 mt-3 box-shadow pt-3">
       <v-row class="mb-n5">
         <v-col cols="12" xs="12" lg="9">
@@ -231,7 +231,7 @@
         </v-card>
       </v-dialog>
     </v-form>
-  </div>
+  </v-container>
 </template>
 
 <script>

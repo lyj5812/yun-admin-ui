@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-card class="br-6 box-shadow mt-3 pt-5">
       <v-card-title class="b-left">角色管理</v-card-title>
       <v-card-text>
@@ -233,7 +233,7 @@
         </v-card>
       </v-dialog>
     </v-form>
-  </div>
+  </v-container>
 </template>
 
 <script>

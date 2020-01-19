@@ -1,11 +1,9 @@
 <template>
-  <v-container id="container" fluid grid-list-md>
-    <transition name="fade-transform" mode="out-in">
-      <keep-alive>
-        <router-view :key="key" />
-      </keep-alive>
-    </transition>
-  </v-container>
+  <transition name="fade-transform" mode="out-in">
+    <keep-alive>
+      <router-view :key="key" />
+    </keep-alive>
+  </transition>
 </template>
 
 <script>

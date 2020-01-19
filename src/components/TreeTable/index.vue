@@ -15,6 +15,12 @@
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
+    <v-progress-linear
+      :active="loading"
+      :indeterminate="loading"
+      absolute
+      color="primary"
+    />
     <v-list-item v-if="loading">
       <v-list-item-content>
         <v-list-item-title :class="`text-lg-center`">
@@ -24,14 +30,6 @@
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
-    <v-progress-linear
-      :active="loading"
-      :indeterminate="loading"
-      absolute
-      bottom
-      color="primary"
-    />
-
     <v-treeview
       :search="search"
       :filter="filter"
