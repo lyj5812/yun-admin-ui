@@ -16,9 +16,9 @@ export function addOrEdit(data) {
   })
 }
 
-export function deleteList(data) {
+export function delList(data) {
   return request({
-    url: '/admin-server/role/deleteList',
+    url: '/admin-server/role/delByIds',
     method: 'delete',
     data
   })

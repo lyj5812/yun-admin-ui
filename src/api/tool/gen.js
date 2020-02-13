@@ -7,9 +7,9 @@ export function getTableList(sourceId) {
   })
 }
 
-export function genCode(data) {
+export function genCode(sourceId, data) {
   return request({
-    url: '/gen-server/gen/genCode',
+    url: `/gen-server/gen/${sourceId}`,
     method: 'post',
     responseType: 'arraybuffer',
     data

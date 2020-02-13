@@ -77,7 +77,7 @@
             </v-toolbar-title>
             <div class="flex-grow-1" />
             <template v-if="$vuetify.breakpoint.smAndUp">
-              <v-btn fab x-small :disabled="selected.length<1" color="info" class="mr-5" @click="openGen(selected)">
+              <v-btn fab x-small :disabled="selected.length<1" color="info" class="mr-5" @click="downloadGenCode(selected)">
                 <v-icon>mdi-export-variant</v-icon>
               </v-btn>
             </template>
@@ -112,7 +112,7 @@
                   </v-btn>
                 </v-list-item-action>
                 <v-list-item-action>
-                  <v-btn fab x-small color="info" @click="openGen(item)">
+                  <v-btn fab x-small color="info" @click="downloadGenCode([item])">
                     <v-icon>mdi-export-variant</v-icon>
                   </v-btn>
                 </v-list-item-action>
@@ -371,18 +371,9 @@ export default {
         path: `/gen/${this.dataSource.sourceId}/${item.tableName}`
       })
     },
-    openGen(item) {
-      this.table = item
-      this.genCodeFlag = true
-    },
     downloadGenCode(tables) {
-      if (this.$refs.generator.validate()) {
-        this.generator.tables = tables
-        genCode(this.generator)
-      } else {
-        console.log('error submit!!')
-        return false
-      }
+      const tableNames = tables.map((n) => { return n.tableName })
+      genCode(this.dataSource.sourceId, tableNames)
     }
   }
 }

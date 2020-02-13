@@ -238,7 +238,7 @@
 
 <script>
 import MenuTree from '@/views/components/menu/menuTree'
-import { roleListPage, addOrEdit, deleteList, menuIdsByRoleId } from '@/api/system/role'
+import { roleListPage, addOrEdit, delList, menuIdsByRoleId } from '@/api/system/role'
 export default {
   components: {
     MenuTree
@@ -345,7 +345,7 @@ export default {
       }).then((flag) => {
         if (flag) {
           const ids = roles.map((n) => { return n.roleId })
-          deleteList(ids).then(res => {
+          delList(ids).then(res => {
             if (res.data.code === 200) {
               this.$message.success(res.data.msg)
               this.getRoleListPage(this.rolePage)

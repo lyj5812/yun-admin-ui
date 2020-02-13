@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Pagination from '@/components/Pagination' // 分页组件
 import Dict from '@/views/components/dict' // 字典组件
+import DateField from '@/components/DateField' // 字典组件
 import Message from '@/components/Message/index.js'
 import permission from '@/directive/permission/index.js' // 按钮权限
 import vuescroll from 'vuescroll'
@@ -36,6 +37,7 @@ Vue.use(permission)
 
 Vue.component('Pagination', Pagination)
 Vue.component('Dict', Dict)
+Vue.component('DateField', DateField)
 import CKEditor from '@ckeditor/ckeditor5-vue'
 Vue.use(CKEditor)
 Vue.prototype.$message = Message.install

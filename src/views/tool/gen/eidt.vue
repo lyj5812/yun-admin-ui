@@ -253,14 +253,7 @@
                 />
               </v-col>
               <v-col cols="12" lg="1">
-                <v-select
-                  v-model="item.queryType"
-                  :items="[{text:'=',value:'EQ'},{text:'!=',value:'NE'},{text:'>',value:'GT'},{text:'>=',value:'GTE'},{text:'<',value:'LT'},{text:'<=',value:'LTE'},{text:'like',value:'LIKE'}]"
-                  class="small  mx-2"
-                  :menu-props="{ offsetY: true }"
-                  single-line
-                  outlined
-                />
+                <dict-list-field v-model="item.dictType" class="mx-2" />
               </v-col>
             </v-row>
           </v-card-text>
@@ -284,7 +277,11 @@
 
 <script>
 import { getTableInfo, editTableInfo } from '@/api/tool/gen'
+import DictListField from '@/views/components/dict/dictListField'
 export default {
+  components: {
+    DictListField
+  },
   data() {
     return {
       dataTables: [],

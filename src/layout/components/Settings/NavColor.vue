@@ -18,7 +18,7 @@ export default {
   methods: {
     setColor(item) {
       if (this.primaryColor.dark) {
-        this.index.error('请使用明亮主题！')
+        this.$message.error('请使用明亮主题！')
       } else {
         this.$store.dispatch('app/setNavColor', item)
       }

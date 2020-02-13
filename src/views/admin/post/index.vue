@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card class="br-6 box-shadow mt-3 pt-5">
-      <v-card-title class="b-left">角色管理</v-card-title>
+      <v-card-title class="b-left">岗位管理</v-card-title>
       <v-card-text>
         <v-data-table
           v-model="selected"
@@ -22,7 +22,7 @@
           </template>
           <template v-slot:top>
             <v-row>
-              <v-col cols="12" xs="12" sm="12" lg="5">
+              <v-col cols="12" xs="12" sm="12" lg="3">
                 <v-btn rounded small color="success" @click="postListPageData">
                   <v-icon dark>mdi-sync</v-icon>
                 </v-btn>
@@ -83,7 +83,9 @@
                   hide-details
                 />
               </v-col>
-
+              <v-col cols="12" xs="12" lg="2">
+                <date-field label="创建时间" range class-name="small mt-n3" />
+              </v-col>
               <v-col cols="12" xs="12" lg="2">
                 <dict v-model="page.status" dict-type="post_status" class="mt-n3" />
               </v-col>
@@ -218,7 +220,7 @@ export default {
     return {
       postPage: {},
       post: {},
-      selected: [],
+      selected: [], // 选中的数组
       editFlag: false,
       dataFlag: false,
       th: [
@@ -281,11 +283,11 @@ export default {
       if (this.$refs.post.validate()) {
         addOrEdit(this.post).then(res => {
           if (res.data.code === 200) {
-            this.index.success(res.data.msg)
+            this.$message.success(res.data.msg)
             this.editFlag = false
             this.postListPageData()
           } else {
-            this.index.error(res.data.msg)
+            this.$message.error(res.data.msg)
           }
         })
       } else {
@@ -304,10 +306,10 @@ export default {
         if (flag) {
           deleteList(posts).then(res => {
             if (res.data.code === 200) {
-              this.index.success(res.data.msg)
+              this.$message.success(res.data.msg)
               this.postListPageData()
             } else {
-              this.index.error(res.data.msg)
+              this.$message.error(res.data.msg)
             }
           })
         }
