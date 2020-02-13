@@ -19,9 +19,9 @@
 
 ## 简介
 
-[yun-admin-ui](https://panjiachen.github.io/vue-element-admin) 是一个后台前端系统，它基于 [vue](https://github.com/vuejs/vue) 和 [vuetify](https://vuetifyjs.com/)实现。
+[yun-admin-ui](https://github.com/lyj5812/yun-admin-ui) 是一个后台前端系统，它基于 [vue](https://github.com/vuejs/vue) 和 [vuetify](https://vuetifyjs.com/)实现。
 
-- [预览](http://114.67.71.138)
+- [预览](http://106.54.176.188)
 
 - [文档](http://132.232.17.78)
 
