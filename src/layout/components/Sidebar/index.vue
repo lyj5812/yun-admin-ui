@@ -1,6 +1,6 @@
 <template>
   <v-scroll>
-    <v-list class="myMenu yun-sidebar" dense rounded>
+    <v-list class="myMenu yun-sidebar" dense>
       <sidebar-item v-for="route in routers" :key="route.path" :item="route" />
     </v-list>
   </v-scroll>

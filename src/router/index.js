@@ -85,6 +85,19 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/notice',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/notice/:noticeId(\\w+)',
+        component: () => import('@/views/system/notice/edit'),
+        name: '通知编辑',
+        meta: { title: '通知编辑', icon: '' }
+      }
+    ]
+  },
+  {
     path: '/gen',
     component: Layout,
     hidden: true,

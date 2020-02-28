@@ -29,6 +29,7 @@ import List from '@ckeditor/ckeditor5-list/src/list'
 import Table from '@ckeditor/ckeditor5-table/src/table'
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar'
 import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock'
+
 export default {
   name: 'CkEditor',
   props: {
@@ -128,14 +129,27 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
     .ck-container {
         position: relative;
         line-height: normal;
     }
+
     >>> .ck.ck-editor__editable > .ck-placeholder::before {
         color: rgba(0, 0, 0, 0.31);
         font-family: Georgia;
         font-size: 12px;
     }
+
+    >>> .ck-content pre code {
+        box-shadow: none !important;
+        color: #2d2f33;
+        white-space: pre-wrap;
+        font-style: normal;
+        &::before,
+        &::after {
+            content: none;
+        }
+    }
+
 </style>

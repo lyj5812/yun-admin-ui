@@ -18,3 +18,16 @@
     color: rgb(32, 160, 255);
   }
 }
+
+.ck-content pre code {
+  box-shadow: none !important;
+  color: #353535;
+  font-weight: 500;
+  font-family: Monaco,Menlo,Consolas,"Roboto Mono","Courier New","Ubuntu Mono",monospace;
+  font-size: .866666em;
+  white-space: pre-wrap;
+  &::before,
+  &::after {
+    content: none;
+  }
+}
