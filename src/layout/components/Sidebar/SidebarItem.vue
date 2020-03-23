@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!item.hidden">
+  <v-list v-if="!item.hidden" dense>
     <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
       <!--无子菜单-->
       <v-list-item v-if="onlyOneChild.meta" active-class="box-glow" :to="resolvePath(onlyOneChild.path)">
@@ -28,7 +28,7 @@
         :base-path="resolvePath(child.path)"
       />
     </v-list-group>
-  </div>
+  </v-list>
 </template>
 
 <script>
@@ -106,4 +106,5 @@ export default {
         margin-left: .2em;
         margin-top: .4em;
     }
+
 </style>

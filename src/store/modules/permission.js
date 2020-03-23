@@ -14,7 +14,12 @@ function filterAsyncRouter(asyncRouterMap) {
         store.commit('addIFrameUrl', iframe)
         route.component = require('@/layout/components/IFrame.vue').default
       } else {
-        route.component = require(`@/views${route.component}`).default
+        try {
+          route.component = require(`@/views${route.component}`).default
+        } catch (e) {
+          route.component = require(`@/views/error-page/404.vue`).default
+          console.log(e.message)
+        }
       }
     }
     if (route.children) {
