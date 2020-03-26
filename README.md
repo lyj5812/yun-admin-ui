@@ -25,4 +25,6 @@
 
 - [文档](http://132.232.17.78)
 
+- [加入群聊](https://jq.qq.com/?_wv=1027&k=5wLczSg)
+
 Copyright (c) 2019-present lyj
