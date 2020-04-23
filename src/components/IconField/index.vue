@@ -6,7 +6,7 @@
       offset-y
       max-width="700"
     >
-      <template v-slot:activator="{ on }">
+      <template v-slot:activator="{}">
         <div @click="menu=true">
           <v-text-field
             v-model="value"
@@ -131,4 +131,3 @@ export default {
   }
 }
 </script>
-

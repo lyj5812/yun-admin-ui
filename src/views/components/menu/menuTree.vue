@@ -28,7 +28,7 @@
           :active.sync="active"
           transition
         >
-          <template v-slot:label="{ item, active }">
+          <template v-slot:label="{ item }">
             <v-row
               class="body-1 font-weight-medium"
               no-gutters

@@ -114,7 +114,7 @@
                           v-model="dates"
                           outlined
                           clearable
-                          showTime
+                          show-time
                           range
                           label="创建时间"
                           prepend-inner-icon="event"

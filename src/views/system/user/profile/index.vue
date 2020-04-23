@@ -1,6 +1,5 @@
 <template>
   <v-container>
-
     <v-row>
       <v-col cols="12" lg="3" xs="12">
         <v-card class="br-6 box-shadow py-4">
@@ -162,11 +161,6 @@ import YUploader from '@/components/YUploader'
 import { editPwd, userEdit } from '@/api/system/user'
 import { getUserInfo } from '@/api/login'
 export default {
-  computed: {
-    ...mapGetters({
-      sysUser: 'user/user'
-    })
-  },
   components: {
     YUploader
   },
@@ -179,6 +173,11 @@ export default {
       reNewPwd: null,
       oldPwd: null
     }
+  },
+  computed: {
+    ...mapGetters({
+      sysUser: 'user/user'
+    })
   },
   created() {
     this.loadUserInfo()

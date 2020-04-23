@@ -77,6 +77,7 @@ export default {
       default: ''
     },
     value: {
+      type: null,
       default: null
     }
   },
