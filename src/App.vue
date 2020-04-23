@@ -7,16 +7,17 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  mounted() {
-    document.getElementById('app').style.display = 'block'
-    document.getElementById('appLoading').style.display = 'none'
-  },
   computed: {
     ...mapGetters({
       primaryColor: 'app/primaryColor',
       sidebarDrawer: 'navColor/navColor'
     })
+  },
+  mounted() {
+    document.getElementById('app').style.display = 'block'
+    document.getElementById('appLoading').style.display = 'none'
   }
+
 }
 </script>
 
