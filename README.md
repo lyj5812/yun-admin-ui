@@ -7,13 +7,13 @@
     <img src="https://img.shields.io/badge/vue-2.6.10-brightgreen.svg" alt="vue">
   </a>
   <a href="https://github.com/vuetifyjs/vuetify">
-    <img src="https://img.shields.io/badge/vuetify-2.07-brightgreen.svg" alt="vuetify">
+    <img src="https://img.shields.io/badge/vuetify-2.2.21-brightgreen.svg" alt="vuetify">
   </a>
   <a href="https://github.com/lyj5812/yun-admin-ui">
     <img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="license">
   </a>
   <a href="https://github.com/lyj5812/yun-admin-ui/releases">
-    <img src="https://img.shields.io/github/release/PanJiaChen/vue-element-admin.svg" alt="GitHub release">
+    <img src="https://img.shields.io/github/release/lyj5812/yun-admin-ui.svg" alt="GitHub release">
   </a>
 </p>
 
@@ -35,4 +35,7 @@
 
 - [加入QQ群](https://jq.qq.com/?_wv=1027&k=5wLczSg)
 
+<p align="center">
+  <img width="900" src="https://lyj5812.oss-cn-beijing.aliyuncs.com/page-1.png">
+</p>
 Copyright (c) 2020-present lyj
