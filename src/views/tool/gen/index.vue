@@ -2,72 +2,64 @@
   <v-container>
     <v-row>
       <v-col cols="12" lg="2">
-        <v-navigation-drawer
-          hide-overlay
-          :permanent="$vuetify.breakpoint.mdAndUp"
-          enable-resize-watcher
-          :mini-variant="$vuetify.breakpoint.smAndDown"
-          :temporary="$vuetify.breakpoint.smAndDown"
-          class="contact-nav-drawer"
-          floating
-        >
-          <v-toolbar flat class="transparent">
-            <v-list class="pa-0">
-              <v-list-item>
-                <v-list-item-avatar>
-                  <v-img src="https://vuetifyjs.com/apple-touch-icon-180x180.png" />
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title class="subtitle-1 font-weight-medium font-weight-bold">我的数据源</v-list-item-title>
-                  <v-list-item-subtitle>数据源列表</v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-action>
-                  <v-btn class="mx-2" fab dark x-small color="primary" @click="addOrEditSource({port:3306})">
-                    <v-icon dark>add</v-icon>
-                  </v-btn>
-                </v-list-item-action>
-              </v-list-item>
-            </v-list>
-          </v-toolbar>
-          <v-divider />
-          <v-list dense nav class="pt-0 inner-sidebar v-menu-trans-list-npd">
-            <v-list-item-group v-model="dataSource" mandatory color="primary" @change="loadLinkDB">
-              <v-list-item
-                v-for="(item, index) in dataSourceList"
-                :key="index"
-                active-class="box-glow"
-                :value="item"
-                @contextmenu="show"
-                @contextmenu.prevent="selecte(item)"
-              >
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
-                  <v-list-item-subtitle>{{ item.host }}:{{ item.port }}/{{ item.dbName }}</v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon size="35">$vuetify.icons.mysql</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-            </v-list-item-group>
+        <v-toolbar flat class="transparent">
+          <v-list class="pa-0">
+            <v-list-item>
+              <v-list-item-avatar>
+                <v-img src="https://vuetifyjs.com/apple-touch-icon-180x180.png" />
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title class="subtitle-1 font-weight-medium font-weight-bold">我的数据源</v-list-item-title>
+                <v-list-item-subtitle>数据源列表</v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-btn class="mx-2" fab dark x-small color="primary" @click="addOrEditSource({port:3306})">
+                  <v-icon dark>add</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
           </v-list>
-          <v-menu
-            v-model="showMenu"
-            :position-x="x"
-            :position-y="y"
-            absolute
-            transition="scale-transition"
-            offset-y
-          >
-            <v-list dense>
-              <v-list-item @click="addOrEditSource(source)">
-                <v-list-item-title>编辑</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="closeOthersTags()">
-                <v-list-item-title>删除</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-navigation-drawer>
+        </v-toolbar>
+        <v-list dense nav class="mt-1 inner-sidebar v-menu-trans-list-npd">
+          <v-list-item-group v-model="dataSource" mandatory color="primary" @change="loadLinkDB">
+            <v-list-item
+              v-for="(item, index) in dataSourceList"
+              :key="index"
+              :value="item"
+              @contextmenu="show"
+              @contextmenu.prevent="selecte(item)"
+            >
+              <v-list-item-content>
+                <v-list-item-title v-text="item.name" />
+                <v-list-item-subtitle>
+                  {{ item.host }}:{{ item.port }}/{{ item.dbName }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-btn icon @click="show">
+                  <v-icon color="grey lighten-1">mdi-dots-horizontal</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+        <v-menu
+          v-model="showMenu"
+          :position-x="x"
+          :position-y="y"
+          absolute
+          transition="scale-transition"
+          offset-y
+        >
+          <v-list dense>
+            <v-list-item @click="addOrEditSource(source)">
+              <v-list-item-title>编辑</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="closeOthersTags()">
+              <v-list-item-title>删除</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-col>
       <v-col cols="12" lg="10">
         <v-card>
@@ -155,7 +147,7 @@
                   <v-col cols="12" lg="12" sm="12" md="12">
                     <v-text-field
                       v-model="source.name"
-                      class="small"
+                      dense
                       label="数据源名称"
                       placeholder="请输入名称！"
                       clearable
@@ -176,7 +168,7 @@
                   <v-col cols="12" lg="12" sm="12" md="12">
                     <v-text-field
                       v-model="source.dbName"
-                      class="small"
+                      dense
                       label="数据库名称"
                       placeholder="请输入名称！"
                       clearable
@@ -197,7 +189,7 @@
                   <v-col cols="12" lg="12" sm="12" md="12">
                     <v-text-field
                       v-model="source.host"
-                      class="small"
+                      dense
                       label="host地址"
                       placeholder="请输入host地址！"
                       clearable
@@ -218,7 +210,7 @@
                   <v-col cols="12" lg="12" sm="12" md="12">
                     <v-text-field
                       v-model="source.port"
-                      class="small"
+                      dense
                       label="端口号"
                       placeholder="请输入端口号！"
                       clearable
@@ -239,7 +231,7 @@
                   <v-col cols="12" lg="12" sm="12" md="12">
                     <v-text-field
                       v-model="source.userName"
-                      class="small"
+                      dense
                       label="用户名"
                       placeholder="请输入用户名！"
                       clearable
@@ -260,7 +252,7 @@
                   <v-col cols="12" lg="12" sm="12" md="12">
                     <v-text-field
                       v-model="source.password"
-                      class="small"
+                      dense
                       label="密码"
                       placeholder="请输入密码！"
                       clearable

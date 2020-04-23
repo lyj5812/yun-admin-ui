@@ -6,7 +6,7 @@
       <v-col cols="12" lg="12" xs="12">
         <v-text-field
           v-model="search"
-          class="small"
+          dense
           label="搜索"
           placeholder="搜索"
           outlined

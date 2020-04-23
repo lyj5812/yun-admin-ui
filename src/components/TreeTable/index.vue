@@ -1,29 +1,38 @@
 <template>
-  <div class="px-4">
-    <v-list-item class="px-2 mb-n5">
-      <v-divider />
-    </v-list-item>
+  <v-list class="px-4">
+    <v-divider />
     <v-list-item>
-      <v-list-item-content
-        v-for="(header, index) in headers"
-        :key="index"
-      >
-        <v-list-item-title :class="`text-lg-` + header.align">
+      <v-list-item-content class="ml-5">
+        <v-list-item-title>
           <span class="font-weight-bold font-weight-medium">
-            {{ header.text }}
+            {{ headers[0].text }}
           </span>
         </v-list-item-title>
       </v-list-item-content>
+      <v-list-item style="min-width: calc(100% - 185px);position: absolute;right: 0px;">
+        <v-list-item-content
+          v-for="(header, index) in headers"
+          v-show="index>0"
+          :key="index"
+        >
+          <v-list-item-title :class="[`text-lg-` + header.align ]">
+            <span class="font-weight-bold font-weight-medium">
+              {{ header.text }}
+            </span>
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-list-item>
     <v-progress-linear
       :active="loading"
       :indeterminate="loading"
       absolute
+      height="2"
       color="primary"
     />
     <v-list-item v-if="loading">
       <v-list-item-content>
-        <v-list-item-title :class="`text-lg-center`">
+        <v-list-item-title class="text-lg-center">
           <span class="font-weight-bold font-weight-medium">
             加载中
           </span>
@@ -31,42 +40,39 @@
       </v-list-item-content>
     </v-list-item>
     <v-treeview
-      :search="search"
-      :filter="filter"
-      :open-all="openAll"
+      ref="treeView"
       class="treeTb"
       transition
       :items="items"
-      :item-key="itemKey"
-      :open.sync="opens"
+      v-bind="$attrs"
+      v-on="$listeners"
     >
-      <template v-slot:label="{ item ,leaf,open}">
-        <v-divider />
+      <template v-slot:prepend="{item}">
         <v-list-item dense>
-          <v-list-item-content
-            v-for="(header, index) in headers"
-            :key="index"
-          >
-            <v-list-item-title :class="[`text-lg-` + header.align,'pb-1']">
-              <span :class="[index===0?'span':'']">
-                <v-btn v-if="index===0&&!leaf&&!open" text icon @click="openAndClose(item)">
-                  <v-icon>keyboard_arrow_right</v-icon>
-                </v-btn>
-                <v-btn v-if="index===0&&!leaf&&open" text icon @click="openAndClose(item)">
-                  <v-icon>keyboard_arrow_down</v-icon>
-                </v-btn>
-                <slot :item="item" :name="'item.'+header.value">
-                  {{ item[header.value] }}
-                </slot>
-              </span>
+          <v-list-item-content>
+            <v-list-item-title :class="['pb-1 text-lg-center']">
+              {{ item[headers[0].value] }}
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
+      </template>
+      <template v-slot:label="{ item}">
+        <v-list-item dense>
+          <v-list-item-content
+            v-for="(header, index) in headers"
+            v-show="index>0"
+            :key="index"
+          >
+            <v-list-item-title :class="['pb-1',`text-lg-` + header.align]">
+              <slot :item="item" :name="'item.'+header.value">
+                {{ item[header.value] }}
+              </slot>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </template>
     </v-treeview>
-  </div>
-
+  </v-list>
 </template>
 
 <script>
@@ -84,27 +90,10 @@ export default {
       default: function() {
         return []
       }
-    },
-    openAll: {
-      type: Boolean,
-      default: false
-    },
-    itemKey: {
-      type: String,
-      default: 'id'
-    },
-    filter: {
-      type: Function,
-      default: null
-    },
-    search: {
-      type: String,
-      default: null
     }
   },
   data() {
     return {
-      opens: [],
       loading: true
     }
   },
@@ -114,52 +103,23 @@ export default {
     }
   },
   methods: {
-    openAndClose(item) {
-      if (this.opens.find((element) => (element === item[this.itemKey]))) {
-        this.opens.splice(this.opens.findIndex(element => element === item[this.itemKey]), 1)
-      } else {
-        this.opens.push(item[this.itemKey])
-      }
+    updateAll(openAll) {
+      this.$refs.treeView.updateAll(openAll)
     }
   }
 }
 </script>
 
 <style scoped>
-    .treeTb >>> .v-treeview-node {
-        margin-left: 0px !important;
+    .treeTb >>> .v-treeview-node__root {
+        border-top: 1px solid #0000001f;
+        border-bottom: 1px solid #0000001f;
+        border-bottom-width: 0px;
     }
 
-    .treeTb >>> .v-treeview-node--leaf>.v-treeview-node__root {
-        padding-left: 0px;
-        padding-right: 8px;
-    }
-
-    .treeTb >>> .v-treeview-node__children .span {
-        margin-left: 50px !important;
-    }
-
-    .treeTb >>> .v-treeview-node__children .v-treeview-node__children .span {
-        margin-left: 100px !important;
-    }
-
-    .treeTb >>> .v-treeview-node__children .v-treeview-node__children .v-treeview-node__children .span {
-        margin-left: 150px !important;
-    }
-
-    .treeTb >>> .v-treeview-node__children .v-treeview-node__children .v-treeview-node__children .v-treeview-node__children .span {
-        margin-left: 200px !important;
-    }
-
-    .treeTb >>> .v-treeview-node__children .v-treeview-node__children .v-treeview-node__children .v-treeview-node__children .v-treeview-node__children .span {
-        margin-left: 250px !important;
-    }
-
-    .treeTb >>> .v-treeview-node__toggle.v-icon.v-icon.v-icon--link {
-        display: none;
-    }
-
-    .treeTb >>> .v-treeview-node__label .v-icon {
-        padding-right: 0px;
+    .treeTb >>> .v-treeview-node__label {
+        min-width: calc(100% - 185px);
+        position: absolute;
+        right: 0px;
     }
 </style>

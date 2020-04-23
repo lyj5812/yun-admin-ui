@@ -1,15 +1,10 @@
 @charset "UTF-8";
-
-/*theme*/
-@import 'theme/transition';
-@import 'theme/color';
-@import 'theme/mixins';
-@import 'components/navbar';
-@import 'theme/theme-builder';
-
+//公用
+@import "utilities/background";
+@import 'utilities/palette';
 @import 'common/common';
+//组件
+@import 'components/sidebar';
+@import 'components/pagination';
 
-@import 'components/field';
-@import 'components/treeview';
-@import 'components/scroll';
-
+@import 'theme/theme-builder';

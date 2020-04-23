@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="pageData.total>0" justify="center" class="page">
+  <v-row v-if="pageData.total>0" justify="center" class="pagination">
     <span class="my-5 page-total hidden-sm-and-down">共{{ pageData.total }}条</span>
     <v-select
       v-model="pagination.pageSize"
@@ -108,18 +108,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-  $page-font-size:13px;
-  .page{
-    .page-total{
-      font-size: $page-font-size;
-    }
-    .page-select{
-      max-width: 110px !important;
-    }
-    .page-go{
-      max-width: 40px !important;
-    }
-  }
-</style>

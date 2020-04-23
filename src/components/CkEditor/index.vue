@@ -1,6 +1,6 @@
 <template>
   <div class="ck-container" :style="{width:containerWidth,height: height}">
-    <ckeditor v-model="content" :editor="editor" :config="editorConfig" @input="onEditorInput" />
+    <ckeditor v-model="content" style="min-height: 500px" :editor="editor" :config="editorConfig" @input="onEditorInput" />
   </div>
 </template>
 
@@ -13,7 +13,6 @@ import UnderlinePlugin from '@ckeditor/ckeditor5-basic-styles/src/underline'
 import HeadingPlugin from '@ckeditor/ckeditor5-heading/src/heading'
 import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic'
 import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph'
-import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter'
 import EasyImage from '@ckeditor/ckeditor5-easy-image/src/easyimage'
 import Image from '@ckeditor/ckeditor5-image/src/image'
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar'
@@ -29,7 +28,7 @@ import List from '@ckeditor/ckeditor5-list/src/list'
 import Table from '@ckeditor/ckeditor5-table/src/table'
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar'
 import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock'
-
+const upload = require('./upload')
 export default {
   name: 'CkEditor',
   props: {
@@ -40,7 +39,7 @@ export default {
     height: {
       type: [Number, String],
       required: false,
-      default: 360
+      default: 500
     },
     width: {
       type: [Number, String],
@@ -54,9 +53,10 @@ export default {
       content: '',
       editorConfig: {
         placeholder: '请在此处输入!',
+        extraPlugins: [upload.MyCustomUploadAdapterPlugin],
         // 配置
         plugins: [
-          EasyImage, Image, ImageToolbar, ImageCaption, ImageStyle, ImageResize, Base64UploadAdapter,
+          EasyImage, Image, ImageToolbar, ImageCaption, ImageStyle, ImageResize,
           EssentialsPlugin,
           BoldPlugin, UnderlinePlugin, ItalicPlugin,
           LinkPlugin,
@@ -129,26 +129,31 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss">
     .ck-container {
         position: relative;
         line-height: normal;
-    }
+        .ck.ck-editor__editable > .ck-placeholder::before {
+            color: rgba(0, 0, 0, 0.31);
+            font-family: Georgia;
+            font-size: 12px;
+        }
 
-    >>> .ck.ck-editor__editable > .ck-placeholder::before {
-        color: rgba(0, 0, 0, 0.31);
-        font-family: Georgia;
-        font-size: 12px;
-    }
+        .ck-content pre code {
+            box-shadow: none !important;
+            color: #2d2f33;
+            white-space: pre-wrap;
+            font-style: normal;
+            &::before,
+            &::after {
+                content: none;
+            }
+        }
 
-    >>> .ck-content pre code {
-        box-shadow: none !important;
-        color: #2d2f33;
-        white-space: pre-wrap;
-        font-style: normal;
-        &::before,
-        &::after {
-            content: none;
+        .ck-content {
+            background: var(--ck-color-base-background);
+            border-radius: 0;
+            height: 500px !important;
         }
     }
 

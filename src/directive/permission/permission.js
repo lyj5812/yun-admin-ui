@@ -2,7 +2,7 @@ import store from '@/store'
 export default {
   inserted(el, binding, vnode) {
     const { value } = binding
-    const perms = store.getters && store.getters.perms
+    const perms = store.getters && store.state.user.perms
 
     if (value && value instanceof Array && value.length > 0) {
       const permissionPerms = value

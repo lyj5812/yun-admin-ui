@@ -5,9 +5,7 @@ import { resetRouter } from '@/router'
 
 const state = {
   token: getToken(),
-  name: '',
-  avatar: '',
-  introduction: '',
+  user: {},
   roles: [],
   perms: []
 }
@@ -16,14 +14,8 @@ const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
   },
-  SET_INTRODUCTION: (state, introduction) => {
-    state.introduction = introduction
-  },
-  SET_NAME: (state, name) => {
-    state.name = name
-  },
-  SET_AVATAR: (state, avatar) => {
-    state.avatar = avatar
+  SET_USER: (state, user) => {
+    state.user = user
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
@@ -66,9 +58,7 @@ const actions = {
           commit('SET_PERMS', perms)
         }
 
-        commit('SET_NAME', sysUser.realName)
-        commit('SET_AVATAR', sysUser.avatar)// 头像
-        commit('SET_INTRODUCTION', sysUser.remark)
+        commit('SET_USER', sysUser)
         resolve(roleKeys)
       }).catch(error => {
         reject(error)
@@ -114,9 +104,17 @@ const actions = {
   }
 }
 
+const getters = {
+  token: state => state.token,
+  user: state => state.user,
+  roles: state => state.roles,
+  perms: state => state.perms
+}
+
 export default {
   namespaced: true,
   state,
   mutations,
+  getters,
   actions
 }

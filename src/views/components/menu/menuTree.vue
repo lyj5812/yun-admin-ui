@@ -6,7 +6,7 @@
           v-model="search"
           label="搜索"
           clearable
-          class="small"
+          dense
           outlined
           prepend-inner-icon="search"
           :append-outer-icon="openAll?'vertical_align_center':'swap_vert'"

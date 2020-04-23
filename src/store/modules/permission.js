@@ -3,16 +3,15 @@ import Layout from '@/layout'
 import store from '@/store'
 
 // 遍历路由，转换组件对象
-function filterAsyncRouter(asyncRouterMap) {
-  return asyncRouterMap.filter(route => {
-    if (route.component) {
+function filterAsyncRouter(menu, routers) {
+  menu.forEach(route => {
+    if (route.component && !route.children) {
       // Layout组件特殊处理
-      if (route.component === 'Layout') {
-        route.component = Layout
-      } else if (route.iframe) {
+      delete route['name']
+      if (route.iframe) {
         const iframe = { 'path': route.path, 'url': route.component }
         store.commit('addIFrameUrl', iframe)
-        route.component = require('@/layout/components/IFrame.vue').default
+        route.component = require('@/layout/Components/IFrame.vue').default
       } else {
         try {
           route.component = require(`@/views${route.component}`).default
@@ -21,11 +20,19 @@ function filterAsyncRouter(asyncRouterMap) {
           console.log(e.message)
         }
       }
+      const tempRoute = {
+        path: '/',
+        component: Layout,
+        meta: route.meta,
+        children: [route]
+      }
+      routers.push(tempRoute)
+    } else {
+      delete route['path']
     }
     if (route.children) {
-      route.children = filterAsyncRouter(route.children)
+      route.children = filterAsyncRouter(route.children, routers)
     }
-    return true
   })
 }
 
@@ -45,15 +52,17 @@ const mutations = {
 const actions = {
   generateRoutes({ commit }, menus) {
     return new Promise(resolve => {
-      const routers = filterAsyncRouter(menus)
-      commit('SET_ROUTES', routers)
+      const tempMenus = JSON.parse(JSON.stringify(menus))
+      const routers = []
+      filterAsyncRouter(menus, routers)
+      commit('SET_ROUTES', tempMenus)
       resolve(routers)
     })
   }
 }
 
 const getters = {
-  menus: state => state.menus
+  routes: state => state.routes
 }
 
 export default {

@@ -1,139 +1,67 @@
 <template>
-  <v-row no-gutters>
-    <v-col cols="12">
-      <v-menu v-model="menu" attach offset-y :close-on-content-click="false">
-        <template v-slot:activator="{ on }">
+  <div class="text-center">
+    <v-menu
+      v-model="menu"
+      :close-on-content-click="false"
+      offset-y
+      max-width="700"
+    >
+      <template v-slot:activator="{ on }">
+        <div @click="menu=true">
           <v-text-field
-            v-if="required"
             v-model="value"
+            disabled
             :prepend-inner-icon="value"
-            :disabled="disabled"
-            label="节点图标"
-            class="small"
-            outlined
-            hide-details
-            clearable
-            :rules="[v => !!v || '请输入图标!']"
-            v-on="on"
-          >
-            <template v-slot:prepend>
-              <small class="red-text my-4">*</small>
-            </template>
-          </v-text-field>
-          <v-text-field
-            v-else
-            v-model="value"
-            :prepend-inner-icon="value"
-            :disabled="disabled"
-            label="节点图标"
-            class="small"
-            outlined
-            hide-details
-            clearable
-            v-on="on"
+            v-bind="$attrs"
+            v-on="$listeners"
           />
+        </div>
+      </template>
 
-        </template>
-        <v-tabs v-model="tabs">
-
-          <v-tab href="#tab-1">material</v-tab>
-          <v-tab href="#tab-2">font-awesome4</v-tab>
-          <v-tab href="#tab-3">自定义</v-tab>
-        </v-tabs>
-        <v-tabs-items v-model="tabs">
-
-          <v-tab-item
-            value="tab-1"
-          >
-            <v-card flat>
-              <v-card-text>
-                <v-row class="pa-2">
-                  <v-col
-                    v-for="(item, index) in mdList"
-                    :key="index"
-                    cols="1"
-                    xs="1"
-                    md="1"
-                    @click="setIcon(item.ligature)"
-                  >
-                    <v-icon style="cursor: pointer;" medium>{{ item.ligature }}</v-icon>
-                  </v-col>
-                </v-row>
-                <v-pagination
-                  v-model="mdPage.page"
-                  :length="mdPage.pageCount"
-                  :total-visible="8"
-                  circle
-                  @input="loadMdList(mdPage.page,mdPage.pageSize)"
-                />
-              </v-card-text>
-            </v-card>
-          </v-tab-item>
-          <v-tab-item
-            value="tab-2"
-          >
-            <v-card flat>
-              <v-card-text>
-                <v-row class="pa-2">
-                  <v-col
-                    v-for="(item, index) in font4List"
-                    :key="index"
-                    cols="1"
-                    xs="1"
-                    md="1"
-                    @click="setIcon(item)"
-                  >
-                    <v-icon style="cursor: pointer;" medium>{{ item }}</v-icon>
-                  </v-col>
-                </v-row>
-                <v-pagination
-                  v-model="font4Page.page"
-                  :length="font4Page.pageCount"
-                  :total-visible="8"
-                  circle
-                  @input="loadFont4List(font4Page.page,font4Page.pageSize)"
-                />
-              </v-card-text>
-            </v-card>
-          </v-tab-item>
-          <v-tab-item
-            value="tab-3"
-          >
-            <v-card flat>
-              <v-card-text>
-                <v-row class="pa-2">
-                  <v-col
-                    v-for="(item, index) in svgList"
-                    :key="index"
-                    cols="1"
-                    xs="1"
-                    md="1"
-                    @click="setIcon('$vuetify.icons.'+item)"
-                  >
-                    <v-icon style="cursor: pointer;" medium>{{ '$vuetify.icons.'+item }}</v-icon>
-                  </v-col>
-                </v-row>
-                <v-pagination
-                  v-model="svgPage.page"
-                  :length="svgPage.pageCount"
-                  :total-visible="8"
-                  circle
-                  @input="loadSvgList(svgPage.page,svgPage.pageSize)"
-                />
-              </v-card-text>
-            </v-card>
-          </v-tab-item>
-        </v-tabs-items>
-      </v-menu>
-    </v-col>
-  </v-row>
+      <v-card>
+        <v-card-text>
+          <v-row>
+            <v-col cols="auto">
+              <v-text-field
+                v-model="search"
+                label="搜索"
+                dense
+                outlined
+                clearable
+                hide-details
+                prepend-inner-icon="search"
+                @keyup="searchIcon()"
+                @click:clear="clearSearch()"
+              />
+            </v-col>
+          </v-row>
+          <v-row class="pa-2">
+            <v-col
+              v-for="(item, index) in mdiList"
+              :key="index"
+              cols="1"
+              xs="1"
+              md="1"
+              @click="setIcon(item.name)"
+            >
+              <v-icon style="cursor: pointer;" medium>{{ item.name }}</v-icon>
+            </v-col>
+          </v-row>
+          <v-pagination
+            v-model="page.current"
+            :length="page.pageCount"
+            :total-visible="8"
+            circle
+            @input="loadPageList()"
+          />
+        </v-card-text>
+      </v-card>
+    </v-menu>
+  </div>
 </template>
 
 <script>
-import fontData from '@/api/font-awesome.json'
-import mdDate from '@/api/material.json'
-import svgIcons from '@/plugins/svg-icons'
-
+import icons from './icons'
 export default {
   name: 'IconField',
   model: {
@@ -144,77 +72,61 @@ export default {
     iconValue: {
       type: String,
       default: ''
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    required: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
     return {
       value: null,
       menu: false,
-      tabs: null,
-      svgList: [],
-      svgPage: {
-        page: 1,
-        pageSize: 60,
-        pageCount: 0
-      },
-      mdList: [],
-      mdPage: {
-        page: 1,
-        pageSize: 60,
-        pageCount: 0
-      },
-      font4List: [],
-      font4Page: {
-        page: 1,
-        pageSize: 60,
+      search: '',
+      icons: icons,
+      mdiList: [],
+      iconsList: [],
+      page: {
+        current: 1,
+        pageSize: 36,
         pageCount: 0
       }
     }
   },
   watch: {
-    value(newVal, oldVal) {
-      this.$emit('selected', this.value)
-    },
     iconValue(newVal, oldVal) {
       this.value = newVal
     }
   },
   created() {
+    this.iconsList = this.icons
     this.value = this.iconValue
-    this.loadMdList(this.mdPage.page, this.mdPage.pageSize)
-    this.loadFont4List(this.font4Page.page, this.font4Page.pageSize)
-    this.loadSvgList(this.svgPage.page, this.svgPage.pageSize)
+    this.loadPageList()
   },
   methods: {
-    loadMdList(page, pageSize) {
-      const start = (page - 1) * pageSize
-      const end = start + pageSize
-      this.mdPage.pageCount = Math.ceil(mdDate.icons.length / this.mdPage.pageSize)
-      this.mdList = mdDate.icons.slice(start, end)
-    },
-    loadFont4List(page, pageSize) {
-      const start = (page - 1) * pageSize
-      const end = start + pageSize
-      this.font4Page.pageCount = Math.ceil(fontData['4.7.0'].length / this.font4Page.pageSize)
-      this.font4List = fontData['4.7.0'].slice(start, end)
-    },
-    loadSvgList(page, pageSize) {
-      const start = (page - 1) * pageSize
-      const end = start + pageSize
-      this.svgPage.pageCount = Math.ceil(svgIcons.length / this.svgPage.pageSize)
-      this.svgList = svgIcons.slice(start, end)
-    },
-    setIcon(value) {
-      this.$emit('selected', value)
+    setIcon(icon) {
+      this.$emit('selected', icon)
+      this.value = icon
       this.menu = false
+    },
+    loadPageList() {
+      const start = (this.page.current - 1) * this.page.pageSize
+      const end = start + this.page.pageSize
+      this.page.pageCount = Math.ceil(this.iconsList.length / this.page.pageSize)
+      this.mdiList = this.iconsList.slice(start, end)
+    },
+    clearSearch() {
+      this.search = ''
+      this.searchIcon()
+    },
+    searchIcon() {
+      if (this.search) {
+        this.page.current = 1
+        const reg = new RegExp(this.search)
+        this.iconsList = this.icons.filter((item) => {
+          return reg.test(item.name)
+        })
+      } else {
+        this.page.current = 1
+        this.iconsList = this.icons
+      }
+      this.loadPageList()
     }
   }
 }

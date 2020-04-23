@@ -1,0 +1,1339 @@
+// src/sass/variables.scss
+$color-pack: false;
+@import '~vuetify/src/styles/main.sass';
+
+$gradient-colors: (
+        gradient-indigo-light-blue: (
+                'start-color' : map-get($indigo, lighten-4 ),
+                'end-color' : map-get($light-blue, lighten-4 ),
+        ),
+
+        gradient-light-blue-indigo: (
+                'start-color' : map-get($light-blue, lighten-4 ),
+                'end-color' : map-get($indigo, lighten-3 ),
+        ),
+
+        gradient-yellow-green: (
+                'start-color' : map-get($yellow, accent-1 ),
+                'end-color' : map-get($green, accent-1 ),
+        ),
+
+        gradient-orange-deep-orange: (
+                'start-color' : map-get($orange, lighten-4 ),
+                'end-color' : map-get($deep-orange, lighten-4 ),
+        ),
+
+        gradient-deep-purple-purple: (
+                'start-color' : map-get($deep-purple, lighten-4 ),
+                'end-color' : map-get($purple, lighten-5 ),
+        ),
+
+        gradient-red-pink: (
+                'start-color' : map-get($red, accent-2 ),
+                'end-color' : map-get($pink, lighten-3 ),
+        ),
+
+        gradient-light-green-amber: (
+                'start-color' : map-get($light-green, lighten-3 ),
+                'end-color' : map-get($amber, lighten-5 ),
+        ),
+
+        gradient-amber-amber: (
+                'start-color' : map-get($amber, darken-4 ),
+                'end-color' : map-get($amber, lighten-1 ),
+        ),
+
+        gradient-purple-pink: (
+                'start-color' : map-get($purple, accent-1 ),
+                'end-color' : map-get($pink, lighten-5 ),
+        ),
+
+        gradient-indigo-dark-blue: (
+                'start-color' : map-get($indigo, darken-1 ),
+                'end-color' : map-get($light-blue, lighten-2 ),
+        ),
+
+        gradient-teal-cyan: (
+                'start-color' : map-get($teal, lighten-5 ),
+                'end-color' : map-get($cyan, accent-3 ),
+        ),
+
+        gradient-blue-grey-blue-grey: (
+                'start-color' : map-get($blue-grey, lighten-4 ),
+                'end-color' : map-get($blue-grey, darken-1 ),
+        ),
+
+        gradient-cyan-dark-green: (
+                'start-color' : map-get($cyan, darken-2 ),
+                'end-color' : map-get($light-green, accent-2 ),
+        ),
+
+        gradient-orange-amber: (
+                'start-color' : map-get($orange, darken-4 ),
+                'end-color' : map-get($amber, darken-2 ),
+        ),
+
+        gradient-indigo-blue: (
+                'start-color' : map-get($indigo, darken-2 ),
+                'end-color' : map-get($blue, darken-2 ),
+        ),
+
+        gradient-brown-brown: (
+                'start-color' : map-get($brown, darken-1 ),
+                'end-color' : map-get($brown, lighten-4 ),
+        ),
+
+        gradient-blue-grey-blue: (
+                'start-color' : map-get($blue-grey, darken-4 ),
+                'end-color' : map-get($blue, accent-3 ),
+        ),
+
+        gradient-purple-deep-orange: (
+                'start-color' : map-get($purple, darken-1 ),
+                'end-color' : map-get($deep-orange, accent-2 ),
+        ),
+
+        gradient-green-teal: (
+                'start-color' : map-get($green, darken-1 ),
+                'end-color' : map-get($teal, accent-3 ),
+        ),
+
+        gradient-purple-light-blue: (
+                'start-color' : map-get($purple, accent-2 ),
+                'end-color' : map-get($light-blue, lighten-2 ),
+        ),
+
+        gradient-cyan-cyan: (
+                'start-color' : map-get($cyan, accent-2 ),
+                'end-color' : map-get($cyan, accent-3 ),
+        ),
+
+        gradient-yellow-teal: (
+                'start-color' : map-get($yellow, lighten-4 ),
+                'end-color' : map-get($teal, accent-2 ),
+        ),
+
+        gradient-purple-deep-purple: (
+                'start-color' : map-get($purple, darken-2 ),
+                'end-color' : map-get($deep-purple, accent-2 ),
+        ),
+
+        gradient-cyan-light-green: (
+                'start-color' : map-get($cyan, accent-3 ),
+                'end-color' : map-get($light-green, accent-1 ),
+        ),
+
+        gradient-purple-amber: (
+                'start-color' : map-get($purple, accent-3 ),
+                'end-color' : map-get($amber, darken-2 ),
+        ),
+
+        gradient-indigo-purple: (
+                'start-color' : map-get($indigo, darken-2 ),
+                'end-color' : map-get($purple, darken-2 ),
+        ),
+
+        gradient-deep-purple-blue: (
+                'start-color' : map-get($deep-purple, accent-4 ),
+                'end-color' : map-get($blue, darken-2 ),
+        ),
+
+        gradient-deep-orange-orange: (
+                'start-color' : map-get($deep-orange, darken-4 ),
+                'end-color' : map-get($orange, darken-2 ),
+        ),
+
+        gradient-light-blue-cyan: (
+                'start-color' : map-get($light-blue, darken-2 ),
+                'end-color' : map-get($cyan, lighten-1 ),
+        ),
+
+        gradient-blue-indigo: (
+                'start-color' : map-get($blue, accent-4 ),
+                'end-color' : map-get($indigo, darken-1 ),
+        ),
+
+
+        gradient-aqua-marine: (
+                'start-color' : #1488cc,
+                'end-color' : #2b32b2,
+        ),
+
+        gradient-timber: (
+                'start-color' : #fc00ff,
+                'end-color' : #00dbde,
+        ),
+
+        gradient-strawberry: (
+                'start-color' : #FE0B46,
+                'end-color' : #FFAB96,
+        ),
+        gradient-blueberry: (
+                'start-color' : #6078EA,
+                'end-color' : #17EAD9,
+        ),
+        gradient-mint: (
+                'start-color' : #23BCBB,
+                'end-color' : #45E994,
+        ),
+        gradient-orange: (
+                'start-color' : #C471F3,
+                'end-color' : #F671CD,
+        ),
+        gradient-pomegranate: (
+                'start-color' : #9B3cb7,
+                'end-color' : #FF396f,
+        ),
+        gradient-green-tea: (
+                'start-color' : #004b91,
+                'end-color' : #78cc37,
+        ),
+        gradient-blackberry: (
+                'start-color' : #843cf7,
+                'end-color' : #38b8f2,
+        ),
+        gradient-plum: (
+                'start-color' : #e35c67,
+                'end-color' : #381ce2,
+        ),
+        gradient-passion-fruit: (
+                'start-color' : #8137F7,
+                'end-color' : #F6AB3E,
+        ),
+
+        gradient-sublime-vivid: (
+                'start-color' : #fc466b,
+                'end-color' : #3f5efb,
+        ),
+        gradient-king-yna: (
+                'start-color' : #1a2a6c,
+                'end-color' : #b21f1f,
+        ),
+        gradient-summer: (
+                'start-color' : #22c1c3,
+                'end-color' : #fdbb2d,
+        ),
+        gradient-crystal-clear: (
+                'start-color' : #159957,
+                'end-color' : #155799,
+        ),
+        gradient-celestial: (
+                'start-color' : #C33764,
+                'end-color' : #1D2671,
+        ),
+        gradient-mini: (
+                'start-color' : #30E8BF,
+                'end-color' : #FF8235,
+        ),
+        gradient-ibiza-sunset: (
+                'start-color' : #ee0979,
+                'end-color' : #ff6a00,
+        ),
+        gradient-dawn: (
+                'start-color' : #F3904F,
+                'end-color' : #3B4371,
+        ),
+        gradient-brady-brady-fun-fun: (
+                'start-color' : #00c3ff,
+                'end-color' : #ffff1c,
+        ),
+        gradient-cosmic-fusion: (
+                'start-color' : #ff00cc,
+                'end-color' : #333399,
+        ),
+        gradient-nepal: (
+                'start-color' : #de6161,
+                'end-color' : #2657eb,
+        ),
+        gradient-love-couple: (
+                'start-color' : #3a6186,
+                'end-color' : #89253e,
+        ),
+        gradient-sunset: (
+                'start-color' : #0B486B,
+                'end-color' : #F56217,
+        ),
+        gradient-grapefruit-sunset: (
+                'start-color' : #e96443,
+                'end-color' : #904e95,
+        ),
+        gradient-politics: (
+                'start-color' : #2196f3,
+                'end-color' : #f44336,
+        ),
+        gradient-red-ocean: (
+                'start-color' : #1D4350,
+                'end-color' : #A43931,
+        ),
+        gradient-back-to-earth: (
+                'start-color' : #20CAE4,
+                'end-color' : #1CE5B7,
+        ),
+        gradient-flickr: (
+                'start-color' : #33001b,
+                'end-color' : #ff0084,
+        ),
+        gradient-virgin-america: (
+                'start-color' : #7b4397,
+                'end-color' : #dc2430,
+        ),
+        gradient-purple-bliss: (
+                'start-color' : #360033,
+                'end-color' : #0b8793,
+        ),
+        gradient-man-of-steel: (
+                'start-color' : #780206,
+                'end-color' : #061161,
+        ),
+        gradient-shdow-night: (
+                'start-color' : #000000,
+                'end-color' : #53346D,
+        ),
+        gradient-dracula: (
+                'start-color' : #DC2424,
+                'end-color' : #4A569D,
+        ),
+        gradient-bloody-mary: (
+                'start-color' : #FF512F,
+                'end-color' : #DD2476,
+        ),
+        gradient-harmonic-energy: (
+                'start-color' : #16A085,
+                'end-color' : #F4D03F,
+        ),
+        gradient-purple-love: (
+                'start-color' : #cc2b5e,
+                'end-color' : #753a88,
+        )
+);
+@import 'theme/functions';
+$theme-colors: (
+        'active-500': (
+                'bg': #00c486,
+                'clr': #FFF
+        ),
+        'red-50': (
+                'bg': color("red","lighten-5"),
+                'clr': #000
+        ),
+        'red-100': (
+                'bg': color("red","lighten-4"),
+                'clr': #000
+        ),
+        'red-200': (
+                'bg': color("red","lighten-3"),
+                'clr': #000
+        ),
+        'red-300': (
+                'bg': color("red","lighten-2"),
+                'clr': #000
+        ),
+        'red-400': (
+                'bg': color("red","lighten-1"),
+                'clr': #000
+        ),
+        'red-500': (
+                'bg': color("red","base"),
+                'clr': #FFF
+        ),
+        'red-600': (
+                'bg': color("red","darken-1"),
+                'clr': #FFF
+        ),
+        'red-700': (
+                'bg': color("red","darken-2"),
+                'clr': #FFF
+        ),
+        'red-800': (
+                'bg': color("red","darken-3"),
+                'clr': #FFF
+        ),
+        'red-900': (
+                'bg': color("red","darken-4"),
+                'clr': #FFF
+        ),
+        'red-a100': (
+                'bg': color("red","accent-1"),
+                'clr': #000
+        ),
+        'red-a200': (
+                'bg': color("red","accent-2"),
+                'clr': #FFF
+        ),
+        'red-a400': (
+                'bg': color("red","accent-3"),
+                'clr': #FFF
+        ),
+        'red-a700': (
+                'bg': color("red","accent-4"),
+                'clr': #FFF
+        ),
+        'pink-50': (
+                'bg': color("pink","lighten-5"),
+                'clr': #000
+        ),
+        'pink-100': (
+                'bg': color("pink","lighten-4"),
+                'clr': #000
+        ),
+        'pink-200': (
+                'bg': color("pink","lighten-3"),
+                'clr': #000
+        ),
+        'pink-300': (
+                'bg': color("pink","lighten-2"),
+                'clr': #000
+        ),
+        'pink-400': (
+                'bg': color("pink","lighten-1"),
+                'clr': #000
+        ),
+        'pink-500': (
+                'bg': color("pink","base"),
+                'clr': #FFF
+        ),
+        'pink-600': (
+                'bg': color("pink","darken-1"),
+                'clr': #FFF
+        ),
+        'pink-700': (
+                'bg': color("pink","darken-2"),
+                'clr': #FFF
+        ),
+        'pink-800': (
+                'bg': color("pink","darken-3"),
+                'clr': #FFF
+        ),
+        'pink-900': (
+                'bg': color("pink","darken-4"),
+                'clr': #FFF
+        ),
+        'pink-a100': (
+                'bg': color("pink","accent-1"),
+                'clr': #000
+        ),
+        'pink-a200': (
+                'bg': color("pink","accent-2"),
+                'clr': #FFF
+        ),
+        'pink-a400': (
+                'bg': color("pink","accent-3"),
+                'clr': #FFF
+        ),
+        'pink-a700': (
+                'bg': color("pink","accent-4"),
+                'clr': #FFF
+        ),
+        'purple-50': (
+                'bg': color("purple","lighten-5"),
+                'clr': #000
+        ),
+        'purple-100': (
+                'bg': color("purple","lighten-4"),
+                'clr': #000
+        ),
+        'purple-200': (
+                'bg': color("purple","lighten-3"),
+                'clr': #000
+        ),
+        'purple-300': (
+                'bg': color("purple","lighten-2"),
+                'clr': #FFF
+        ),
+        'purple-400': (
+                'bg': color("purple","lighten-1"),
+                'clr': #FFF
+        ),
+        'purple-500': (
+                'bg': color("purple","base"),
+                'clr': #FFF
+        ),
+        'purple-600': (
+                'bg': color("purple","darken-1"),
+                'clr': #FFF
+        ),
+        'purple-700': (
+                'bg': color("purple","darken-2"),
+                'clr': #FFF
+        ),
+        'purple-800': (
+                'bg': color("purple","darken-3"),
+                'clr': #FFF
+        ),
+        'purple-900': (
+                'bg': color("purple","darken-4"),
+                'clr': #FFF
+        ),
+        'purple-a100': (
+                'bg': color("purple","accent-1"),
+                'clr': #000
+        ),
+        'purple-a200': (
+                'bg': color("purple","accent-2"),
+                'clr': #FFF
+        ),
+        'purple-a400': (
+                'bg': color("purple","accent-3"),
+                'clr': #FFF
+        ),
+        'purple-a700': (
+                'bg': color("purple","accent-4"),
+                'clr': #FFF
+        ),
+        'deep-purple-50': (
+                'bg': color("deep-purple","lighten-5"),
+                'clr': #000
+        ),
+        'deep-purple-100': (
+                'bg': color("deep-purple","lighten-4"),
+                'clr': #000
+        ),
+        'deep-purple-200': (
+                'bg': color("deep-purple","lighten-3"),
+                'clr': #000
+        ),
+        'deep-purple-300': (
+                'bg': color("deep-purple","lighten-2"),
+                'clr': #FFF
+        ),
+        'deep-purple-400': (
+                'bg': color("deep-purple","lighten-1"),
+                'clr': #FFF
+        ),
+        'deep-purple-500': (
+                'bg': color("deep-purple","base"),
+                'clr': #FFF
+        ),
+        'deep-purple-600': (
+                'bg': color("deep-purple","darken-1"),
+                'clr': #FFF
+        ),
+        'deep-purple-700': (
+                'bg': color("deep-purple","darken-2"),
+                'clr': #FFF
+        ),
+        'deep-purple-800': (
+                'bg': color("deep-purple","darken-3"),
+                'clr': #FFF
+        ),
+        'deep-purple-900': (
+                'bg': color("deep-purple","darken-4"),
+                'clr': #FFF
+        ),
+        'deep-purple-a100': (
+                'bg': color("deep-purple","accent-1"),
+                'clr': #000
+        ),
+        'deep-purple-a200': (
+                'bg': color("deep-purple","accent-2"),
+                'clr': #FFF
+        ),
+        'deep-purple-a400': (
+                'bg': color("deep-purple","accent-3"),
+                'clr': #FFF
+        ),
+        'deep-purple-a700': (
+                'bg': color("deep-purple","accent-4"),
+                'clr': #FFF
+        ),
+        'indigo-50': (
+                'bg': color("indigo","lighten-5"),
+                'clr': #000
+        ),
+        'indigo-100': (
+                'bg': color("indigo","lighten-4"),
+                'clr': #000
+        ),
+        'indigo-200': (
+                'bg': color("indigo","lighten-3"),
+                'clr': #000
+        ),
+        'indigo-300': (
+                'bg': color("indigo","lighten-2"),
+                'clr': #FFF
+        ),
+        'indigo-400': (
+                'bg': color("indigo","lighten-1"),
+                'clr': #FFF
+        ),
+        'indigo-500': (
+                'bg': color("indigo","base"),
+                'clr': #FFF
+        ),
+        'indigo-600': (
+                'bg': color("indigo","darken-1"),
+                'clr': #FFF
+        ),
+        'indigo-700': (
+                'bg': color("indigo","darken-2"),
+                'clr': #FFF
+        ),
+        'indigo-800': (
+                'bg': color("indigo","darken-3"),
+                'clr': #FFF
+        ),
+        'indigo-900': (
+                'bg': color("indigo","darken-4"),
+                'clr': #FFF
+        ),
+        'indigo-a100': (
+                'bg': color("indigo","accent-1"),
+                'clr': #000
+        ),
+        'indigo-a200': (
+                'bg': color("indigo","accent-2"),
+                'clr': #FFF
+        ),
+        'indigo-a400': (
+                'bg': color("indigo","accent-3"),
+                'clr': #FFF
+        ),
+        'indigo-a700': (
+                'bg': color("indigo","accent-4"),
+                'clr': #FFF
+        ),
+        'blue-50': (
+                'bg': color("blue","lighten-5"),
+                'clr': #000
+        ),
+        'blue-100': (
+                'bg': color("blue","lighten-4"),
+                'clr': #000
+        ),
+        'blue-200': (
+                'bg': color("blue","lighten-3"),
+                'clr': #000
+        ),
+        'blue-300': (
+                'bg': color("blue","lighten-2"),
+                'clr': #000
+        ),
+        'blue-400': (
+                'bg': color("blue","lighten-1"),
+                'clr': #000
+        ),
+        'blue-500': (
+                'bg': color("blue","base"),
+                'clr': #FFF
+        ),
+        'blue-600': (
+                'bg': color("blue","darken-1"),
+                'clr': #FFF
+        ),
+        'blue-700': (
+                'bg': color("blue","darken-2"),
+                'clr': #FFF
+        ),
+        'blue-800': (
+                'bg': color("blue","darken-3"),
+                'clr': #FFF
+        ),
+        'blue-900': (
+                'bg': color("blue","darken-4"),
+                'clr': #FFF
+        ),
+        'blue-a100': (
+                'bg': color("blue","accent-1"),
+                'clr': #000
+        ),
+        'blue-a200': (
+                'bg': color("blue","accent-2"),
+                'clr': #FFF
+        ),
+        'blue-a400': (
+                'bg': color("blue","accent-3"),
+                'clr': #FFF
+        ),
+        'blue-a700': (
+                'bg': color("blue","accent-4"),
+                'clr': #FFF
+        ),
+        'light-blue-50': (
+                'bg': color("light-blue","lighten-5"),
+                'clr': #000
+        ),
+        'light-blue-100': (
+                'bg': color("light-blue","lighten-4"),
+                'clr': #000
+        ),
+        'light-blue-200': (
+                'bg': color("light-blue","lighten-3"),
+                'clr': #000
+        ),
+        'light-blue-300': (
+                'bg': color("light-blue","lighten-2"),
+                'clr': #000
+        ),
+        'light-blue-400': (
+                'bg': color("light-blue","lighten-1"),
+                'clr': #000
+        ),
+        'light-blue-500': (
+                'bg': color("light-blue","base"),
+                'clr': #FFF
+        ),
+        'light-blue-600': (
+                'bg': color("light-blue","darken-1"),
+                'clr': #FFF
+        ),
+        'light-blue-700': (
+                'bg': color("light-blue","darken-2"),
+                'clr': #FFF
+        ),
+        'light-blue-800': (
+                'bg': color("light-blue","darken-3"),
+                'clr': #FFF
+        ),
+        'light-blue-900': (
+                'bg': color("light-blue","darken-4"),
+                'clr': #FFF
+        ),
+        'light-blue-a100': (
+                'bg': color("light-blue","accent-1"),
+                'clr': #000
+        ),
+        'light-blue-a200': (
+                'bg': color("light-blue","accent-2"),
+                'clr': #000
+        ),
+        'light-blue-a400': (
+                'bg': color("light-blue","accent-3"),
+                'clr': #000
+        ),
+        'light-blue-a700': (
+                'bg': color("light-blue","accent-4"),
+                'clr': #FFF
+        ),
+        'cyan-50': (
+                'bg': color("cyan","lighten-5"),
+                'clr': #000
+        ),
+        'cyan-100': (
+                'bg': color("cyan","lighten-4"),
+                'clr': #000
+        ),
+        'cyan-200': (
+                'bg': color("cyan","lighten-3"),
+                'clr': #000
+        ),
+        'cyan-300': (
+                'bg': color("cyan","lighten-2"),
+                'clr': #000
+        ),
+        'cyan-400': (
+                'bg': color("cyan","lighten-1"),
+                'clr': #000
+        ),
+        'cyan-500': (
+                'bg': color("cyan","base"),
+                'clr': #FFF
+        ),
+        'cyan-600': (
+                'bg': color("cyan","darken-1"),
+                'clr': #FFF
+        ),
+        'cyan-700': (
+                'bg': color("cyan","darken-2"),
+                'clr': #FFF
+        ),
+        'cyan-800': (
+                'bg': color("cyan","darken-3"),
+                'clr': #FFF
+        ),
+        'cyan-900': (
+                'bg': color("cyan","darken-4"),
+                'clr': #FFF
+        ),
+        'cyan-a100': (
+                'bg': color("cyan","accent-1"),
+                'clr': #000
+        ),
+        'cyan-a200': (
+                'bg': color("cyan","accent-2"),
+                'clr': #000
+        ),
+        'cyan-a400': (
+                'bg': color("cyan","accent-3"),
+                'clr': #000
+        ),
+        'cyan-a700': (
+                'bg': color("cyan","accent-4"),
+                'clr': #000
+        ),
+        'teal-50': (
+                'bg': color("teal","lighten-5"),
+                'clr': #000
+        ),
+        'teal-100': (
+                'bg': color("teal","lighten-4"),
+                'clr': #000
+        ),
+        'teal-200': (
+                'bg': color("teal","lighten-3"),
+                'clr': #000
+        ),
+        'teal-300': (
+                'bg': color("teal","lighten-2"),
+                'clr': #000
+        ),
+        'teal-400': (
+                'bg': color("teal","lighten-1"),
+                'clr': #000
+        ),
+        'teal-500': (
+                'bg': color("teal","base"),
+                'clr': #FFF
+        ),
+        'teal-600': (
+                'bg': color("teal","darken-1"),
+                'clr': #FFF
+        ),
+        'teal-700': (
+                'bg': color("teal","darken-2"),
+                'clr': #FFF
+        ),
+        'teal-800': (
+                'bg': color("teal","darken-3"),
+                'clr': #FFF
+        ),
+        'teal-900': (
+                'bg': color("teal","darken-4"),
+                'clr': #FFF
+        ),
+        'teal-a100': (
+                'bg': color("teal","accent-1"),
+                'clr': #000
+        ),
+        'teal-a200': (
+                'bg': color("teal","accent-2"),
+                'clr': #000
+        ),
+        'teal-a400': (
+                'bg': color("teal","accent-3"),
+                'clr': #000
+        ),
+        'teal-a700': (
+                'bg': color("teal","accent-4"),
+                'clr': #000
+        ),
+        'green-50': (
+                'bg': color("green","lighten-5"),
+                'clr': #000
+        ),
+        'green-100': (
+                'bg': color("green","lighten-4"),
+                'clr': #000
+        ),
+        'green-200': (
+                'bg': color("green","lighten-3"),
+                'clr': #000
+        ),
+        'green-300': (
+                'bg': color("green","lighten-2"),
+                'clr': #000
+        ),
+        'green-400': (
+                'bg': color("green","lighten-1"),
+                'clr': #000
+        ),
+        'green-500': (
+                'bg': color("green","base"),
+                'clr': #FFF
+        ),
+        'green-600': (
+                'bg': color("green","darken-1"),
+                'clr': #FFF
+        ),
+        'green-700': (
+                'bg': color("green","darken-2"),
+                'clr': #FFF
+        ),
+        'green-800': (
+                'bg': color("green","darken-3"),
+                'clr': #FFF
+        ),
+        'green-900': (
+                'bg': color("green","darken-4"),
+                'clr': #FFF
+        ),
+        'green-a100': (
+                'bg': color("green","accent-1"),
+                'clr': #000
+        ),
+        'green-a200': (
+                'bg': color("green","accent-2"),
+                'clr': #000
+        ),
+        'green-a400': (
+                'bg': color("green","accent-3"),
+                'clr': #000
+        ),
+        'green-a700': (
+                'bg': color("green","accent-4"),
+                'clr': #000
+        ),
+        'light-green-50': (
+                'bg': color("light-green","lighten-5"),
+                'clr': #000
+        ),
+        'light-green-100': (
+                'bg': color("light-green","lighten-4"),
+                'clr': #000
+        ),
+        'light-green-200': (
+                'bg': color("light-green","lighten-3"),
+                'clr': #000
+        ),
+        'light-green-300': (
+                'bg': color("light-green","lighten-2"),
+                'clr': #000
+        ),
+        'light-green-400': (
+                'bg': color("light-green","lighten-1"),
+                'clr': #000
+        ),
+        'light-green-500': (
+                'bg': color("light-green","base"),
+                'clr': #000
+        ),
+        'light-green-600': (
+                'bg': color("light-green","darken-1"),
+                'clr': #000
+        ),
+        'light-green-700': (
+                'bg': color("light-green","darken-2"),
+                'clr': #FFF
+        ),
+        'light-green-800': (
+                'bg': color("light-green","darken-3"),
+                'clr': #FFF
+        ),
+        'light-green-900': (
+                'bg': color("light-green","darken-4"),
+                'clr': #FFF
+        ),
+        'light-green-a100': (
+                'bg': color("light-green","accent-1"),
+                'clr': #000
+        ),
+        'light-green-a200': (
+                'bg': color("light-green","accent-2"),
+                'clr': #000
+        ),
+        'light-green-a400': (
+                'bg': color("light-green","accent-3"),
+                'clr': #000
+        ),
+        'light-green-a700': (
+                'bg': color("light-green","accent-4"),
+                'clr': #000
+        ),
+        'lime-50': (
+                'bg': color("lime","lighten-5"),
+                'clr': #000
+        ),
+        'lime-100': (
+                'bg': color("lime","lighten-4"),
+                'clr': #000
+        ),
+        'lime-200': (
+                'bg': color("lime","lighten-3"),
+                'clr': #000
+        ),
+        'lime-300': (
+                'bg': color("lime","lighten-2"),
+                'clr': #000
+        ),
+        'lime-400': (
+                'bg': color("lime","lighten-1"),
+                'clr': #000
+        ),
+        'lime-500': (
+                'bg': color("lime","base"),
+                'clr': #000
+        ),
+        'lime-600': (
+                'bg': color("lime","darken-1"),
+                'clr': #000
+        ),
+        'lime-700': (
+                'bg': color("lime","darken-2"),
+                'clr': #000
+        ),
+        'lime-800': (
+                'bg': color("lime","darken-3"),
+                'clr': #000
+        ),
+        'lime-900': (
+                'bg': color("lime","darken-4"),
+                'clr': #FFF
+        ),
+        'lime-a100': (
+                'bg': color("lime","accent-1"),
+                'clr': #000
+        ),
+        'lime-a200': (
+                'bg': color("lime","accent-2"),
+                'clr': #000
+        ),
+        'lime-a400': (
+                'bg': color("lime","accent-3"),
+                'clr': #000
+        ),
+        'lime-a700': (
+                'bg': color("lime","accent-4"),
+                'clr': #000
+        ),
+        'yellow-50': (
+                'bg': color("yellow","lighten-5"),
+                'clr': #000
+        ),
+        'yellow-100': (
+                'bg': color("yellow","lighten-4"),
+                'clr': #000
+        ),
+        'yellow-200': (
+                'bg': color("yellow","lighten-3"),
+                'clr': #000
+        ),
+        'yellow-300': (
+                'bg': color("yellow","lighten-2"),
+                'clr': #000
+        ),
+        'yellow-400': (
+                'bg': color("yellow","lighten-1"),
+                'clr': #000
+        ),
+        'yellow-500': (
+                'bg': color("yellow","base"),
+                'clr': #000
+        ),
+        'yellow-600': (
+                'bg': color("yellow","darken-1"),
+                'clr': #000
+        ),
+        'yellow-700': (
+                'bg': color("yellow","darken-2"),
+                'clr': #000
+        ),
+        'yellow-800': (
+                'bg': color("yellow","darken-3"),
+                'clr': #000
+        ),
+        'yellow-900': (
+                'bg': color("yellow","darken-4"),
+                'clr': #000
+        ),
+        'yellow-a100': (
+                'bg': color("yellow","accent-1"),
+                'clr': #000
+        ),
+        'yellow-a200': (
+                'bg': color("yellow","accent-2"),
+                'clr': #000
+        ),
+        'yellow-a400': (
+                'bg': color("yellow","accent-3"),
+                'clr': #000
+        ),
+        'yellow-a700': (
+                'bg': color("yellow","accent-4"),
+                'clr': #000
+        ),
+        'amber-50': (
+                'bg': color("amber","lighten-5"),
+                'clr': #000
+        ),
+        'amber-100': (
+                'bg': color("amber","lighten-4"),
+                'clr': #000
+        ),
+        'amber-200': (
+                'bg': color("amber","lighten-3"),
+                'clr': #000
+        ),
+        'amber-300': (
+                'bg': color("amber","lighten-2"),
+                'clr': #000
+        ),
+        'amber-400': (
+                'bg': color("amber","lighten-1"),
+                'clr': #000
+        ),
+        'amber-500': (
+                'bg': color("amber","base"),
+                'clr': #000
+        ),
+        'amber-600': (
+                'bg': color("amber","darken-1"),
+                'clr': #000
+        ),
+        'amber-700': (
+                'bg': color("amber","darken-2"),
+                'clr': #000
+        ),
+        'amber-800': (
+                'bg': color("amber","darken-3"),
+                'clr': #000
+        ),
+        'amber-900': (
+                'bg': color("amber","darken-4"),
+                'clr': #000
+        ),
+        'amber-a100': (
+                'bg': color("amber","accent-1"),
+                'clr': #000
+        ),
+        'amber-a200': (
+                'bg': color("amber","accent-2"),
+                'clr': #000
+        ),
+        'amber-a400': (
+                'bg': color("amber","accent-3"),
+                'clr': #000
+        ),
+        'amber-a700': (
+                'bg': color("amber","accent-4"),
+                'clr': #000
+        ),
+        'orange-50': (
+                'bg': color("orange","lighten-5"),
+                'clr': #000
+        ),
+        'orange-100': (
+                'bg': color("orange","lighten-4"),
+                'clr': #000
+        ),
+        'orange-200': (
+                'bg': color("orange","lighten-3"),
+                'clr': #000
+        ),
+        'orange-300': (
+                'bg': color("orange","lighten-2"),
+                'clr': #000
+        ),
+        'orange-400': (
+                'bg': color("orange","lighten-1"),
+                'clr': #000
+        ),
+        'orange-500': (
+                'bg': color("orange","base"),
+                'clr': #000
+        ),
+        'orange-600': (
+                'bg': color("orange","darken-1"),
+                'clr': #000
+        ),
+        'orange-700': (
+                'bg': color("orange","darken-2"),
+                'clr': #000
+        ),
+        'orange-800': (
+                'bg': color("orange","darken-3"),
+                'clr': #FFF
+        ),
+        'orange-900': (
+                'bg': color("orange","darken-4"),
+                'clr': #FFF
+        ),
+        'orange-a100': (
+                'bg': color("orange","accent-1"),
+                'clr': #000
+        ),
+        'orange-a200': (
+                'bg': color("orange","accent-2"),
+                'clr': #000
+        ),
+        'orange-a400': (
+                'bg': color("orange","accent-3"),
+                'clr': #000
+        ),
+        'orange-a700': (
+                'bg': color("orange","accent-4"),
+                'clr': #000
+        ),
+        'deep-orange-50': (
+                'bg': color("deep-orange","lighten-5"),
+                'clr': #000
+        ),
+        'deep-orange-100': (
+                'bg': color("deep-orange","lighten-4"),
+                'clr': #000
+        ),
+        'deep-orange-200': (
+                'bg': color("deep-orange","lighten-3"),
+                'clr': #000
+        ),
+        'deep-orange-300': (
+                'bg': color("deep-orange","lighten-2"),
+                'clr': #000
+        ),
+        'deep-orange-400': (
+                'bg': color("deep-orange","lighten-1"),
+                'clr': #000
+        ),
+        'deep-orange-500': (
+                'bg': color("deep-orange","base"),
+                'clr': #000
+        ),
+        'deep-orange-600': (
+                'bg': color("deep-orange","darken-1"),
+                'clr': #FFF
+        ),
+        'deep-orange-700': (
+                'bg': color("deep-orange","darken-2"),
+                'clr': #FFF
+        ),
+        'deep-orange-800': (
+                'bg': color("deep-orange","darken-3"),
+                'clr': #FFF
+        ),
+        'deep-orange-900': (
+                'bg': color("deep-orange","darken-4"),
+                'clr': #FFF
+        ),
+        'deep-orange-a100': (
+                'bg': color("deep-orange","accent-1"),
+                'clr': #000
+        ),
+        'deep-orange-a200': (
+                'bg': color("deep-orange","accent-2"),
+                'clr': #000
+        ),
+        'deep-orange-a400': (
+                'bg': color("deep-orange","accent-3"),
+                'clr': #FFF
+        ),
+        'deep-orange-a700': (
+                'bg': color("deep-orange","accent-4"),
+                'clr': #FFF
+        ),
+        'brown-50': (
+                'bg': color("brown","lighten-5"),
+                'clr': #000
+        ),
+        'brown-100': (
+                'bg': color("brown","lighten-4"),
+                'clr': #000
+        ),
+        'brown-200': (
+                'bg': color("brown","lighten-3"),
+                'clr': #000
+        ),
+        'brown-300': (
+                'bg': color("brown","lighten-2"),
+                'clr': #FFF
+        ),
+        'brown-400': (
+                'bg': color("brown","lighten-1"),
+                'clr': #FFF
+        ),
+        'brown-500': (
+                'bg': color("brown","base"),
+                'clr': #FFF
+        ),
+        'brown-600': (
+                'bg': color("brown","darken-1"),
+                'clr': #FFF
+        ),
+        'brown-700': (
+                'bg': color("brown","darken-2"),
+                'clr': #FFF
+        ),
+        'brown-800': (
+                'bg': color("brown","darken-3"),
+                'clr': #FFF
+        ),
+        'brown-900': (
+                'bg': color("brown","darken-4"),
+                'clr': #FFF
+        ),
+        'grey-50': (
+                'bg': color("grey","lighten-5"),
+                'clr': #000
+        ),
+        'grey-100': (
+                'bg': color("grey","lighten-4"),
+                'clr': #000
+        ),
+        'grey-200': (
+                'bg': color("grey","lighten-3"),
+                'clr': #000
+        ),
+        'grey-300': (
+                'bg': color("grey","lighten-2"),
+                'clr': #000
+        ),
+        'grey-400': (
+                'bg': color("grey","lighten-1"),
+                'clr': #000
+        ),
+        'grey-500': (
+                'bg': color("grey","base"),
+                'clr': #000
+        ),
+        'grey-600': (
+                'bg': color("grey","darken-1"),
+                'clr': #FFF
+        ),
+        'grey-700': (
+                'bg': color("grey","darken-2"),
+                'clr': #FFF
+        ),
+        'grey-800': (
+                'bg': color("grey","darken-3"),
+                'clr': #FFF
+        ),
+        'grey-900': (
+                'bg': color("grey","darken-4"),
+                'clr': #FFF
+        ),
+        'blue-grey-50': (
+                'bg': color("blue-grey","lighten-5"),
+                'clr': #000
+        ),
+        'blue-grey-100': (
+                'bg': color("blue-grey","lighten-4"),
+                'clr': #000
+        ),
+        'blue-grey-200': (
+                'bg': color("blue-grey","lighten-3"),
+                'clr': #000
+        ),
+        'blue-grey-300': (
+                'bg': color("blue-grey","lighten-2"),
+                'clr': #000
+        ),
+        'blue-grey-400': (
+                'bg': color("blue-grey","lighten-1"),
+                'clr': #FFF
+        ),
+        'blue-grey-500': (
+                'bg': color("blue-grey","base"),
+                'clr': #FFF
+        ),
+        'blue-grey-600': (
+                'bg': color("blue-grey","darken-1"),
+                'clr': #FFF
+        ),
+        'blue-grey-700': (
+                'bg': color("blue-grey","darken-2"),
+                'clr': #FFF
+        ),
+        'blue-grey-800': (
+                'bg': color("blue-grey","darken-3"),
+                'clr': #FFF
+        ),
+        'blue-grey-900': (
+                'bg': color("blue-grey","darken-4"),
+                'clr': #FFF
+        ),
+        'white-500': (
+                'bg': #FFF,
+                'clr': #000
+        ),
+        'black-500': (
+                'bg': #000,
+                'clr': #FFF
+        )
+);

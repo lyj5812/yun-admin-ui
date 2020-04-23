@@ -1,51 +1,21 @@
 <template>
-  <v-row no-gutters>
-    <v-col cols="12" xs="12">
-      <v-select
-        v-if="required"
-        v-model="value"
-        :items="items"
-        class="small"
-        outlined
-        clearable
-        :rules="[v => !!v || '请输入状态!']"
-        item-text="dictLabel"
-        item-value="dictValue"
-        :label="dictName"
-        hide-details
-        :menu-props="{ offsetY: true }"
-        @input="dictChange()"
-      >
-        <template #prepend>
-          <small class="red-text my-4">*</small>
-        </template>
-      </v-select>
-      <v-select
-        v-else
-        v-model="value"
-        :items="items"
-        class="small"
-        outlined
-        clearable
-        item-text="dictLabel"
-        item-value="dictValue"
-        :label="dictName"
-        hide-details
-        :menu-props="{ offsetY: true }"
-        @input="dictChange()"
-      />
-    </v-col>
-  </v-row>
+  <v-select
+    v-model="value"
+    :items="items"
+    v-bind="$attrs"
+    item-text="dictLabel"
+    item-value="dictValue"
+    :label="dictName"
+    :menu-props="{ offsetY: true }"
+    v-on="$listeners"
+  />
 </template>
 
 <script>
 import { dictDataList, dictType } from '@/api/system/dict'
 export default {
   name: 'Dict',
-  model: {
-    prop: 'dictValue',
-    event: 'selected'
-  },
+  inheritAttrs: false,
   props: {
     dictValue: {
       type: String,
@@ -54,10 +24,6 @@ export default {
     dictType: {
       type: String,
       default: null
-    },
-    required: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
@@ -68,9 +34,6 @@ export default {
     }
   },
   watch: {
-    value(newVal, oldVal) {
-      this.$emit('selected', this.value)
-    },
     dictValue(newVal, oldVal) {
       this.value = newVal
     }
@@ -90,9 +53,6 @@ export default {
       dictType(this.dictType).then(res => {
         this.dictName = res.data.data.dictName
       })
-    },
-    dictChange() {
-      this.$emit('selected', this.value)
     }
   }
 }

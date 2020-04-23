@@ -1,0 +1,47 @@
+@import "../../variables";
+@import "../../mixins/gradients";
+$white-color: #fff;
+$black-color: #262626;
+
+//渐变色
+@each $gcolor_name, $gcolor in $gradient-colors {
+  $start-color : map-get($gcolor, start-color);
+  $end-color : map-get($gcolor, end-color);
+  .yun-sidebar.#{$gcolor_name} {
+    @include gradient-directional($start-color, $end-color);
+    .ys--link {
+      color: $white-color;
+      border-radius: 3rem;
+      &_exact-active,
+      &_group_open {
+        color: $white-color;
+        background-color: rgba(lighten( $white-color, 25% ), 0.2);
+      }
+      &.ys--link_active {
+        color: $black-color;
+        box-shadow: 0 6px 14px 2px rgba(0,0,0,.2);
+        & .ys--icon {
+          color: $black-color;
+        }
+        &_hover,
+        &:hover {
+          color: $black-color;
+          background-color: $white-color;
+        }
+      }
+      &_hover,
+      &:hover {
+        color: $white-color;
+        background-color: rgba(lighten( $white-color, 25% ), 0.2);
+      }
+    }
+
+    .ys--icon {
+      color: $white-color;
+    }
+
+    .ys--header {
+      color: rgba($black-color, 0.7);
+    }
+  }
+}

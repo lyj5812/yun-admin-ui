@@ -1,46 +1,50 @@
-import Vue from 'vue'
-import Message from './index.vue'
-
-const MessageBox = Vue.extend(Message)
-
-Message.install = function(options, type) {
-  if (options === undefined || options === null) {
-    options = {
-      content: ''
-    }
-  } else if (typeof options === 'string' || typeof options === 'number') {
-    options = {
-      content: options
-    }
-    if (type !== undefined && options != null) {
-      options.type = type
-    }
+import Swal from 'sweetalert2'
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: false,
+  onOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
   }
+})
 
-  const instance = new MessageBox({
-    data: options
-  }).$mount()
-
-  document.getElementById('app').appendChild(instance.$el)
-
-  Vue.nextTick(() => {
-    instance.visible = true
-  })
+const Message = (options) => {
+  Toast.fire(options)
 }
 
-Message.error = function(content) {
-  Message.install(content, 'error')
+Message.error = function(title) {
+  const options = {
+    icon: 'error',
+    title
+  }
+  Message(options)
 }
 
-Message.success = function(content) {
-  Message.install(content, 'success')
+Message.success = function(title) {
+  const options = {
+    icon: 'success',
+    title
+  }
+  Message(options)
 }
 
-Message.warning = function(content) {
-  Message.install(content, 'warning')
+Message.warning = function(title) {
+  const options = {
+    icon: 'warning',
+    title
+  }
+  Message(options)
 }
 
-Message.info = function(content) {
-  Message.install(content, 'info')
+Message.info = function(title) {
+  const options = {
+    icon: 'info',
+    title
+  }
+  Message(options)
 }
+
 export default Message

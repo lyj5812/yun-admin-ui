@@ -13,8 +13,7 @@ export default {
       }
     }, 100)
     window.addEventListener('resize', this.__resizeHandler)
-
-    this.$_sidebarElm = document.getElementsByClassName('sidebar-container')[0]
+    this.$_sidebarElm = document.getElementsByClassName('yun-sidebar')[0]
     this.$_sidebarElm && this.$_sidebarElm.addEventListener('transitionend', this.$_sidebarResizeHandler)
   },
   beforeDestroy() {
@@ -26,7 +25,7 @@ export default {
     // use $_ for mixins properties
     // https://vuejs.org/v2/style-guide/index.html#Private-property-names-essential
     $_sidebarResizeHandler(e) {
-      if (e.propertyName === 'width') {
+      if (e.propertyName === 'margin-left') {
         this.__resizeHandler()
       }
     }

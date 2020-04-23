@@ -21,10 +21,14 @@
 
 [yun-admin-ui](https://github.com/lyj5812/yun-admin-ui) 是一个后台前端系统，它基于 [vue](https://github.com/vuejs/vue) 和 [vuetify](https://vuetifyjs.com/)实现。
 
-- [预览](http://106.54.176.188)
+- [在线预览](https://yun-admin.cn)
 
-- [文档](http://132.232.17.78)
+- [gitee](https://gitee.com/lyj5812/yun-admin)
 
-- [加入群聊](https://jq.qq.com/?_wv=1027&k=5wLczSg)
+- [github](https://github.com/lyj5812/yun-admin)
 
-Copyright (c) 2019-present lyj
+- [使用文档](https://yun-admin.cn/docs)
+
+- [加入QQ群](https://jq.qq.com/?_wv=1027&k=5wLczSg)
+
+Copyright (c) 2020-present lyj

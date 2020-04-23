@@ -1,0 +1,12 @@
+// 调色板
+@import "../mixins/gradients";
+@import "../variables";
+
+//渐变色
+@each $gcolor_name, $gcolor in $gradient-colors {
+  $start-color : map-get($gcolor, start-color);
+  $end-color : map-get($gcolor, end-color);
+  .#{$gcolor_name}{
+    @include gradient-directional($start-color, $end-color);
+  }
+}

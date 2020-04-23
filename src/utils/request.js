@@ -11,9 +11,9 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // Do something before request is sent
-    if (store.getters.token && config.url !== '/auth-server/oauth/token') {
+    if (store.state.user.token && config.url !== '/auth-server/oauth/token') {
       // 让每个请求携带token 请根据实际情况自行修改
-      config.headers['Authorization'] = 'Bearer ' + store.getters.token
+      config.headers['Authorization'] = 'Bearer ' + store.state.user.token
     }
     return config
   },

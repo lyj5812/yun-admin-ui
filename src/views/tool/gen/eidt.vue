@@ -4,7 +4,6 @@
       <v-tab href="#tab-1">生成配置</v-tab>
       <v-tab href="#tab-2">列配置</v-tab>
     </v-tabs>
-
     <v-card class="br-6 box-shadow mt-3 pt-5">
       <v-tabs-items v-model="tab">
         <v-tab-item
@@ -15,7 +14,7 @@
               <v-text-field
                 v-model="tableInfo.tableName"
                 disabled
-                class="small"
+                dense
                 label="表名称"
                 outlined
               />
@@ -23,7 +22,7 @@
             <v-col cols="12" lg="5" offset-lg="1" sm="12" md="12">
               <v-text-field
                 v-model="tableInfo.functionName"
-                class="small"
+                dense
                 label="功能名称"
                 placeholder="请输入功能名称！"
                 clearable
@@ -44,7 +43,7 @@
             <v-col cols="12" lg="5" offset-lg="1" sm="12" md="12">
               <v-text-field
                 v-model="tableInfo.className"
-                class="small"
+                dense
                 label="实体类名"
                 placeholder="请输入实体类名！"
                 clearable
@@ -65,7 +64,7 @@
             <v-col cols="12" lg="5" offset-lg="1" sm="12" md="12">
               <v-text-field
                 v-model="tableInfo.author"
-                class="small"
+                dense
                 label="作者"
                 placeholder="请输入作者！"
                 clearable
@@ -86,7 +85,7 @@
             <v-col cols="12" lg="5" offset-lg="1" sm="12" md="12">
               <v-text-field
                 v-model="tableInfo.packageName"
-                class="small"
+                dense
                 label="包路径"
                 placeholder="请输入包路径！"
                 clearable
@@ -107,7 +106,7 @@
             <v-col cols="12" lg="5" offset-lg="1" sm="12" md="12">
               <v-text-field
                 v-model="tableInfo.moduleName"
-                class="small"
+                dense
                 label="模块名"
                 placeholder="请输入模块名！"
                 clearable
@@ -128,7 +127,7 @@
             <v-col cols="12" lg="5" offset-lg="1" sm="12" md="12">
               <v-text-field
                 v-model="tableInfo.businessName"
-                class="small"
+                dense
                 label="业务名"
                 placeholder="请输入业务名！"
                 clearable
@@ -211,7 +210,7 @@
                 <v-select
                   v-model="item.javaType"
                   :items="['String','Integer','Long','Date','BigDecimal','Double']"
-                  class="small"
+                  dense
                   :menu-props="{ offsetY: true }"
                   single-line
                   outlined
@@ -233,7 +232,7 @@
                 <v-select
                   v-model="item.queryType"
                   :items="[{text:'=',value:'EQ'},{text:'!=',value:'NE'},{text:'>',value:'GT'},{text:'>=',value:'GTE'},{text:'<',value:'LT'},{text:'<=',value:'LTE'},{text:'like',value:'LIKE'}]"
-                  class="small"
+                  dense
                   :menu-props="{ offsetY: true }"
                   single-line
                   outlined
@@ -246,14 +245,15 @@
                 <v-select
                   v-model="item.vueType"
                   :items="[{text:'文本框',value:'input'},{text:'文本域',value:'textarea'},{text:'下拉框',value:'select'},{text:'复选框',value:'checkbox'},{text:'单选框',value:'radio'},{text:'日期控件',value:'datetime'}]"
-                  class="small mx-2"
+                  class="mx-2"
+                  dense
                   :menu-props="{ offsetY: true }"
                   single-line
                   outlined
                 />
               </v-col>
               <v-col cols="12" lg="1">
-                <dict-list-field v-model="item.dictType" class="mx-2" />
+                <dict-list-field v-model="item.dictType" dense class="mx-2" />
               </v-col>
             </v-row>
           </v-card-text>

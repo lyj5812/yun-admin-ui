@@ -1,89 +1,84 @@
-import { getLanguage } from '@/lang/index'
-import localStorage from '@/utils/localStorage'
-
+import { getLS, setLS } from '@/utils/storage'
 const state = {
-  language: getLanguage(),
-  navDrawer: true,
-  navMini: false,
-  navColor: localStorage.get('navColor') || {
+  sidebarMini: getLS('sidebarMini') || false,
+  sidebarDrawer: getLS('sidebarDrawer') || false,
+  sidebarMobile: false,
+  toolColor: getLS('toolColor') || {},
+  navColor: getLS('navColor') || {
     name: 'deep-purple-blue',
     dark: true,
-    class: 'gradient-45deg-deep-purple-blue'
+    class: 'gradient-deep-purple-blue'
   },
-  toolColor: localStorage.get('toolColor') || {},
-  primaryColor: localStorage.get('primaryColor') || {
+  primaryColor: getLS('primaryColor') || {
     name: 'Purple-light',
     dark: false,
     scheme: 'md-purple-a700-scheme',
     primary: '#AA00FF'
   },
-  settingDrawer: false,
-  footer: {
-    show: true,
-    fixed: false
-  }
+  settingDrawer: false
 }
 
 const mutations = {
-  SET_LANGUAGE: (state, language) => {
-    state.language = language
-    localStorage.set('language', language)
+  SET_SIDEBAR_MINI: (state, sidebarMini) => {
+    state.sidebarMini = sidebarMini
   },
-  SET_NAV_DRAWER: (state, navDrawer) => {
-    state.navDrawer = navDrawer
+  SET_SIDEBAR_DRAWER: (state, sidebarDrawer) => {
+    state.sidebarDrawer = sidebarDrawer
   },
-  SET_NAV_MINI: (state, navMini) => {
-    state.navMini = navMini
-  },
-  SET_NAV_COLOR: (state, navColor) => {
-    state.navColor = navColor
+  SET_SIDEBAR_MOBILE: (state, sidebarMobile) => {
+    state.sidebarMobile = sidebarMobile
   },
   SET_TOOL_COLOR: (state, toolColor) => {
     state.toolColor = toolColor
   },
-  SET_SETTING_DRAWER: (state, settingDrawer) => {
-    state.settingDrawer = settingDrawer
+  SET_NAV_COLOR: (state, navColor) => {
+    state.navColor = navColor
   },
   SET_PRIMARY_COLOR: (state, primaryColor) => {
     state.primaryColor = primaryColor
+  },
+  SET_SETTING_DRAWER: (state, settingDrawer) => {
+    state.settingDrawer = settingDrawer
   }
 }
 
 const actions = {
-  setLanguage({ commit }, language) {
-    commit('SET_LANGUAGE', language)
+  setSidebarMini({ commit }, sidebarMini) {
+    setLS('sidebarMini', sidebarMini)
+    commit('SET_SIDEBAR_MINI', sidebarMini)
   },
-  setNavDrawer({ commit }, navDrawer) {
-    commit('SET_NAV_DRAWER', navDrawer)
+  setSidebarDrawer({ commit }, sidebarDrawer) {
+    setLS('sidebarDrawer', sidebarDrawer)
+    commit('SET_SIDEBAR_DRAWER', sidebarDrawer)
   },
-  setNavMini({ commit }, navMini) {
-    commit('SET_NAV_MINI', navMini)
-  },
-  setNavColor({ commit }, navColor) {
-    localStorage.set('navColor', navColor)
-
-    commit('SET_NAV_COLOR', navColor)
+  setSidebarMobile({ commit }, sidebarMobile) {
+    commit('SET_SIDEBAR_MOBILE', sidebarMobile)
   },
   setToolColor({ commit }, toolColor) {
-    localStorage.set('toolColor', toolColor)
+    setLS('toolColor', toolColor)
     commit('SET_TOOL_COLOR', toolColor)
+  },
+  setNavColor({ commit }, navColor) {
+    setLS('navColor', navColor)
+    commit('SET_NAV_COLOR', navColor)
+  },
+  setPrimaryColor({ commit }, primaryColor) {
+    setLS('primaryColor', primaryColor)
+    commit('SET_PRIMARY_COLOR', primaryColor)
   },
   setSettingDrawer({ commit }, settingDrawer) {
     commit('SET_SETTING_DRAWER', settingDrawer)
-  },
-  setPrimaryColor({ commit }, primaryColor) {
-    localStorage.set('primaryColor', primaryColor)
-    commit('SET_PRIMARY_COLOR', primaryColor)
   }
 }
 
 const getters = {
-  navDrawer: state => state.navDrawer,
-  navMini: state => state.navMini,
-  navColor: state => state.navColor,
+  sidebarMini: state => state.sidebarMini,
+  sidebarDrawer: state => state.sidebarDrawer,
+  sidebarMobile: state => state.sidebarMobile,
   toolColor: state => state.toolColor,
-  settingDrawer: state => state.settingDrawer,
-  primaryColor: state => state.primaryColor
+  navColor: state => state.navColor,
+  primaryColor: state => state.primaryColor,
+  settingDrawer: state => state.settingDrawer
 }
 
 export default {

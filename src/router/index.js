@@ -1,59 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-Vue.use(Router)
-
-/* Layout */
 import Layout from '@/layout'
-
-/**
- * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
- */
+Vue.use(Router)
 export const constantRoutes = [
-  {
-    path: '/redirect',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: '/redirect/:path*',
-        component: () => import('@/views/redirect/index')
-      }
-    ]
-  },
-  {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
-  },
-  {
-    path: '/auth-redirect',
-    component: () => import('@/views/login/auth-redirect'),
-    hidden: true
-  },
-  {
-    path: '/404',
-    component: () => import('@/views/error-page/404'),
-    hidden: true
-  },
-  {
-    path: '/401',
-    component: () => import('@/views/error-page/401'),
-    hidden: true
-  },
   {
     path: '/',
     component: Layout,
     redirect: 'dashboard',
-    name: '首页',
-    meta: { title: '首页', icon: 'dashboard', noCache: true, affix: true },
+    meta: { title: '首页', icon: 'mdi-home-circle', noCache: true, affix: true },
     children: [
       {
         path: '/dashboard',
-        component: () => import('@/views/dashboard/index'),
-        name: '首页',
-        meta: { title: '首页', icon: 'dashboard', noCache: true, affix: true }
+        component: () => import('@/views/dashboard/index')
       }
     ]
   },
@@ -65,7 +23,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'profile',
-        component: () => import('@/views/admin/user/profile/index'),
+        component: () => import('@/views/system/user/profile/index'),
         name: '个人中心',
         meta: { title: '个人中心', icon: 'user' }
       }
@@ -78,22 +36,9 @@ export const constantRoutes = [
     children: [
       {
         path: '/dictData/:dictType(\\w+)',
-        component: () => import('@/views/admin/dict/data'),
+        component: () => import('@/views/system/dict/data'),
         name: '字典数据',
         meta: { title: '字典数据', icon: '' }
-      }
-    ]
-  },
-  {
-    path: '/notice',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: '/notice/:noticeId(\\w+)',
-        component: () => import('@/views/system/notice/edit'),
-        name: '通知编辑',
-        meta: { title: '通知编辑', icon: '' }
       }
     ]
   },
@@ -109,11 +54,16 @@ export const constantRoutes = [
         meta: { title: '修改代码生成', icon: '' }
       }
     ]
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login'),
+    hidden: true
   }
 ]
 
 const createRouter = () => new Router({
-  mode: 'history', // require service support
+  mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

@@ -1,0 +1,51 @@
+$page-font-size:13px;
+.pagination{
+  .page-total{
+    font-size: $page-font-size;
+  }
+  .page-select{
+    max-width: 110px !important;
+  }
+  .page-go{
+    max-width: 40px !important;
+  }
+
+  .v-input__slot{
+    min-height: 36px !important;
+    margin-top: 8px;
+    .v-label{
+      top:10px;
+      font-size: 14px;
+    }
+    .v-label--active{
+      top: 18px;
+    }
+    .v-input__append-inner{
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+    .v-input__prepend-inner{
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+  }
+
+  .v-input__append-outer{
+    margin-bottom: 7px;
+  }
+  .v-input__prepend-outer{
+    margin-top: 6px !important;
+    margin-bottom: 6px;
+  }
+
+  input{
+    font-size: xx-small;
+  }
+
+  .v-select__slot{
+    .v-select__selection{
+      font-size: xx-small;
+    }
+    max-height: 36px;
+  }
+}

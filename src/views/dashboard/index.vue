@@ -1,7 +1,7 @@
 <template>
-  <div class="dashboard-container pr-15">
-    <line-marker height="600px" width="85.5vw" />
-  </div>
+  <v-container fluid>
+    <line-marker height="600px" class="pa-5" width="100%" />
+  </v-container>
 </template>
 
 <script>

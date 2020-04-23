@@ -1,15 +1,15 @@
-import localStorage from '@/utils/localStorage'
+import { getLSExpired, setLSExpired, removeLS } from '@/utils/storage'
 
 const TokenKey = 'Admin-Token'
 
 export function getToken() {
-  return localStorage.getExpired(TokenKey)
+  return getLSExpired(TokenKey)
 }
 
 export function setToken(token, time) {
-  return localStorage.setExpired(TokenKey, token, time)
+  return setLSExpired(TokenKey, token, time)
 }
 
 export function removeToken() {
-  return localStorage.remove(TokenKey)
+  return removeLS(TokenKey)
 }

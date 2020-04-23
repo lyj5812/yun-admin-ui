@@ -1,0 +1,6 @@
+// Gradients
+
+@mixin gradient-directional($start-color: #495057, $end-color: #343a40, $deg: 45deg) {
+  background-image: linear-gradient($deg, $start-color, $end-color);
+  background-repeat: repeat-x;
+}
