@@ -1,9 +1,9 @@
-FROM node:10.15 as builder
+FROM node:latest as builder
 ARG ENV-ACTIVE=prod
 WORKDIR /build/
 COPY .npmrc /build/
 COPY package*.json /build/
-RUN npm install
+RUN npm install pm2 -g --registry=https://registry.npm.taobao.org
 COPY . /build/
 RUN npm run build:"${ENV-ACTIVE}"
 
