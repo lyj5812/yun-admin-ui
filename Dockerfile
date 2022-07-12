@@ -5,7 +5,7 @@ COPY .npmrc /build/
 COPY package*.json /build/
 RUN npm install pm2 -g --registry=https://registry.npm.taobao.org
 COPY . /build/
-RUN npm run build
+RUN npm run build:prod
 
 FROM nginx:latest
 WORKDIR /data
