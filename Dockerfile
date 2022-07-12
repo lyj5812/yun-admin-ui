@@ -5,7 +5,7 @@ COPY .npmrc /build/
 COPY package*.json /build/
 RUN npm install -g --registry=https://registry.npm.taobao.org
 COPY . /build/
-RUN npm run build:prod -g --registry=https://registry.npm.taobao.org
+RUN npm run build:prod
 
 FROM nginx:latest
 WORKDIR /data
