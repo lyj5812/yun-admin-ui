@@ -1,4 +1,4 @@
-FROM ccr.ccs.tencentyun.com/golden-cloud/node:14.3-buster as builder
+FROM node:10.15 as builder
 ARG ENV-ACTIVE=prod
 WORKDIR /build/
 COPY .npmrc /build/
