@@ -1,8 +1,6 @@
 FROM node:latest as builder
 ARG env=prod
 WORKDIR /build/
-COPY .npmrc /build/
-COPY package*.json /build/
 RUN npm install -g --registry=https://registry.npm.taobao.org
 COPY . /build/
 RUN npm run build:prod
