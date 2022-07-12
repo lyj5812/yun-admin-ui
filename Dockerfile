@@ -7,3 +7,9 @@ RUN npm config set registry https://registry.npm.taobao.org \
 RUN npm install
 RUN npm run build:prod
 COPY . /build/
+
+FROM nginx:latest
+WORKDIR /data
+EXPOSE 80
+COPY default.conf.template /etc/nginx/templates/default.conf.template
+COPY --from=builder . .
