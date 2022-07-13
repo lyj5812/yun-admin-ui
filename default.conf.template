@@ -2,7 +2,7 @@ server {
   listen       ${NGINX_PORT};
 
   location / {
-    root   /opt/web_dist;
+    root   /data;
     index  index.html index.htm;
     try_files $uri $uri/ /index.html;
   }
