@@ -10,4 +10,8 @@ server {
   location /api/ {
     proxy_pass  ${NGINX_HOST}/;
   }
+
+  location /fst-api/ {
+     proxy_pass ${FST_HOST}/;
+  }
 }
