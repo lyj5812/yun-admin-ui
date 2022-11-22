@@ -14,4 +14,8 @@ server {
   location /fst-api/ {
      proxy_pass ${FST_HOST}/;
   }
+
+  location /fst-dev-api/ {
+     proxy_pass ${FST_DEV_HOST}/;
+  }
 }
