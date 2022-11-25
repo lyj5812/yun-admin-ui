@@ -19,7 +19,7 @@ server {
      proxy_pass ${FST_DEV_HOST}/;
   }
 
-  location /minio-endpoint/ {
+  location /minio-server/ {
      proxy_pass ${MINIO_HOST}/;
   }
 }
