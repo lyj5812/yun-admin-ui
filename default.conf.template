@@ -18,4 +18,8 @@ server {
   location /dev-api/ {
      proxy_pass ${FST_DEV_HOST}/;
   }
+
+  location /minio-endpoint/ {
+     proxy_pass ${MINIO_HOST}/;
+  }
 }
