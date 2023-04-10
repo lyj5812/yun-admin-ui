@@ -1,7 +1,7 @@
 import router from '@/router'
 import { getToken } from '@/utils/auth'
 import store from '@/store'
-const whiteList = ['/login', '/auth-redirect', '/wb_4a1b8db989bb74d4.txt']// 路由白名单
+const whiteList = ['/login', '/auth-redirect']// 路由白名单
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 router.beforeEach(async(to, from, next) => {
